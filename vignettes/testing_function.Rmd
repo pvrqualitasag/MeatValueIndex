@@ -1,0 +1,102 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Testing our function `compute_economic_value()`
+
+```{r}
+n_mean_cca_lm <- 6.56
+n_sd_cca_lm <- 0.7
+### # copied from Sophie's slack message
+vec_count_cca_lm <- c(2,11,57,1041,6652,21092,56227)
+vec_freq_cca_lm <- vec_count_cca_lm / sum(vec_count_cca_lm)
+### # prices
+vec_price_cca <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
+
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_lm,
+                        pn_sd = n_sd_cca_lm,
+                        pvec_class_freq = vec_freq_cca_lm,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cca,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+
+## CCa for AN
+
+```{r}
+n_mean_cca_an <- 5.62
+n_sd_cca_an <- 1
+vec_freq_cca_an <- c(0.000000000,
+0.000637062, 
+0.009256136, 
+0.129623384, 
+0.311335957, 
+0.331909312, 
+0.217238149)
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_an,
+                        pn_sd = n_sd_cca_an,
+                        pvec_class_freq = vec_freq_cca_an,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cca,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+
+## Unrolling the function for AN
+
+```{r}
+(pn_mean = n_mean_cca_an)
+ (pn_sd = n_sd_cca_an)
+ (pvec_class_freq = vec_freq_cca_an)
+ # pvec_threshold = c(-Inf,2.398255,3.289626,4.537506,5.496492,6.401555)
+ pvec_threshold = c(-Inf,2.398255,3.289626,4.537506,5.496492,6.401555)
+ (pvec_price = vec_price_cca)
+ pn_delta_mean = .1
+ 
+ (n_ex_price_base <- crossprod(pvec_class_freq, pvec_price))
+  ### # shift the distribution
+  (n_mean_shifted <- pn_mean + pn_delta_mean)
+  (vec_freq_shifted_cum <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd))
+  (vec_freq_shifted <- diff(c(0,vec_freq_shifted_cum)))
+  (vec_freq_shifted <- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
+  ( n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca))
+
+  ### # difference corresponds to ev
+  (ev_result <- n_ex_price_shifted - n_ex_price_base)
+
+```
+
+
+## Unrolling the function for LM
+
+To debug a first problem, the inner function to compute the economic value was unrolled in the following R-chunks
+
+```{r}
+pn_mean = n_mean_cca_lm
+pn_sd = n_sd_cca_lm
+pvec_threshold = c(3.711001,4.032638,4.356593,5.002862,5.626795,6.269639)
+pvec_price = vec_price_cca
+pn_delta_mean = .1 
+
+  vec_freq_base <- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd)
+  (vec_freq_base <- c(vec_freq_base, 1-sum(vec_freq_base)))
+  ### # compute the expected price in the base situation
+  (n_ex_price_base <- crossprod(vec_freq_base, pvec_price))
+
+  ### # shift the distribution
+  (n_mean_shifted <- pn_mean + pn_delta_mean)
+  vec_freq_shifted <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd)
+  (vec_freq_shifted <- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
+  (n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca))
+
+  ### # difference corresponds to ev
+  (ev_result <- n_ex_price_shifted - n_ex_price_base)
+
+
+```
+

@@ -23,14 +23,15 @@
 #' @param pvec_price      vector of prices given by payment system
 #' @param pn_delta_mean   small change of population mean
 #'
-#' @return
+#' @return ev_result result of economic value
 #' @export
 compute_economic_value <- function(pn_mean,
                                    pn_sd,
                                    pvec_class_freq = NULL,
                                    pvec_threshold  = NULL,
                                    pvec_price,
-                                   pn_delta_mean  ){
+                                   pn_delta_mean,
+                                   pb_verbose       = FALSE ){
   ### # checking input parameters
   if ( length(pn_mean) != 1L )
     stop("Population mean (pn_mean) must be a single number: ", length(pn_mean))
@@ -52,6 +53,18 @@ compute_economic_value <- function(pn_mean,
     ### # use the specified thresholds for computing economic values later
     vec_threshold <- pvec_threshold
 
+    if (pb_verbose) {
+      cat(" *** Continuous trait: threshold:\n")
+      print(vec_threshold)
+    }
+
+    ### # compute economic value based on mean, sd, threshold, prices and delta
+    ev_result <- compute_ev_base_rev_cont( pn_mean        = pn_mean,
+                                           pn_sd          = pn_sd,
+                                           pvec_threshold = vec_threshold,
+                                           pvec_price     = pvec_price,
+                                           pn_delta_mean  = pn_delta_mean  )
+
   } else {
     ### # case of a discrete trait, check that number of class frequencies and number of prices are the same
     if ( length(pvec_class_freq) != length(pvec_price) )
@@ -61,19 +74,57 @@ compute_economic_value <- function(pn_mean,
     vec_cum_freq_dist <- cumsum(pvec_class_freq)
     vec_threshold <- qnorm(vec_cum_freq_dist[1:(length(vec_cum_freq_dist)-1)], mean = pn_mean, sd = pn_sd, lower.tail = TRUE)
 
-  }
+    if (pb_verbose) {
+      cat(" *** Discrete trait: threshold:\n")
+      print(vec_threshold)
+      cat(" *** Cumulative frequencies: \n")
+      print(vec_cum_freq_dist)
+    }
 
-  ### # compute economic value based on mean, sd, threshold, prices and delta
-  ev_result <- compute_ev_base_rev( pn_mean        = pn_mean,
-                                    pn_sd          = pn_sd,
-                                    pvec_threshold = vec_threshold,
-                                    pvec_price     = pvec_price,
-                                    pn_delta_mean  = pn_delta_mean  )
+    ev_result <- compute_ev_base_rev_disc( pn_mean         = pn_mean,
+                                           pn_sd           = pn_sd,
+                                           pvec_class_freq = pvec_class_freq,
+                                           pvec_threshold  = vec_threshold,
+                                           pvec_price      = pvec_price,
+                                           pn_delta_mean   = pn_delta_mean  )
+  }
 
   return(ev_result)
 
 }
 
+
+#' @title Compute economic value based on price change for discrete trait
+#'
+#' @description
+#' Economic value is computed based on price change between base distribution
+#' and a shifted distribution for a discrete trait.
+#'
+#' @param pn_mean         empirical population mean
+#' @param pn_sd           empirical population standard deviation
+#' @param pvec_class_freq vector of empirical trait frequencies
+#' @param pvec_threshold  vector of thresholds given by payment system
+#' @param pvec_price      vector of prices given by payment system
+#' @param pn_delta_mean   small change of population mean
+#' @return ev_result
+compute_ev_base_rev_disc <- function(pn_mean,
+                                     pn_sd,
+                                     pvec_class_freq,
+                                     pvec_threshold,
+                                     pvec_price,
+                                     pn_delta_mean){
+  ### # compute the expected price in the base situation
+  n_ex_price_base <- crossprod(pvec_class_freq, pvec_price)
+  ### # shift the distribution
+  n_mean_shifted <- pn_mean + pn_delta_mean
+  vec_freq_shifted <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd)
+  vec_freq_shifted <- c(vec_freq_shifted, 1-sum(vec_freq_shifted))
+  n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca)
+
+  ### # difference corresponds to ev
+  ev_result <- n_ex_price_shifted - n_ex_price_base
+  return(ev_result)
+}
 
 #' @title Compute numeric value of economic value based on revenue
 #'
@@ -87,11 +138,11 @@ compute_economic_value <- function(pn_mean,
 #' @param pvec_price      vector of prices given by payment system
 #' @param pn_delta_mean   small change of population mean
 #' @return ev_rev_result
-compute_ev_base_rev <- function( pn_mean,
-                                 pn_sd,
-                                 pvec_threshold,
-                                 pvec_price,
-                                 pn_delta_mean ) {
+compute_ev_base_rev_cont <- function( pn_mean,
+                                      pn_sd,
+                                      pvec_threshold,
+                                      pvec_price,
+                                      pn_delta_mean ) {
   ### # getting area under normal distribution for base situation
   vec_freq_base <- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd)
   vec_freq_base <- c(vec_freq_base, 1-sum(vec_freq_base))

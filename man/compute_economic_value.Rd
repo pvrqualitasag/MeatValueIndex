@@ -5,7 +5,7 @@
 \title{Compute Economic Values Based On Revenue}
 \usage{
 compute_economic_value(pn_mean, pn_sd, pvec_class_freq = NULL,
-  pvec_threshold = NULL, pvec_price, pn_delta_mean)
+  pvec_threshold = NULL, pvec_price, pn_delta_mean, pb_verbose = FALSE)
 }
 \arguments{
 \item{pn_mean}{empirical population mean}
@@ -19,6 +19,9 @@ compute_economic_value(pn_mean, pn_sd, pvec_class_freq = NULL,
 \item{pvec_price}{vector of prices given by payment system}
 
 \item{pn_delta_mean}{small change of population mean}
+}
+\value{
+ev_result result of economic value
 }
 \description{
 In this function, the economic value is computed as the change
