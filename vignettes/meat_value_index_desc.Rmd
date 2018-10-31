@@ -1,0 +1,139 @@
+---
+title: "Carcass Value Index - A Description"
+author: "Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{"Carcass Value Index - A Description"}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This document describes the background, the introduction and the construction of a __carcass value index__. 
+
+
+## Definition
+A carcass value index is the part of the aggregate genotype that combines all traits related to the carcass. At present, these traits consist of 
+
+* carcass composition (cc)
+* carcass fat (cf) and
+* carcass weight (cw)
+
+The index is computed as weighted mean from the estimated breeding values and the economic values.
+
+
+## Economic Values
+An economic value of a given trait is defined as the change in profit when the population mean changes a small amount. In general profit $P$ is defined as  
+
+$$P = R - C$$
+where $R$ is the revenue and $C$ stands for costs. From the above equation, profit changes when revenue and or costs change. 
+
+
+## Carcass Traits
+For the above listed carcass traits, we assume that costs can be kept constant for small changes of the population mean. Hence all changes of profit which account for an economic value would be due to changes in the revenue. The revenue typically is the product of a certain amount of product time its price. This simplification is used in the design of a function to compute economic values for carcass traits.
+
+When computing the revenue over a complete population, we need as input a certain empirical distribution and the prices given by the payment system. The payment system is typically represented by a vector of prices. The empirical distribution can either be discrete or continuous. Continuous distributions are specified by mean and standard deviation and discrete distributions are given by a vector of empirical frequencies. 
+
+
+## Function To Compute Economic Values
+Based on the previous section the input parameters are
+
+```{r parameter_list, echo=FALSE}
+tbl_param <- tibble::data_frame(`Input Parameter` = c("pn_mean",
+                                                      "pn_sd",
+                                                      "pvec_class_freq",
+                                                      "pvec_threshold",
+                                                      "pvec_price",
+                                                      "pn_delta_mean"),
+                                Meaning = c("empirical population mean",
+                                            "empirical population standard deviation",
+                                            "vector of empirical trait frequencies",
+                                            "vector of thresholds given by payment system",
+                                            "vector of prices given by payment system",
+                                            "small change of population mean"))
+knitr::kable(tbl_param,
+             booktabs = TRUE)
+```
+
+
+## Numerical Example
+The computations that lead to the economic value are easiest shown with an example. We start with the trait `carcass conformation` and we restrict ourselves to look only at adult animals. Hence the trait is called `cca`. The first computation is done for the LM breed. The following input pararameters are explicitly set.
+
+```{r}
+### # distributional characteristics
+n_mean_cca_lm <- 6.56
+n_sd_cca_lm <- 0.7
+### # copied from Sophie's slack message
+vec_count_cca_lm <- c(2,11,57,1041,6652,21092,56227)
+vec_freq_cca_lm <- vec_count_cca_lm / sum(vec_count_cca_lm)
+vec_freq_cca_lm
+```
+```{r}
+### # prices
+vec_price_cca <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
+vec_price_cca
+```
+
+
+### Step 1
+Given the prices and the empirical frequencies of the population distribution, we can compute the expected price of a random carcass in the population as
+
+```{r}
+n_exp_price <- crossprod(vec_freq_cca_lm, vec_price_cca)
+n_exp_price
+```
+
+
+
+### Step 2
+The second step is to approximate the population distribution with a normal distribution and to determine the borders of the single price classes.
+
+The class borders can be found with the function `qnorm()`. 
+
+```{r}
+vec_csum_cca_lm <- cumsum(vec_freq_cca_lm)
+vec_csum_cca_lm
+```
+
+The boundaries are defined by the result of `qnorm()`
+
+```{r}
+vec_bound_cca_lm <- qnorm(vec_csum_cca_lm[1:(length(vec_csum_cca_lm)-1)], mean = n_mean_cca_lm, sd = n_sd_cca_lm, lower.tail = TRUE)
+vec_bound_cca_lm
+```
+
+### Step 3 
+Shifting the mean by a small quantity $\delta$ leads to
+
+```{r}
+n_delta_cca_lm <- 0.1
+(n_mean_cca_lm_shifted <- n_mean_cca_lm + n_delta_cca_lm)
+```
+
+Compute the frequencies under the shifted distribution leaving the boundaries as they were in step 2
+
+```{r}
+vec_freq_cca_lm_shifted <- pnorm( vec_bound_cca_lm, mean = n_mean_cca_lm_shifted, sd = n_sd_cca_lm )
+(vec_freq_cca_lm_shifted <- c(vec_freq_cca_lm_shifted, 1-sum(vec_freq_cca_lm_shifted)))
+sum(vec_freq_cca_lm_shifted)
+```
+
+The price under the shifted distribution is
+
+```{r}
+(n_exp_price_cca_lm_shifted <- crossprod(vec_freq_cca_lm_shifted, vec_price_cca))
+```
+
+The difference corresponds to the economic value
+
+```{r}
+(ev_cca_lm <- n_exp_price_cca_lm_shifted - n_exp_price)
+```
+
