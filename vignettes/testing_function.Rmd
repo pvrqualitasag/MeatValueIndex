@@ -62,12 +62,15 @@ vec_freq_cca_an <- c(0.000000000,
   ### # shift the distribution
   (n_mean_shifted <- pn_mean + pn_delta_mean)
   (vec_freq_shifted_cum <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd))
+  # 
   (vec_freq_shifted <- diff(c(0,vec_freq_shifted_cum)))
-  (vec_freq_shifted <- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
-  ( n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca))
-
-  ### # difference corresponds to ev
-  (ev_result <- n_ex_price_shifted - n_ex_price_base)
+cumsum(vec_freq_shifted)
+sum(vec_freq_shifted)
+   # (vec_freq_shifted <- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
+  # ( n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca))
+  # 
+  # ### # difference corresponds to ev
+  # (ev_result <- n_ex_price_shifted - n_ex_price_base)
 
 ```
 

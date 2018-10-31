@@ -97,9 +97,6 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
-.html-widget {
-  margin-bottom: 20px;
-}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -195,13 +192,9 @@ vec_price_cca &lt;- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.64
                         pn_delta_mean = .1,
                         pb_verbose = TRUE))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICoqKiBEaXNjcmV0ZSB0cmFpdDogdGhyZXNob2xkOlxuWzFdIDMuNzExMDAxIDQuMDMyNjM4IDQuMzU2NTkzIDUuMDAyODYyIDUuNjI2Nzk1IDYuMjY5NjM5XG4gKioqIEN1bXVsYXRpdmUgZnJlcXVlbmNpZXM6IFxuWzFdIDIuMzUwNjczZS0wNSAxLjUyNzkzOGUtMDQgOC4yMjczNTdlLTA0IDEuMzA1Nzk5ZS0wMiA5LjEyNDEzOWUtMDIgMy4zOTE0MzRlLTAxIDEuMDAwMDAwZSswMFxuICAgICAgICAgICAgIFssMV1cblsxLF0gLTAuMDAyOTQ5ODE1XG4ifQ== -->
-<pre><code> *** Discrete trait: threshold:
-[1] 3.711001 4.032638 4.356593 5.002862 5.626795 6.269639
- *** Cumulative frequencies: 
-[1] 2.350673e-05 1.527938e-04 8.227357e-04 1.305799e-02 9.124139e-02 3.391434e-01 1.000000e+00
-             [,1]
-[1,] -0.002949815</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gTWVhdFZhbHVlSW5kZXg6OmNvbXB1dGVfZWNvbm9taWNfdmFsdWUocG5fbWVhbiA9IG5fbWVhbl9jY2FfbG0sICA6IFxuICB1bnVzZWQgYXJndW1lbnQgKHBiX3ZlcmJvc2UgPSBUUlVFKVxuIn0= -->
+<pre><code>Error in MeatValueIndex::compute_economic_value(pn_mean = n_mean_cca_lm,  : 
+  unused argument (pb_verbose = TRUE)</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -227,13 +220,9 @@ vec_freq_cca_an &lt;- c(0.000000000,
                         pn_delta_mean = .1,
                         pb_verbose = TRUE))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICoqKiBEaXNjcmV0ZSB0cmFpdDogdGhyZXNob2xkOlxuWzFdICAgICAtSW5mIDIuMzk4MjU1IDMuMjg5NjI2IDQuNTM3NTA2IDUuNDk2NDkyIDYuNDAxNTU1XG4gKioqIEN1bXVsYXRpdmUgZnJlcXVlbmNpZXM6IFxuWzFdIDAuMDAwMDAwMDAwIDAuMDAwNjM3MDYyIDAuMDA5ODkzMTk4IDAuMTM5NTE2NTgyIDAuNDUwODUyNTM5IDAuNzgyNzYxODUxIDEuMDAwMDAwMDAwXG4gICAgICAgICAgIFssMV1cblsxLF0gLTAuMTQ0MDAzNVxuIn0= -->
-<pre><code> *** Discrete trait: threshold:
-[1]     -Inf 2.398255 3.289626 4.537506 5.496492 6.401555
- *** Cumulative frequencies: 
-[1] 0.000000000 0.000637062 0.009893198 0.139516582 0.450852539 0.782761851 1.000000000
-           [,1]
-[1,] -0.1440035</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gTWVhdFZhbHVlSW5kZXg6OmNvbXB1dGVfZWNvbm9taWNfdmFsdWUocG5fbWVhbiA9IG5fbWVhbl9jY2FfYW4sICA6IFxuICB1bnVzZWQgYXJndW1lbnQgKHBiX3ZlcmJvc2UgPSBUUlVFKVxuIn0= -->
+<pre><code>Error in MeatValueIndex::compute_economic_value(pn_mean = n_mean_cca_an,  : 
+  unused argument (pb_verbose = TRUE)</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -290,33 +279,32 @@ vec_freq_cca_an &lt;- c(0.000000000,
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwMDAwMDAwIDAuMDAwNDQ3MjgyIDAuMDA3NTQxNjI1IDAuMTE4NTA0ODcyIDAuNDExNTcwMDc5IDAuNzUyMjM5ODExXG4ifQ== -->
 <pre><code>[1] 0.000000000 0.000447282 0.007541625 0.118504872 0.411570079 0.752239811</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAodmVjX2ZyZXFfc2hpZnRlZCA8LSBkaWZmKGMoMCx2ZWNfZnJlcV9zaGlmdGVkX2N1bSkpKVxuYGBgIn0= -->
-<pre class="r"><code>  (vec_freq_shifted &lt;- diff(c(0,vec_freq_shifted_cum)))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAjIFxuICAodmVjX2ZyZXFfc2hpZnRlZCA8LSBkaWZmKGMoMCx2ZWNfZnJlcV9zaGlmdGVkX2N1bSkpKVxuYGBgIn0= -->
+<pre class="r"><code>  # 
+  (vec_freq_shifted &lt;- diff(c(0,vec_freq_shifted_cum)))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwMDAwMDAwIDAuMDAwNDQ3MjgyIDAuMDA3MDk0MzQzIDAuMTEwOTYzMjQ4IDAuMjkzMDY1MjA2IDAuMzQwNjY5NzMyXG4ifQ== -->
 <pre><code>[1] 0.000000000 0.000447282 0.007094343 0.110963248 0.293065206 0.340669732</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAodmVjX2ZyZXFfc2hpZnRlZCA8LSBjKHZlY19mcmVxX3NoaWZ0ZWQsIDEtc3VtKHZlY19mcmVxX3NoaWZ0ZWQpKSlcbmBgYCJ9 -->
-<pre class="r"><code>  (vec_freq_shifted &lt;- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY3Vtc3VtKHZlY19mcmVxX3NoaWZ0ZWQpXG5gYGAifQ== -->
+<pre class="r"><code>cumsum(vec_freq_shifted)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwMDAwMDAwIDAuMDAwNDQ3MjgyIDAuMDA3MDk0MzQzIDAuMTEwOTYzMjQ4IDAuMjkzMDY1MjA2IDAuMzQwNjY5NzMyIDAuMjQ3NzYwMTg5XG4ifQ== -->
-<pre><code>[1] 0.000000000 0.000447282 0.007094343 0.110963248 0.293065206 0.340669732 0.247760189</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwMDAwMDAwIDAuMDAwNDQ3MjgyIDAuMDA3NTQxNjI1IDAuMTE4NTA0ODcyIDAuNDExNTcwMDc5IDAuNzUyMjM5ODExXG4ifQ== -->
+<pre><code>[1] 0.000000000 0.000447282 0.007541625 0.118504872 0.411570079 0.752239811</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAoIG5fZXhfcHJpY2Vfc2hpZnRlZCA8LSBjcm9zc3Byb2QodmVjX2ZyZXFfc2hpZnRlZCwgdmVjX3ByaWNlX2NjYSkpXG5gYGAifQ== -->
-<pre class="r"><code>  ( n_ex_price_shifted &lt;- crossprod(vec_freq_shifted, vec_price_cca))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtKHZlY19mcmVxX3NoaWZ0ZWQpXG5gYGAifQ== -->
+<pre class="r"><code>sum(vec_freq_shifted)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgWywxXVxuWzEsXSA5LjMwNjY4OFxuIn0= -->
-<pre><code>         [,1]
-[1,] 9.306688</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNzUyMjM5OFxuIn0= -->
+<pre><code>[1] 0.7522398</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAjIyMgIyBkaWZmZXJlbmNlIGNvcnJlc3BvbmRzIHRvIGV2XG4gIChldl9yZXN1bHQgPC0gbl9leF9wcmljZV9zaGlmdGVkIC0gbl9leF9wcmljZV9iYXNlKVxuYGBgIn0= -->
-<pre class="r"><code>  ### # difference corresponds to ev
-  (ev_result &lt;- n_ex_price_shifted - n_ex_price_base)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAgIyAodmVjX2ZyZXFfc2hpZnRlZCA8LSBjKHZlY19mcmVxX3NoaWZ0ZWQsIDEtc3VtKHZlY19mcmVxX3NoaWZ0ZWQpKSlcbiAgIyAoIG5fZXhfcHJpY2Vfc2hpZnRlZCA8LSBjcm9zc3Byb2QodmVjX2ZyZXFfc2hpZnRlZCwgdmVjX3ByaWNlX2NjYSkpXG4gICMgXG4gICMgIyMjICMgZGlmZmVyZW5jZSBjb3JyZXNwb25kcyB0byBldlxuICAjIChldl9yZXN1bHQgPC0gbl9leF9wcmljZV9zaGlmdGVkIC0gbl9leF9wcmljZV9iYXNlKVxuYGBgIn0= -->
+<pre class="r"><code>   # (vec_freq_shifted &lt;- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
+  # ( n_ex_price_shifted &lt;- crossprod(vec_freq_shifted, vec_price_cca))
+  # 
+  # ### # difference corresponds to ev
+  # (ev_result &lt;- n_ex_price_shifted - n_ex_price_base)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICBbLDFdXG5bMSxdIDAuMDI1NjY4NTFcbiJ9 -->
-<pre><code>           [,1]
-[1,] 0.02566851</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -325,34 +313,19 @@ vec_freq_cca_an &lt;- c(0.000000000,
 <p>To debug a first problem, the inner function to compute the economic value was unrolled in the following R-chunks</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG5fbWVhbiA9IG5fbWVhbl9jY2FfbG1cbnBuX3NkID0gbl9zZF9jY2FfbG1cbnB2ZWNfdGhyZXNob2xkID0gYygzLjcxMTAwMSw0LjAzMjYzOCw0LjM1NjU5Myw1LjAwMjg2Miw1LjYyNjc5NSw2LjI2OTYzOSlcbnB2ZWNfcHJpY2UgPSB2ZWNfcHJpY2VfY2NhXG5wbl9kZWx0YV9tZWFuID0gLjEgXG5cbiAgdmVjX2ZyZXFfYmFzZSA8LSBwbm9ybShwdmVjX3RocmVzaG9sZCwgbWVhbiA9IHBuX21lYW4sIHNkID0gcG5fc2QpXG4gICh2ZWNfZnJlcV9iYXNlIDwtIGModmVjX2ZyZXFfYmFzZSwgMS1zdW0odmVjX2ZyZXFfYmFzZSkpKVxuICAjIyMgIyBjb21wdXRlIHRoZSBleHBlY3RlZCBwcmljZSBpbiB0aGUgYmFzZSBzaXR1YXRpb25cbiAgKG5fZXhfcHJpY2VfYmFzZSA8LSBjcm9zc3Byb2QodmVjX2ZyZXFfYmFzZSwgcHZlY19wcmljZSkpXG5cbiAgIyMjICMgc2hpZnQgdGhlIGRpc3RyaWJ1dGlvblxuICAobl9tZWFuX3NoaWZ0ZWQgPC0gcG5fbWVhbiArIHBuX2RlbHRhX21lYW4pXG4gIHZlY19mcmVxX3NoaWZ0ZWQgPC0gcG5vcm0ocHZlY190aHJlc2hvbGQsIG1lYW4gPSBuX21lYW5fc2hpZnRlZCwgc2QgPSBwbl9zZClcbiAgKHZlY19mcmVxX3NoaWZ0ZWQgPC0gYyh2ZWNfZnJlcV9zaGlmdGVkLCAxLXN1bSh2ZWNfZnJlcV9zaGlmdGVkKSkpXG4gIChuX2V4X3ByaWNlX3NoaWZ0ZWQgPC0gY3Jvc3Nwcm9kKHZlY19mcmVxX3NoaWZ0ZWQsIHZlY19wcmljZV9jY2EpKVxuXG4gICMjIyAjIGRpZmZlcmVuY2UgY29ycmVzcG9uZHMgdG8gZXZcbiAgKGV2X3Jlc3VsdCA8LSBuX2V4X3ByaWNlX3NoaWZ0ZWQgLSBuX2V4X3ByaWNlX2Jhc2UpXG5cblxuYGBgIn0= -->
-<pre class="r"><code>pn_mean = n_mean_cca_lm
-pn_sd = n_sd_cca_lm
-pvec_threshold = c(3.711001,4.032638,4.356593,5.002862,5.626795,6.269639)
-pvec_price = vec_price_cca
-pn_delta_mean = .1 
-
-  vec_freq_base &lt;- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd)
-  (vec_freq_base &lt;- c(vec_freq_base, 1-sum(vec_freq_base)))
-  ### # compute the expected price in the base situation
-  (n_ex_price_base &lt;- crossprod(vec_freq_base, pvec_price))
-
-  ### # shift the distribution
-  (n_mean_shifted &lt;- pn_mean + pn_delta_mean)
-  vec_freq_shifted &lt;- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd)
-  (vec_freq_shifted &lt;- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
-  (n_ex_price_shifted &lt;- crossprod(vec_freq_shifted, vec_price_cca))
-
-  ### # difference corresponds to ev
-  (ev_result &lt;- n_ex_price_shifted - n_ex_price_base)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucG5fbWVhbiA9IG5fbWVhbl9jY2FfbG1cbnBuX3NkID0gbl9zZF9jY2FfbG1cbnB2ZWNfdGhyZXNob2xkID0gYygzLjcxMTAwMSw0LjAzMjYzOCw0LjM1NjU5Myw1LjAwMjg2Miw1LjYyNjc5NSw2LjI2OTYzOSlcbnB2ZWNfcHJpY2UgPSB2ZWNfcHJpY2VfY2NhXG5wbl9kZWx0YV9tZWFuID0gLjEgXG5cbiAgdmVjX2ZyZXFfYmFzZSA8LSBwbm9ybShwdmVjX3RocmVzaG9sZCwgbWVhbiA9IHBuX21lYW4sIHNkID0gcG5fc2QpXG4gICh2ZWNfZnJlcV9iYXNlIDwtIGModmVjX2ZyZXFfYmFzZSwgMS1zdW0odmVjX2ZyZXFfYmFzZSkpKVxuICAjIyMgIyBjb21wdXRlIHRoZSBleHBlY3RlZCBwcmljZSBpbiB0aGUgYmFzZSBzaXR1YXRpb25cbiAgKG5fZXhfcHJpY2VfYmFzZSA8LSBjcm9zc3Byb2QodmVjX2ZyZXFfYmFzZSwgcHZlY19wcmljZSkpXG5cbiAgIyMjICMgc2hpZnQgdGhlIGRpc3RyaWJ1dGlvblxuICAobl9tZWFuX3NoaWZ0ZWQgPC0gcG5fbWVhbiArIHBuX2RlbHRhX21lYW4pXG4gIHZlY19mcmVxX3NoaWZ0ZWQgPC0gcG5vcm0ocHZlY190aHJlc2hvbGQsIG1lYW4gPSBuX21lYW5fc2hpZnRlZCwgc2QgPSBwbl9zZClcbiAgKHZlY19mcmVxX3NoaWZ0ZWQgPC0gYyh2ZWNfZnJlcV9zaGlmdGVkLCAxLXN1bSh2ZWNfZnJlcV9zaGlmdGVkKSkpXG4gIChuX2V4X3ByaWNlX3NoaWZ0ZWQgPC0gY3Jvc3Nwcm9kKHZlY19mcmVxX3NoaWZ0ZWQsIHZlY19wcmljZV9jY2EpKVxuXG4gICMjIyAjIGRpZmZlcmVuY2UgY29ycmVzcG9uZHMgdG8gZXZcbiAgKGV2X3Jlc3VsdCA8LSBuX2V4X3ByaWNlX3NoaWZ0ZWQgLSBuX2V4X3ByaWNlX2Jhc2UpXG5cblxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r pn_mean = n_mean_cca_lm pn_sd = n_sd_cca_lm pvec_threshold = c(3.711001,4.032638,4.356593,5.002862,5.626795,6.269639) pvec_price = vec_price_cca pn_delta_mean = .1</p>
+<p>vec_freq_base &lt;- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd) (vec_freq_base &lt;- c(vec_freq_base, 1-sum(vec_freq_base))) ### # compute the expected price in the base situation (n_ex_price_base &lt;- crossprod(vec_freq_base, pvec_price))</p>
+<p>### # shift the distribution (n_mean_shifted &lt;- pn_mean + pn_delta_mean) vec_freq_shifted &lt;- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd) (vec_freq_shifted &lt;- c(vec_freq_shifted, 1-sum(vec_freq_shifted))) (n_ex_price_shifted &lt;- crossprod(vec_freq_shifted, vec_price_cca))</p>
+<p>### # difference corresponds to ev (ev_result &lt;- n_ex_price_shifted - n_ex_price_base)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGVzdGluZyBvdXIgZnVuY3Rpb24gYGNvbXB1dGVfZWNvbm9taWNfdmFsdWUoKWAKCmBgYHtyfQpuX21lYW5fY2NhX2xtIDwtIDYuNTYKbl9zZF9jY2FfbG0gPC0gMC43CiMjIyAjIGNvcGllZCBmcm9tIFNvcGhpZSdzIHNsYWNrIG1lc3NhZ2UKdmVjX2NvdW50X2NjYV9sbSA8LSBjKDIsMTEsNTcsMTA0MSw2NjUyLDIxMDkyLDU2MjI3KQp2ZWNfZnJlcV9jY2FfbG0gPC0gdmVjX2NvdW50X2NjYV9sbSAvIHN1bSh2ZWNfY291bnRfY2NhX2xtKQojIyMgIyBwcmljZXMKdmVjX3ByaWNlX2NjYSA8LSBjKDcuNTI2OTYwLDcuOTM4ODcyLDguNDUwNzg0LDguODAwMDAwLDkuMTM3MzA0LDkuMzkyNjkzLDkuNjQyNjkzKQoKCihNZWF0VmFsdWVJbmRleDo6Y29tcHV0ZV9lY29ub21pY192YWx1ZSggcG5fbWVhbiA9IG5fbWVhbl9jY2FfbG0sCiAgICAgICAgICAgICAgICAgICAgICAgIHBuX3NkID0gbl9zZF9jY2FfbG0sCiAgICAgICAgICAgICAgICAgICAgICAgIHB2ZWNfY2xhc3NfZnJlcSA9IHZlY19mcmVxX2NjYV9sbSwKICAgICAgICAgICAgICAgICAgICAgICAgcHZlY190aHJlc2hvbGQgPSBOVUxMLAogICAgICAgICAgICAgICAgICAgICAgICBwdmVjX3ByaWNlID0gdmVjX3ByaWNlX2NjYSwKICAgICAgICAgICAgICAgICAgICAgICAgcG5fZGVsdGFfbWVhbiA9IC4xLAogICAgICAgICAgICAgICAgICAgICAgICBwYl92ZXJib3NlID0gVFJVRSkpCmBgYAoKCiMjIENDYSBmb3IgQU4KCmBgYHtyfQpuX21lYW5fY2NhX2FuIDwtIDUuNjIKbl9zZF9jY2FfYW4gPC0gMQp2ZWNfZnJlcV9jY2FfYW4gPC0gYygwLjAwMDAwMDAwMCwKMC4wMDA2MzcwNjIsIAowLjAwOTI1NjEzNiwgCjAuMTI5NjIzMzg0LCAKMC4zMTEzMzU5NTcsIAowLjMzMTkwOTMxMiwgCjAuMjE3MjM4MTQ5KQooTWVhdFZhbHVlSW5kZXg6OmNvbXB1dGVfZWNvbm9taWNfdmFsdWUoIHBuX21lYW4gPSBuX21lYW5fY2NhX2FuLAogICAgICAgICAgICAgICAgICAgICAgICBwbl9zZCA9IG5fc2RfY2NhX2FuLAogICAgICAgICAgICAgICAgICAgICAgICBwdmVjX2NsYXNzX2ZyZXEgPSB2ZWNfZnJlcV9jY2FfYW4sCiAgICAgICAgICAgICAgICAgICAgICAgIHB2ZWNfdGhyZXNob2xkID0gTlVMTCwKICAgICAgICAgICAgICAgICAgICAgICAgcHZlY19wcmljZSA9IHZlY19wcmljZV9jY2EsCiAgICAgICAgICAgICAgICAgICAgICAgIHBuX2RlbHRhX21lYW4gPSAuMSwKICAgICAgICAgICAgICAgICAgICAgICAgcGJfdmVyYm9zZSA9IFRSVUUpKQpgYGAKCgojIyBVbnJvbGxpbmcgdGhlIGZ1bmN0aW9uIGZvciBBTgoKYGBge3J9Cihwbl9tZWFuID0gbl9tZWFuX2NjYV9hbikKIChwbl9zZCA9IG5fc2RfY2NhX2FuKQogKHB2ZWNfY2xhc3NfZnJlcSA9IHZlY19mcmVxX2NjYV9hbikKICMgcHZlY190aHJlc2hvbGQgPSBjKC1JbmYsMi4zOTgyNTUsMy4yODk2MjYsNC41Mzc1MDYsNS40OTY0OTIsNi40MDE1NTUpCiBwdmVjX3RocmVzaG9sZCA9IGMoLUluZiwyLjM5ODI1NSwzLjI4OTYyNiw0LjUzNzUwNiw1LjQ5NjQ5Miw2LjQwMTU1NSkKIChwdmVjX3ByaWNlID0gdmVjX3ByaWNlX2NjYSkKIHBuX2RlbHRhX21lYW4gPSAuMQogCiAobl9leF9wcmljZV9iYXNlIDwtIGNyb3NzcHJvZChwdmVjX2NsYXNzX2ZyZXEsIHB2ZWNfcHJpY2UpKQogICMjIyAjIHNoaWZ0IHRoZSBkaXN0cmlidXRpb24KICAobl9tZWFuX3NoaWZ0ZWQgPC0gcG5fbWVhbiArIHBuX2RlbHRhX21lYW4pCiAgKHZlY19mcmVxX3NoaWZ0ZWRfY3VtIDwtIHBub3JtKHB2ZWNfdGhyZXNob2xkLCBtZWFuID0gbl9tZWFuX3NoaWZ0ZWQsIHNkID0gcG5fc2QpKQogICh2ZWNfZnJlcV9zaGlmdGVkIDwtIGRpZmYoYygwLHZlY19mcmVxX3NoaWZ0ZWRfY3VtKSkpCiAgKHZlY19mcmVxX3NoaWZ0ZWQgPC0gYyh2ZWNfZnJlcV9zaGlmdGVkLCAxLXN1bSh2ZWNfZnJlcV9zaGlmdGVkKSkpCiAgKCBuX2V4X3ByaWNlX3NoaWZ0ZWQgPC0gY3Jvc3Nwcm9kKHZlY19mcmVxX3NoaWZ0ZWQsIHZlY19wcmljZV9jY2EpKQoKICAjIyMgIyBkaWZmZXJlbmNlIGNvcnJlc3BvbmRzIHRvIGV2CiAgKGV2X3Jlc3VsdCA8LSBuX2V4X3ByaWNlX3NoaWZ0ZWQgLSBuX2V4X3ByaWNlX2Jhc2UpCgpgYGAKCgojIyBVbnJvbGxpbmcgdGhlIGZ1bmN0aW9uIGZvciBMTQoKVG8gZGVidWcgYSBmaXJzdCBwcm9ibGVtLCB0aGUgaW5uZXIgZnVuY3Rpb24gdG8gY29tcHV0ZSB0aGUgZWNvbm9taWMgdmFsdWUgd2FzIHVucm9sbGVkIGluIHRoZSBmb2xsb3dpbmcgUi1jaHVua3MKCmBgYHtyfQpwbl9tZWFuID0gbl9tZWFuX2NjYV9sbQpwbl9zZCA9IG5fc2RfY2NhX2xtCnB2ZWNfdGhyZXNob2xkID0gYygzLjcxMTAwMSw0LjAzMjYzOCw0LjM1NjU5Myw1LjAwMjg2Miw1LjYyNjc5NSw2LjI2OTYzOSkKcHZlY19wcmljZSA9IHZlY19wcmljZV9jY2EKcG5fZGVsdGFfbWVhbiA9IC4xIAoKICB2ZWNfZnJlcV9iYXNlIDwtIHBub3JtKHB2ZWNfdGhyZXNob2xkLCBtZWFuID0gcG5fbWVhbiwgc2QgPSBwbl9zZCkKICAodmVjX2ZyZXFfYmFzZSA8LSBjKHZlY19mcmVxX2Jhc2UsIDEtc3VtKHZlY19mcmVxX2Jhc2UpKSkKICAjIyMgIyBjb21wdXRlIHRoZSBleHBlY3RlZCBwcmljZSBpbiB0aGUgYmFzZSBzaXR1YXRpb24KICAobl9leF9wcmljZV9iYXNlIDwtIGNyb3NzcHJvZCh2ZWNfZnJlcV9iYXNlLCBwdmVjX3ByaWNlKSkKCiAgIyMjICMgc2hpZnQgdGhlIGRpc3RyaWJ1dGlvbgogIChuX21lYW5fc2hpZnRlZCA8LSBwbl9tZWFuICsgcG5fZGVsdGFfbWVhbikKICB2ZWNfZnJlcV9zaGlmdGVkIDwtIHBub3JtKHB2ZWNfdGhyZXNob2xkLCBtZWFuID0gbl9tZWFuX3NoaWZ0ZWQsIHNkID0gcG5fc2QpCiAgKHZlY19mcmVxX3NoaWZ0ZWQgPC0gYyh2ZWNfZnJlcV9zaGlmdGVkLCAxLXN1bSh2ZWNfZnJlcV9zaGlmdGVkKSkpCiAgKG5fZXhfcHJpY2Vfc2hpZnRlZCA8LSBjcm9zc3Byb2QodmVjX2ZyZXFfc2hpZnRlZCwgdmVjX3ByaWNlX2NjYSkpCgogICMjIyAjIGRpZmZlcmVuY2UgY29ycmVzcG9uZHMgdG8gZXYKICAoZXZfcmVzdWx0IDwtIG5fZXhfcHJpY2Vfc2hpZnRlZCAtIG5fZXhfcHJpY2VfYmFzZSkKCgpgYGAKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGVzdGluZyBvdXIgZnVuY3Rpb24gYGNvbXB1dGVfZWNvbm9taWNfdmFsdWUoKWAKCmBgYHtyfQpuX21lYW5fY2NhX2xtIDwtIDYuNTYKbl9zZF9jY2FfbG0gPC0gMC43CiMjIyAjIGNvcGllZCBmcm9tIFNvcGhpZSdzIHNsYWNrIG1lc3NhZ2UKdmVjX2NvdW50X2NjYV9sbSA8LSBjKDIsMTEsNTcsMTA0MSw2NjUyLDIxMDkyLDU2MjI3KQp2ZWNfZnJlcV9jY2FfbG0gPC0gdmVjX2NvdW50X2NjYV9sbSAvIHN1bSh2ZWNfY291bnRfY2NhX2xtKQojIyMgIyBwcmljZXMKdmVjX3ByaWNlX2NjYSA8LSBjKDcuNTI2OTYwLDcuOTM4ODcyLDguNDUwNzg0LDguODAwMDAwLDkuMTM3MzA0LDkuMzkyNjkzLDkuNjQyNjkzKQoKCihNZWF0VmFsdWVJbmRleDo6Y29tcHV0ZV9lY29ub21pY192YWx1ZSggcG5fbWVhbiA9IG5fbWVhbl9jY2FfbG0sCiAgICAgICAgICAgICAgICAgICAgICAgIHBuX3NkID0gbl9zZF9jY2FfbG0sCiAgICAgICAgICAgICAgICAgICAgICAgIHB2ZWNfY2xhc3NfZnJlcSA9IHZlY19mcmVxX2NjYV9sbSwKICAgICAgICAgICAgICAgICAgICAgICAgcHZlY190aHJlc2hvbGQgPSBOVUxMLAogICAgICAgICAgICAgICAgICAgICAgICBwdmVjX3ByaWNlID0gdmVjX3ByaWNlX2NjYSwKICAgICAgICAgICAgICAgICAgICAgICAgcG5fZGVsdGFfbWVhbiA9IC4xLAogICAgICAgICAgICAgICAgICAgICAgICBwYl92ZXJib3NlID0gVFJVRSkpCmBgYAoKCiMjIENDYSBmb3IgQU4KCmBgYHtyfQpuX21lYW5fY2NhX2FuIDwtIDUuNjIKbl9zZF9jY2FfYW4gPC0gMQp2ZWNfZnJlcV9jY2FfYW4gPC0gYygwLjAwMDAwMDAwMCwKMC4wMDA2MzcwNjIsIAowLjAwOTI1NjEzNiwgCjAuMTI5NjIzMzg0LCAKMC4zMTEzMzU5NTcsIAowLjMzMTkwOTMxMiwgCjAuMjE3MjM4MTQ5KQooTWVhdFZhbHVlSW5kZXg6OmNvbXB1dGVfZWNvbm9taWNfdmFsdWUoIHBuX21lYW4gPSBuX21lYW5fY2NhX2FuLAogICAgICAgICAgICAgICAgICAgICAgICBwbl9zZCA9IG5fc2RfY2NhX2FuLAogICAgICAgICAgICAgICAgICAgICAgICBwdmVjX2NsYXNzX2ZyZXEgPSB2ZWNfZnJlcV9jY2FfYW4sCiAgICAgICAgICAgICAgICAgICAgICAgIHB2ZWNfdGhyZXNob2xkID0gTlVMTCwKICAgICAgICAgICAgICAgICAgICAgICAgcHZlY19wcmljZSA9IHZlY19wcmljZV9jY2EsCiAgICAgICAgICAgICAgICAgICAgICAgIHBuX2RlbHRhX21lYW4gPSAuMSwKICAgICAgICAgICAgICAgICAgICAgICAgcGJfdmVyYm9zZSA9IFRSVUUpKQpgYGAKCgojIyBVbnJvbGxpbmcgdGhlIGZ1bmN0aW9uIGZvciBBTgoKYGBge3J9Cihwbl9tZWFuID0gbl9tZWFuX2NjYV9hbikKIChwbl9zZCA9IG5fc2RfY2NhX2FuKQogKHB2ZWNfY2xhc3NfZnJlcSA9IHZlY19mcmVxX2NjYV9hbikKICMgcHZlY190aHJlc2hvbGQgPSBjKC1JbmYsMi4zOTgyNTUsMy4yODk2MjYsNC41Mzc1MDYsNS40OTY0OTIsNi40MDE1NTUpCiBwdmVjX3RocmVzaG9sZCA9IGMoLUluZiwyLjM5ODI1NSwzLjI4OTYyNiw0LjUzNzUwNiw1LjQ5NjQ5Miw2LjQwMTU1NSkKIChwdmVjX3ByaWNlID0gdmVjX3ByaWNlX2NjYSkKIHBuX2RlbHRhX21lYW4gPSAuMQogCiAobl9leF9wcmljZV9iYXNlIDwtIGNyb3NzcHJvZChwdmVjX2NsYXNzX2ZyZXEsIHB2ZWNfcHJpY2UpKQogICMjIyAjIHNoaWZ0IHRoZSBkaXN0cmlidXRpb24KICAobl9tZWFuX3NoaWZ0ZWQgPC0gcG5fbWVhbiArIHBuX2RlbHRhX21lYW4pCiAgKHZlY19mcmVxX3NoaWZ0ZWRfY3VtIDwtIHBub3JtKHB2ZWNfdGhyZXNob2xkLCBtZWFuID0gbl9tZWFuX3NoaWZ0ZWQsIHNkID0gcG5fc2QpKQogICMgCiAgKHZlY19mcmVxX3NoaWZ0ZWQgPC0gZGlmZihjKDAsdmVjX2ZyZXFfc2hpZnRlZF9jdW0pKSkKY3Vtc3VtKHZlY19mcmVxX3NoaWZ0ZWQpCnN1bSh2ZWNfZnJlcV9zaGlmdGVkKQogICAjICh2ZWNfZnJlcV9zaGlmdGVkIDwtIGModmVjX2ZyZXFfc2hpZnRlZCwgMS1zdW0odmVjX2ZyZXFfc2hpZnRlZCkpKQogICMgKCBuX2V4X3ByaWNlX3NoaWZ0ZWQgPC0gY3Jvc3Nwcm9kKHZlY19mcmVxX3NoaWZ0ZWQsIHZlY19wcmljZV9jY2EpKQogICMgCiAgIyAjIyMgIyBkaWZmZXJlbmNlIGNvcnJlc3BvbmRzIHRvIGV2CiAgIyAoZXZfcmVzdWx0IDwtIG5fZXhfcHJpY2Vfc2hpZnRlZCAtIG5fZXhfcHJpY2VfYmFzZSkKCmBgYAoKCiMjIFVucm9sbGluZyB0aGUgZnVuY3Rpb24gZm9yIExNCgpUbyBkZWJ1ZyBhIGZpcnN0IHByb2JsZW0sIHRoZSBpbm5lciBmdW5jdGlvbiB0byBjb21wdXRlIHRoZSBlY29ub21pYyB2YWx1ZSB3YXMgdW5yb2xsZWQgaW4gdGhlIGZvbGxvd2luZyBSLWNodW5rcwoKYGBge3J9CnBuX21lYW4gPSBuX21lYW5fY2NhX2xtCnBuX3NkID0gbl9zZF9jY2FfbG0KcHZlY190aHJlc2hvbGQgPSBjKDMuNzExMDAxLDQuMDMyNjM4LDQuMzU2NTkzLDUuMDAyODYyLDUuNjI2Nzk1LDYuMjY5NjM5KQpwdmVjX3ByaWNlID0gdmVjX3ByaWNlX2NjYQpwbl9kZWx0YV9tZWFuID0gLjEgCgogIHZlY19mcmVxX2Jhc2UgPC0gcG5vcm0ocHZlY190aHJlc2hvbGQsIG1lYW4gPSBwbl9tZWFuLCBzZCA9IHBuX3NkKQogICh2ZWNfZnJlcV9iYXNlIDwtIGModmVjX2ZyZXFfYmFzZSwgMS1zdW0odmVjX2ZyZXFfYmFzZSkpKQogICMjIyAjIGNvbXB1dGUgdGhlIGV4cGVjdGVkIHByaWNlIGluIHRoZSBiYXNlIHNpdHVhdGlvbgogIChuX2V4X3ByaWNlX2Jhc2UgPC0gY3Jvc3Nwcm9kKHZlY19mcmVxX2Jhc2UsIHB2ZWNfcHJpY2UpKQoKICAjIyMgIyBzaGlmdCB0aGUgZGlzdHJpYnV0aW9uCiAgKG5fbWVhbl9zaGlmdGVkIDwtIHBuX21lYW4gKyBwbl9kZWx0YV9tZWFuKQogIHZlY19mcmVxX3NoaWZ0ZWQgPC0gcG5vcm0ocHZlY190aHJlc2hvbGQsIG1lYW4gPSBuX21lYW5fc2hpZnRlZCwgc2QgPSBwbl9zZCkKICAodmVjX2ZyZXFfc2hpZnRlZCA8LSBjKHZlY19mcmVxX3NoaWZ0ZWQsIDEtc3VtKHZlY19mcmVxX3NoaWZ0ZWQpKSkKICAobl9leF9wcmljZV9zaGlmdGVkIDwtIGNyb3NzcHJvZCh2ZWNfZnJlcV9zaGlmdGVkLCB2ZWNfcHJpY2VfY2NhKSkKCiAgIyMjICMgZGlmZmVyZW5jZSBjb3JyZXNwb25kcyB0byBldgogIChldl9yZXN1bHQgPC0gbl9leF9wcmljZV9zaGlmdGVkIC0gbl9leF9wcmljZV9iYXNlKQoKCmBgYAoK</div>
 
 
 

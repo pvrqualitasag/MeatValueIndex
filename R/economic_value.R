@@ -117,14 +117,25 @@ compute_ev_base_rev_disc <- function(pn_mean,
   n_ex_price_base <- crossprod(pvec_class_freq, pvec_price)
   ### # shift the distribution
   n_mean_shifted <- pn_mean + pn_delta_mean
-  vec_freq_shifted <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd)
-  vec_freq_shifted <- c(vec_freq_shifted, 1-sum(vec_freq_shifted))
+  ### # get cumulative frequencies under shifted distribution
+  vec_freq_shifted_cum <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd)
+  vec_freq_shifted <- diff(c(0, vec_freq_shifted_cum))
+  ### # extract the sum of the shifted frequencies as last element of cumulative frequencies
+  n_sum_freq_shifted <- vec_freq_shifted_cum[length(vec_freq_shifted_cum)]
+  ### # add last entry for frequency
+  if (n_sum_freq_shifted < 1){
+    vec_freq_shifted <- c(vec_freq_shifted, 1-n_sum_freq_shifted)
+  } else {
+    stop(" *** Error: compute_ev_base_rev_disc: sum of shifted frequencies > 1: ", n_sum_freq_shifted)
+  }
+  ### # compute price under shifted distribution
   n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca)
 
   ### # difference corresponds to ev
   ev_result <- n_ex_price_shifted - n_ex_price_base
   return(ev_result)
 }
+
 
 #' @title Compute numeric value of economic value based on revenue
 #'
@@ -144,15 +155,32 @@ compute_ev_base_rev_cont <- function( pn_mean,
                                       pvec_price,
                                       pn_delta_mean ) {
   ### # getting area under normal distribution for base situation
-  vec_freq_base <- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd)
-  vec_freq_base <- c(vec_freq_base, 1-sum(vec_freq_base))
+  vec_freq_base_cum <- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd)
+  vec_freq_base <- diff(c(0,vec_freq_base_cum))
+  ### # take last element of vec_freq_base_cum as the cumsum of vec_freq_base
+  n_sum_freq_base <- vec_freq_base_cum[length(vec_freq_base_cum)]
+  if (n_sum_freq_base < 1){
+    vec_freq_base <- c(vec_freq_base, 1-n_sum_freq_base)
+  } else {
+    stop(" *** Error: compute_ev_base_rev_cont: sum of base frequencies > 1: ", n_sum_freq_base)
+  }
   ### # compute the expected price in the base situation
   n_ex_price_base <- crossprod(vec_freq_base, pvec_price)
 
   ### # shift the distribution
   n_mean_shifted <- pn_mean + pn_delta_mean
-  vec_freq_shifted <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd)
-  vec_freq_shifted <- c(vec_freq_shifted, 1-sum(vec_freq_shifted))
+  ### # get cumulative frequencies under shifted distribution
+  vec_freq_shifted_cum <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd)
+  vec_freq_shifted <- diff(c(0, vec_freq_shifted_cum))
+  ### # extract the sum of the shifted frequencies as last element of cumulative frequencies
+  n_sum_freq_shifted <- vec_freq_shifted_cum[length(vec_freq_shifted_cum)]
+  ### # add last entry for frequency
+  if (n_sum_freq_shifted < 1){
+    vec_freq_shifted <- c(vec_freq_shifted, 1-n_sum_freq_shifted)
+  } else {
+    stop(" *** Error: compute_ev_base_rev_cont: sum of shifted frequencies > 1: ", n_sum_freq_shifted)
+  }
+  ### # compute price under shifted distribution
   n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca)
 
   ### # difference corresponds to ev
