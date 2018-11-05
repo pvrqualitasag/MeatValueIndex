@@ -59,7 +59,7 @@ compute_economic_value <- function(pn_mean,
     }
 
     ### # compute economic value based on mean, sd, threshold, prices and delta
-    ev_result <- compute_ev_base_rev_cont( pn_mean        = pn_mean,
+    ev_result <- compute_ev_price_cont( pn_mean        = pn_mean,
                                            pn_sd          = pn_sd,
                                            pvec_threshold = vec_threshold,
                                            pvec_price     = pvec_price,
@@ -81,7 +81,7 @@ compute_economic_value <- function(pn_mean,
       print(vec_cum_freq_dist)
     }
 
-    ev_result <- compute_ev_base_rev_disc( pn_mean         = pn_mean,
+    ev_result <- compute_ev_price_disc( pn_mean         = pn_mean,
                                            pn_sd           = pn_sd,
                                            pvec_class_freq = pvec_class_freq,
                                            pvec_threshold  = vec_threshold,
@@ -107,7 +107,7 @@ compute_economic_value <- function(pn_mean,
 #' @param pvec_price      vector of prices given by payment system
 #' @param pn_delta_mean   small change of population mean
 #' @return ev_result
-compute_ev_base_rev_disc <- function(pn_mean,
+compute_ev_price_disc <- function(pn_mean,
                                      pn_sd,
                                      pvec_class_freq,
                                      pvec_threshold,
@@ -126,7 +126,7 @@ compute_ev_base_rev_disc <- function(pn_mean,
   if (n_sum_freq_shifted < 1){
     vec_freq_shifted <- c(vec_freq_shifted, 1-n_sum_freq_shifted)
   } else {
-    stop(" *** Error: compute_ev_base_rev_disc: sum of shifted frequencies > 1: ", n_sum_freq_shifted)
+    stop(" *** Error: compute_ev_price_disc: sum of shifted frequencies > 1: ", n_sum_freq_shifted)
   }
   ### # compute price under shifted distribution
   n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca)
@@ -149,7 +149,7 @@ compute_ev_base_rev_disc <- function(pn_mean,
 #' @param pvec_price      vector of prices given by payment system
 #' @param pn_delta_mean   small change of population mean
 #' @return ev_rev_result
-compute_ev_base_rev_cont <- function( pn_mean,
+compute_ev_price_cont <- function( pn_mean,
                                       pn_sd,
                                       pvec_threshold,
                                       pvec_price,
@@ -162,7 +162,7 @@ compute_ev_base_rev_cont <- function( pn_mean,
   if (n_sum_freq_base < 1){
     vec_freq_base <- c(vec_freq_base, 1-n_sum_freq_base)
   } else {
-    stop(" *** Error: compute_ev_base_rev_cont: sum of base frequencies > 1: ", n_sum_freq_base)
+    stop(" *** Error: compute_ev_price_cont: sum of base frequencies > 1: ", n_sum_freq_base)
   }
   ### # compute the expected price in the base situation
   n_ex_price_base <- crossprod(vec_freq_base, pvec_price)
@@ -178,7 +178,7 @@ compute_ev_base_rev_cont <- function( pn_mean,
   if (n_sum_freq_shifted < 1){
     vec_freq_shifted <- c(vec_freq_shifted, 1-n_sum_freq_shifted)
   } else {
-    stop(" *** Error: compute_ev_base_rev_cont: sum of shifted frequencies > 1: ", n_sum_freq_shifted)
+    stop(" *** Error: compute_ev_price_cont: sum of shifted frequencies > 1: ", n_sum_freq_shifted)
   }
   ### # compute price under shifted distribution
   n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca)
