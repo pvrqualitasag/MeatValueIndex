@@ -5,7 +5,7 @@
 \title{Compute economic value based on price change for discrete trait}
 \usage{
 compute_ev_price_disc(pn_mean, pn_sd, pvec_class_freq, pvec_threshold,
-  pvec_price, pn_delta_mean)
+  pvec_price, pn_delta_mean, pb_verbose = FALSE)
 }
 \arguments{
 \item{pn_mean}{empirical population mean}
@@ -19,6 +19,8 @@ compute_ev_price_disc(pn_mean, pn_sd, pvec_class_freq, pvec_threshold,
 \item{pvec_price}{vector of prices given by payment system}
 
 \item{pn_delta_mean}{small change of population mean}
+
+\item{pb_verbose}{verbosity flag}
 }
 \value{
 ev_result

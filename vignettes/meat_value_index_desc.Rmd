@@ -37,9 +37,9 @@ where $R$ is the revenue and $C$ stands for costs. From the above equation, prof
 
 
 ## Carcass Traits
-For the above listed carcass traits, we assume that costs can be kept constant for small changes of the population mean. Hence all changes of profit which account for an economic value would be due to changes in the revenue. The revenue typically is the product of a certain amount of product time its price. This simplification is used in the design of a function to compute economic values for carcass traits.
+For the above listed carcass traits, we assume that costs can be kept constant for small changes of the population mean. Hence all changes of profit which account for an economic value would be due to changes in the expected average price accross the whole population. This simplification is used in the design of a function to compute economic values for carcass traits.
 
-When computing the revenue over a complete population, we need as input a certain empirical distribution and the prices given by the payment system. The payment system is typically represented by a vector of prices. The empirical distribution can either be discrete or continuous. Continuous distributions are specified by mean and standard deviation and discrete distributions are given by a vector of empirical frequencies. 
+When computing the expected average price over a complete population, we need as input a certain empirical distribution and the prices given by the payment system. The payment system is typically represented by a vector of prices. The empirical distribution can either be discrete or continuous. Continuous distributions are specified by mean and standard deviation and discrete distributions are given by a vector of empirical frequencies. 
 
 
 ## Function To Compute Economic Values
@@ -78,7 +78,6 @@ vec_freq_cca_lm
 ```{r}
 ### # prices
 vec_price_cca <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
-vec_price_cca
 ```
 
 
@@ -86,23 +85,22 @@ vec_price_cca
 Given the prices and the empirical frequencies of the population distribution, we can compute the expected price of a random carcass in the population as
 
 ```{r}
-n_exp_price <- crossprod(vec_freq_cca_lm, vec_price_cca)
-n_exp_price
+n_exp_av_price <- crossprod(vec_freq_cca_lm, vec_price_cca)
+n_exp_av_price
 ```
-
 
 
 ### Step 2
 The second step is to approximate the population distribution with a normal distribution and to determine the borders of the single price classes.
 
-The class borders can be found with the function `qnorm()`. 
+The class borders can be found with the function `qnorm()`. To determine the class borders with the function `qnorm()`, we need the cumulative frequencies which are computed by `cumsum()`. 
 
 ```{r}
 vec_csum_cca_lm <- cumsum(vec_freq_cca_lm)
 vec_csum_cca_lm
 ```
 
-The boundaries are defined by the result of `qnorm()`
+The boundaries are defined by the result of `qnorm()` and noting the fact that the last value in the cumulative frequency vector is $1$ and for this last value the border would be `Inf`. Hence, we can leave out the last element of the vector of cumulative sums.
 
 ```{r}
 vec_bound_cca_lm <- qnorm(vec_csum_cca_lm[1:(length(vec_csum_cca_lm)-1)], mean = n_mean_cca_lm, sd = n_sd_cca_lm, lower.tail = TRUE)
@@ -117,11 +115,14 @@ n_delta_cca_lm <- 0.1
 (n_mean_cca_lm_shifted <- n_mean_cca_lm + n_delta_cca_lm)
 ```
 
-Compute the frequencies under the shifted distribution leaving the boundaries as they were in step 2
+Compute the frequencies under the shifted distribution leaving the boundaries as they were in step 2. Because the result coming out of `pnorm()` are also cumulative, we have to split them into individual frequencies using `diff()`. The last entry of the frequencies usually has to be added to the vector of frequencies.
 
 ```{r}
-vec_freq_cca_lm_shifted <- pnorm( vec_bound_cca_lm, mean = n_mean_cca_lm_shifted, sd = n_sd_cca_lm )
-(vec_freq_cca_lm_shifted <- c(vec_freq_cca_lm_shifted, 1-sum(vec_freq_cca_lm_shifted)))
+vec_freq_cca_lm_shifted_cum <- pnorm( vec_bound_cca_lm, mean = n_mean_cca_lm_shifted, sd = n_sd_cca_lm )
+vec_freq_cca_lm_shifted <- diff(c(0, vec_freq_cca_lm_shifted_cum))
+n_sum_frea_cca_lm_shifted <- vec_freq_cca_lm_shifted_cum[length(vec_freq_cca_lm_shifted_cum)]
+if (n_sum_frea_cca_lm_shifted < 1)
+(vec_freq_cca_lm_shifted <- c(vec_freq_cca_lm_shifted, 1-n_sum_frea_cca_lm_shifted))
 sum(vec_freq_cca_lm_shifted)
 ```
 
@@ -131,9 +132,35 @@ The price under the shifted distribution is
 (n_exp_price_cca_lm_shifted <- crossprod(vec_freq_cca_lm_shifted, vec_price_cca))
 ```
 
-The difference corresponds to the economic value
+The difference per unit of the trait corresponds to the economic value
 
 ```{r}
-(ev_cca_lm <- n_exp_price_cca_lm_shifted - n_exp_price)
+(ev_cca_lm <- (n_exp_price_cca_lm_shifted - n_exp_av_price)/n_delta_cca_lm)
+```
+
+
+## Organising Input in a Systematic Way
+Input parameters either depend on the trait alone such as the vector of prices of a given pricing system or they depend on both the trait and the breed. This suggests a certain hierarchical data structure as input. The top hierarchy level corresponds to the trait and within each trait, we add a set of lower level fields to specify the breed-specific input parameters. 
+
+
+### An Example
+The easiest format to specify hierarchical datastructure is JSON. JSON is a data-structure consisting of key-value pairs which allows for recursive and thereby hierarchical structures. One example for a JSON-formatted data structure is
+
+```{r}
+s_cca_input <- '{
+"trait":"cca",
+"price":[7.526960, 7.938872, 8.450784, 8.800000, 9.137304, 9.392693, 9.642693],
+"breeds": [
+  {"name":"LM",
+   "mean":6.56,
+   "sd":0.7,
+   "freq":[2.350673e-05, 1.292870e-04, 6.699419e-04, 1.223526e-02, 7.818340e-02, 2.479020e-01, 6.608566e-01]}
+  ]
+}'
+json_input <- jsonlite::fromJSON(s_cca_input)
+json_input$trait
+json_input$breeds
+
+
 ```
 

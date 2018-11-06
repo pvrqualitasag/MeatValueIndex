@@ -4,7 +4,8 @@
 \alias{compute_ev_price_cont}
 \title{Compute numeric value of economic value based on revenue}
 \usage{
-compute_ev_price_cont(pn_mean, pn_sd, pvec_threshold, pvec_price, pn_delta_mean)
+compute_ev_price_cont(pn_mean, pn_sd, pvec_threshold, pvec_price, pn_delta_mean,
+  pb_verbose = FALSE)
 }
 \arguments{
 \item{pn_mean}{empirical population mean}
@@ -16,6 +17,8 @@ compute_ev_price_cont(pn_mean, pn_sd, pvec_threshold, pvec_price, pn_delta_mean)
 \item{pvec_price}{vector of prices given by payment system}
 
 \item{pn_delta_mean}{small change of population mean}
+
+\item{pb_verbose}{verbosity flag}
 }
 \value{
 ev_rev_result
