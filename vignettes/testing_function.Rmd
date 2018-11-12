@@ -1,31 +1,24 @@
 ---
-title: "R Notebook"
+title: "Testing Function To Compute Economic Values"
 output: html_notebook
 ---
 
-Testing our function `compute_economic_value()`
 
-```{r}
-n_mean_cca_lm <- 6.56
-n_sd_cca_lm <- 0.7
-### # copied from Sophie's slack message
-vec_count_cca_lm <- c(2,11,57,1041,6652,21092,56227)
-vec_freq_cca_lm <- vec_count_cca_lm / sum(vec_count_cca_lm)
-### # prices
-vec_price_cca <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
-
-
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_lm,
-                        pn_sd = n_sd_cca_lm,
-                        pvec_class_freq = vec_freq_cca_lm,
-                        pvec_threshold = NULL,
-                        pvec_price = vec_price_cca,
-                        pn_delta_mean = .1,
-                        pb_verbose = TRUE))
-```
+## Disclaimer
+The package `MeatValueIndex` contains the function `compute_economic_value()` to compute economic values for a variety of traits. We want to validate this function with calculations that were made during the MSc of Silvan Wyss. In what follows, we compute economic values for a given trait within a certain breed using both methods and compare the results.
 
 
 ## CCa for AN
+
+First, we start with specifying the information that is constant for the trait CCa for all breeds. This consists of the vector of the prices in the slaughterhouse.
+
+```{r}
+### # prices
+vec_price_cca <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
+vec_price_ccc <- c(11.2,12.7,13.6,14.2,14.7,15.2,15.7)
+```
+
+Next, we indicate all information that is specific for the breed AN.
 
 ```{r}
 n_mean_cca_an <- 5.62
@@ -37,69 +30,141 @@ vec_freq_cca_an <- c(0.000000000,
 0.311335957, 
 0.331909312, 
 0.217238149)
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_an,
+(ev_cca_an <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_an,
                         pn_sd = n_sd_cca_an,
                         pvec_class_freq = vec_freq_cca_an,
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cca,
-                        pn_delta_mean = .1,
-                        pb_verbose = TRUE))
+                        pn_delta_mean = .1))
 ```
 
 
-## Unrolling the function for AN
+## CCc for AN
+```{r}
+n_mean_ccc_an <- 5.48
+n_sd_ccc_an <- 0.99
+vec_freq_ccc_an <- c(0.001021972,
+                     0.001021972,
+                     0.017884517,
+                     0.142054165,
+                     0.323965253,
+                     0.361778232,
+                     0.152273889)
+(ev_ccc_an <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_ccc_an,
+                        pn_sd = n_sd_ccc_an,
+                        pvec_class_freq = vec_freq_ccc_an,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_ccc,
+                        pn_delta_mean = .1))
+```
+
+
+## CFa for AN
+
+Prices for CFa
 
 ```{r}
-(pn_mean = n_mean_cca_an)
- (pn_sd = n_sd_cca_an)
- (pvec_class_freq = vec_freq_cca_an)
- # pvec_threshold = c(-Inf,2.398255,3.289626,4.537506,5.496492,6.401555)
- pvec_threshold = c(-Inf,2.398255,3.289626,4.537506,5.496492,6.401555)
- (pvec_price = vec_price_cca)
- pn_delta_mean = .1
- 
- (n_ex_price_base <- crossprod(pvec_class_freq, pvec_price))
-  ### # shift the distribution
-  (n_mean_shifted <- pn_mean + pn_delta_mean)
-  (vec_freq_shifted_cum <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd))
-  # 
-  (vec_freq_shifted <- diff(c(0,vec_freq_shifted_cum)))
-cumsum(vec_freq_shifted)
-sum(vec_freq_shifted)
-   # (vec_freq_shifted <- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
-  # ( n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca))
-  # 
-  # ### # difference corresponds to ev
-  # (ev_result <- n_ex_price_shifted - n_ex_price_base)
-
+vec_price_cfa <- c(-0.9000000,
+-0.3000000,
+0.0000000,
+-0.3926929,
+-0.8480817)
+vec_price_cfc <- c(-1.5,
+-0.6,
+0.0,
+-0.4,
+-1.0)
 ```
 
-
-## Unrolling the function for LM
-
-To debug a first problem, the inner function to compute the economic value was unrolled in the following R-chunks
 
 ```{r}
-pn_mean = n_mean_cca_lm
-pn_sd = n_sd_cca_lm
-pvec_threshold = c(3.711001,4.032638,4.356593,5.002862,5.626795,6.269639)
-pvec_price = vec_price_cca
-pn_delta_mean = .1 
-
-  vec_freq_base <- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd)
-  (vec_freq_base <- c(vec_freq_base, 1-sum(vec_freq_base)))
-  ### # compute the expected price in the base situation
-  (n_ex_price_base <- crossprod(vec_freq_base, pvec_price))
-
-  ### # shift the distribution
-  (n_mean_shifted <- pn_mean + pn_delta_mean)
-  vec_freq_shifted <- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd)
-  (vec_freq_shifted <- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
-  (n_ex_price_shifted <- crossprod(vec_freq_shifted, vec_price_cca))
-
-  ### # difference corresponds to ev
-  (ev_result <- n_ex_price_shifted - n_ex_price_base)
-
+n_mean_cfa_an <- 3.08
+n_sd_cfa_an <- 0.74
+vec_freq_cfa_an <- c(0.03005434,
+0.12797452,
+0.58733371,
+0.23661233,
+0.01802511)
+(ev_cfa_an <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_an,
+                        pn_sd = n_sd_cfa_an,
+                        pvec_class_freq = vec_freq_cfa_an,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cfa,
+                        pn_delta_mean = .1))
 
 ```
+
+## CFc for AN
+```{r}
+n_mean_cfc_an <- 2.51
+n_sd_cfc_an <- 0.76
+vec_freq_cfc_an <- c(0.096576392,
+0.360756260,
+0.477772100,
+0.063873275,
+0.001021972)
+(ev_cfc_an <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_an,
+                        pn_sd = n_sd_cfc_an,
+                        pvec_class_freq = vec_freq_cfc_an,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cfc,
+                        pn_delta_mean = .1))
+```
+
+
+## CWa for AN
+The CW traits are continuous which leads to the use of a different computational method. This is not visible from the outside, but is driven only by the input parameters
+
+```{r}
+n_scale_fact_cwa_an <- 100
+n_mean_cwa_an <- 2.32 * n_scale_fact_cwa_an
+n_sd_cwa_an <- 0.53 * n_scale_fact_cwa_an
+vec_price_cwa <- c(0.0,
+-0.1,
+-0.2,
+-0.3,
+-0.5,
+-0.7,
+-0.9,
+-1.2,
+-1.4,
+-1.6,
+-1.8)
+vec_thre_cwa <- c(2.9,
+3.0,
+3.1,
+3.2,
+3.3,
+3.4,
+3.5,
+3.6,
+3.7,
+3.8) * n_scale_fact_cwa_an
+
+(ev_cwa_an <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_an,
+                        pn_sd = n_sd_cwa_an,
+                        pvec_class_freq = NULL,
+                        pvec_threshold = vec_thre_cwa,
+                        pvec_price = vec_price_cwa,
+                        pn_delta_mean = .01 * n_scale_fact_cwa_an))
+```
+
+
+## CWc for AN
+
+```{r}
+n_scale_fact_cwc_an <- 100
+n_mean_cwc_an <- 1.23 * n_scale_fact_cwc_an
+n_sd_cwc_ad <- 0.14 * n_scale_fact_cwc_an
+vec_price_cwc <- c(0.0,
+-0.1)
+vec_thre_cwc <- 1.4 * n_scale_fact_cwc_an
+(ev_cwc_an <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_an,
+                        pn_sd = n_sd_cwc_ad,
+                        pvec_class_freq = NULL,
+                        pvec_threshold = vec_thre_cwc,
+                        pvec_price = vec_price_cwc,
+                        pn_delta_mean = .01 * n_scale_fact_cwc_an))
+```
+
 

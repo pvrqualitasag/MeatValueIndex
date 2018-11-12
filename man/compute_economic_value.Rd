@@ -2,7 +2,7 @@
 % Please edit documentation in R/economic_value.R
 \name{compute_economic_value}
 \alias{compute_economic_value}
-\title{Compute Economic Values Based On Revenue}
+\title{Compute Economic Values Based On Price Changes}
 \usage{
 compute_economic_value(pn_mean, pn_sd, pvec_class_freq = NULL,
   pvec_threshold = NULL, pvec_price, pn_delta_mean, pb_verbose = FALSE)
@@ -21,12 +21,15 @@ compute_economic_value(pn_mean, pn_sd, pvec_class_freq = NULL,
 \item{pn_delta_mean}{small change of population mean}
 }
 \value{
-ev_result result of economic value
+ev_result result of economic value per pn_delta_mean
 }
 \description{
 In this function, the economic value is computed as the change
-in revenue for a given change in the population mean. The computation
+in expected average price over a population for a given change
+in the population mean. The computation
 of the economic value is simplified by the assumption that the
 costs can be kept constant for the different levels of the population
-mean.
+mean. Futhermore, we assume that the change in population mean
+does not change the amount of product produced. The result is
+standardized and expressed per unit of the trait.
 }
