@@ -176,21 +176,9 @@ $(document).ready(function () {
 <p>Testing our function <code>compute_economic_value()</code></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubl9tZWFuX2NjYV9sbSA8LSA2LjU2XG5uX3NkX2NjYV9sbSA8LSAwLjdcbiMjIyAjIGNvcGllZCBmcm9tIFNvcGhpZSdzIHNsYWNrIG1lc3NhZ2VcbnZlY19jb3VudF9jY2FfbG0gPC0gYygyLDExLDU3LDEwNDEsNjY1MiwyMTA5Miw1NjIyNylcbnZlY19mcmVxX2NjYV9sbSA8LSB2ZWNfY291bnRfY2NhX2xtIC8gc3VtKHZlY19jb3VudF9jY2FfbG0pXG4jIyMgIyBwcmljZXNcbnZlY19wcmljZV9jY2EgPC0gYyg3LjUyNjk2MCw3LjkzODg3Miw4LjQ1MDc4NCw4LjgwMDAwMCw5LjEzNzMwNCw5LjM5MjY5Myw5LjY0MjY5MylcbihNZWF0VmFsdWVJbmRleDo6Y29tcHV0ZV9lY29ub21pY192YWx1ZSggcG5fbWVhbiA9IG5fbWVhbl9jY2FfbG0sXG4gICAgICAgICAgICAgICAgICAgICAgICBwbl9zZCA9IG5fc2RfY2NhX2xtLFxuICAgICAgICAgICAgICAgICAgICAgICAgcHZlY19jbGFzc19mcmVxID0gdmVjX2ZyZXFfY2NhX2xtLFxuICAgICAgICAgICAgICAgICAgICAgICAgcHZlY190aHJlc2hvbGQgPSBOVUxMLFxuICAgICAgICAgICAgICAgICAgICAgICAgcHZlY19wcmljZSA9IHZlY19wcmljZV9jY2EsXG4gICAgICAgICAgICAgICAgICAgICAgICBwbl9kZWx0YV9tZWFuID0gLjEsXG4gICAgICAgICAgICAgICAgICAgICAgICBwYl92ZXJib3NlID0gVFJVRSkpXG5gYGAifQ== -->
-<pre class="r"><code>n_mean_cca_lm &lt;- 6.56
-n_sd_cca_lm &lt;- 0.7
-### # copied from Sophie's slack message
-vec_count_cca_lm &lt;- c(2,11,57,1041,6652,21092,56227)
-vec_freq_cca_lm &lt;- vec_count_cca_lm / sum(vec_count_cca_lm)
-### # prices
-vec_price_cca &lt;- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_lm,
-                        pn_sd = n_sd_cca_lm,
-                        pvec_class_freq = vec_freq_cca_lm,
-                        pvec_threshold = NULL,
-                        pvec_price = vec_price_cca,
-                        pn_delta_mean = .1,
-                        pb_verbose = TRUE))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubl9tZWFuX2NjYV9sbSA8LSA2LjU2XG5uX3NkX2NjYV9sbSA8LSAwLjdcbiMjIyAjIGNvcGllZCBmcm9tIFNvcGhpZSdzIHNsYWNrIG1lc3NhZ2VcbnZlY19jb3VudF9jY2FfbG0gPC0gYygyLDExLDU3LDEwNDEsNjY1MiwyMTA5Miw1NjIyNylcbnZlY19mcmVxX2NjYV9sbSA8LSB2ZWNfY291bnRfY2NhX2xtIC8gc3VtKHZlY19jb3VudF9jY2FfbG0pXG4jIyMgIyBwcmljZXNcbnZlY19wcmljZV9jY2EgPC0gYyg3LjUyNjk2MCw3LjkzODg3Miw4LjQ1MDc4NCw4LjgwMDAwMCw5LjEzNzMwNCw5LjM5MjY5Myw5LjY0MjY5MylcbihNZWF0VmFsdWVJbmRleDo6Y29tcHV0ZV9lY29ub21pY192YWx1ZSggcG5fbWVhbiA9IG5fbWVhbl9jY2FfbG0sXG4gICAgICAgICAgICAgICAgICAgICAgICBwbl9zZCA9IG5fc2RfY2NhX2xtLFxuICAgICAgICAgICAgICAgICAgICAgICAgcHZlY19jbGFzc19mcmVxID0gdmVjX2ZyZXFfY2NhX2xtLFxuICAgICAgICAgICAgICAgICAgICAgICAgcHZlY190aHJlc2hvbGQgPSBOVUxMLFxuICAgICAgICAgICAgICAgICAgICAgICAgcHZlY19wcmljZSA9IHZlY19wcmljZV9jY2EsXG4gICAgICAgICAgICAgICAgICAgICAgICBwbl9kZWx0YV9tZWFuID0gLjEsXG4gICAgICAgICAgICAgICAgICAgICAgICBwYl92ZXJib3NlID0gVFJVRSkpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r n_mean_cca_lm &lt;- 6.56 n_sd_cca_lm &lt;- 0.7 ### # copied from Sophie’s slack message vec_count_cca_lm &lt;- c(2,11,57,1041,6652,21092,56227) vec_freq_cca_lm &lt;- vec_count_cca_lm / sum(vec_count_cca_lm) ### # prices vec_price_cca &lt;- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693) (MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_lm, pn_sd = n_sd_cca_lm, pvec_class_freq = vec_freq_cca_lm, pvec_threshold = NULL, pvec_price = vec_price_cca, pn_delta_mean = .1, pb_verbose = TRUE))</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gTWVhdFZhbHVlSW5kZXg6OmNvbXB1dGVfZWNvbm9taWNfdmFsdWUocG5fbWVhbiA9IG5fbWVhbl9jY2FfbG0sICA6IFxuICB1bnVzZWQgYXJndW1lbnQgKHBiX3ZlcmJvc2UgPSBUUlVFKVxuIn0= -->
 <pre><code>Error in MeatValueIndex::compute_economic_value(pn_mean = n_mean_cca_lm,  : 
@@ -220,9 +208,9 @@ vec_freq_cca_an &lt;- c(0.000000000,
                         pn_delta_mean = .1,
                         pb_verbose = TRUE))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gTWVhdFZhbHVlSW5kZXg6OmNvbXB1dGVfZWNvbm9taWNfdmFsdWUocG5fbWVhbiA9IG5fbWVhbl9jY2FfYW4sICA6IFxuICB1bnVzZWQgYXJndW1lbnQgKHBiX3ZlcmJvc2UgPSBUUlVFKVxuIn0= -->
-<pre><code>Error in MeatValueIndex::compute_economic_value(pn_mean = n_mean_cca_an,  : 
-  unused argument (pb_verbose = TRUE)</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRmVobGVyIGluIE1lYXRWYWx1ZUluZGV4Ojpjb21wdXRlX2Vjb25vbWljX3ZhbHVlKHBuX21lYW4gPSBuX21lYW5fY2NhX2FuLCAgOiBcbiAgT2JqZWt0ICd2ZWNfcHJpY2VfY2NhJyBuaWNodCBnZWZ1bmRlblxuIn0= -->
+<pre><code>Fehler in MeatValueIndex::compute_economic_value(pn_mean = n_mean_cca_an,  : 
+  Objekt 'vec_price_cca' nicht gefunden</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -231,80 +219,14 @@ vec_freq_cca_an &lt;- c(0.000000000,
 <h2>Unrolling the function for AN</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKHBuX21lYW4gPSBuX21lYW5fY2NhX2FuKVxuYGBgIn0= -->
-<pre class="r"><code>(pn_mean = n_mean_cca_an)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKCBuX2V4X3ByaWNlX3NoaWZ0ZWQgPC0gY3Jvc3Nwcm9kKHZlY19mcmVxX3NoaWZ0ZWQsIHZlY19wcmljZV9jY2EpKVxuXG5gYGAifQ== -->
+<pre class="r"><code>( n_ex_price_shifted &lt;- crossprod(vec_freq_shifted, vec_price_cca))
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDUuNjJcbiJ9 -->
-<pre><code>[1] 5.62</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRmVobGVyIGluIGNyb3NzcHJvZCh2ZWNfZnJlcV9zaGlmdGVkLCB2ZWNfcHJpY2VfY2NhKSA6IFxuICBuaWNodCBwYXNzZW5kZSBBcmd1bWVudGVcbiJ9 -->
+<pre><code>Fehler in crossprod(vec_freq_shifted, vec_price_cca) : 
+  nicht passende Argumente</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIChwbl9zZCA9IG5fc2RfY2NhX2FuKVxuYGBgIn0= -->
-<pre class="r"><code> (pn_sd = n_sd_cca_an)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDFcbiJ9 -->
-<pre><code>[1] 1</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIChwdmVjX2NsYXNzX2ZyZXEgPSB2ZWNfZnJlcV9jY2FfYW4pXG5gYGAifQ== -->
-<pre class="r"><code> (pvec_class_freq = vec_freq_cca_an)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwMDAwMDAwIDAuMDAwNjM3MDYyIDAuMDA5MjU2MTM2IDAuMTI5NjIzMzg0IDAuMzExMzM1OTU3IDAuMzMxOTA5MzEyIDAuMjE3MjM4MTQ5XG4ifQ== -->
-<pre><code>[1] 0.000000000 0.000637062 0.009256136 0.129623384 0.311335957 0.331909312 0.217238149</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICMgcHZlY190aHJlc2hvbGQgPSBjKC1JbmYsMi4zOTgyNTUsMy4yODk2MjYsNC41Mzc1MDYsNS40OTY0OTIsNi40MDE1NTUpXG4gcHZlY190aHJlc2hvbGQgPSBjKC1JbmYsMi4zOTgyNTUsMy4yODk2MjYsNC41Mzc1MDYsNS40OTY0OTIsNi40MDE1NTUpXG4gKHB2ZWNfcHJpY2UgPSB2ZWNfcHJpY2VfY2NhKVxuYGBgIn0= -->
-<pre class="r"><code> # pvec_threshold = c(-Inf,2.398255,3.289626,4.537506,5.496492,6.401555)
- pvec_threshold = c(-Inf,2.398255,3.289626,4.537506,5.496492,6.401555)
- (pvec_price = vec_price_cca)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDcuNTI2OTYwIDcuOTM4ODcyIDguNDUwNzg0IDguODAwMDAwIDkuMTM3MzA0IDkuMzkyNjkzIDkuNjQyNjkzXG4ifQ== -->
-<pre><code>[1] 7.526960 7.938872 8.450784 8.800000 9.137304 9.392693 9.642693</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIHBuX2RlbHRhX21lYW4gPSAuMVxuIFxuIChuX2V4X3ByaWNlX2Jhc2UgPC0gY3Jvc3Nwcm9kKHB2ZWNfY2xhc3NfZnJlcSwgcHZlY19wcmljZSkpXG5gYGAifQ== -->
-<pre class="r"><code> pn_delta_mean = .1
- 
- (n_ex_price_base &lt;- crossprod(pvec_class_freq, pvec_price))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgWywxXVxuWzEsXSA5LjI4MTAxOVxuIn0= -->
-<pre><code>         [,1]
-[1,] 9.281019</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAjIyMgIyBzaGlmdCB0aGUgZGlzdHJpYnV0aW9uXG4gIChuX21lYW5fc2hpZnRlZCA8LSBwbl9tZWFuICsgcG5fZGVsdGFfbWVhbilcbmBgYCJ9 -->
-<pre class="r"><code>  ### # shift the distribution
-  (n_mean_shifted &lt;- pn_mean + pn_delta_mean)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDUuNzJcbiJ9 -->
-<pre><code>[1] 5.72</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAodmVjX2ZyZXFfc2hpZnRlZF9jdW0gPC0gcG5vcm0ocHZlY190aHJlc2hvbGQsIG1lYW4gPSBuX21lYW5fc2hpZnRlZCwgc2QgPSBwbl9zZCkpXG5gYGAifQ== -->
-<pre class="r"><code>  (vec_freq_shifted_cum &lt;- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwMDAwMDAwIDAuMDAwNDQ3MjgyIDAuMDA3NTQxNjI1IDAuMTE4NTA0ODcyIDAuNDExNTcwMDc5IDAuNzUyMjM5ODExXG4ifQ== -->
-<pre><code>[1] 0.000000000 0.000447282 0.007541625 0.118504872 0.411570079 0.752239811</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAjIFxuICAodmVjX2ZyZXFfc2hpZnRlZCA8LSBkaWZmKGMoMCx2ZWNfZnJlcV9zaGlmdGVkX2N1bSkpKVxuYGBgIn0= -->
-<pre class="r"><code>  # 
-  (vec_freq_shifted &lt;- diff(c(0,vec_freq_shifted_cum)))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwMDAwMDAwIDAuMDAwNDQ3MjgyIDAuMDA3MDk0MzQzIDAuMTEwOTYzMjQ4IDAuMjkzMDY1MjA2IDAuMzQwNjY5NzMyXG4ifQ== -->
-<pre><code>[1] 0.000000000 0.000447282 0.007094343 0.110963248 0.293065206 0.340669732</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY3Vtc3VtKHZlY19mcmVxX3NoaWZ0ZWQpXG5gYGAifQ== -->
-<pre class="r"><code>cumsum(vec_freq_shifted)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwMDAwMDAwIDAuMDAwNDQ3MjgyIDAuMDA3NTQxNjI1IDAuMTE4NTA0ODcyIDAuNDExNTcwMDc5IDAuNzUyMjM5ODExXG4ifQ== -->
-<pre><code>[1] 0.000000000 0.000447282 0.007541625 0.118504872 0.411570079 0.752239811</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtKHZlY19mcmVxX3NoaWZ0ZWQpXG5gYGAifQ== -->
-<pre class="r"><code>sum(vec_freq_shifted)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNzUyMjM5OFxuIn0= -->
-<pre><code>[1] 0.7522398</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICAgIyAodmVjX2ZyZXFfc2hpZnRlZCA8LSBjKHZlY19mcmVxX3NoaWZ0ZWQsIDEtc3VtKHZlY19mcmVxX3NoaWZ0ZWQpKSlcbiAgIyAoIG5fZXhfcHJpY2Vfc2hpZnRlZCA8LSBjcm9zc3Byb2QodmVjX2ZyZXFfc2hpZnRlZCwgdmVjX3ByaWNlX2NjYSkpXG4gICMgXG4gICMgIyMjICMgZGlmZmVyZW5jZSBjb3JyZXNwb25kcyB0byBldlxuICAjIChldl9yZXN1bHQgPC0gbl9leF9wcmljZV9zaGlmdGVkIC0gbl9leF9wcmljZV9iYXNlKVxuYGBgIn0= -->
-<pre class="r"><code>   # (vec_freq_shifted &lt;- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
-  # ( n_ex_price_shifted &lt;- crossprod(vec_freq_shifted, vec_price_cca))
-  # 
-  # ### # difference corresponds to ev
-  # (ev_result &lt;- n_ex_price_shifted - n_ex_price_base)</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -313,11 +235,28 @@ vec_freq_cca_an &lt;- c(0.000000000,
 <p>To debug a first problem, the inner function to compute the economic value was unrolled in the following R-chunks</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucG5fbWVhbiA9IG5fbWVhbl9jY2FfbG1cbnBuX3NkID0gbl9zZF9jY2FfbG1cbnB2ZWNfdGhyZXNob2xkID0gYygzLjcxMTAwMSw0LjAzMjYzOCw0LjM1NjU5Myw1LjAwMjg2Miw1LjYyNjc5NSw2LjI2OTYzOSlcbnB2ZWNfcHJpY2UgPSB2ZWNfcHJpY2VfY2NhXG5wbl9kZWx0YV9tZWFuID0gLjEgXG5cbiAgdmVjX2ZyZXFfYmFzZSA8LSBwbm9ybShwdmVjX3RocmVzaG9sZCwgbWVhbiA9IHBuX21lYW4sIHNkID0gcG5fc2QpXG4gICh2ZWNfZnJlcV9iYXNlIDwtIGModmVjX2ZyZXFfYmFzZSwgMS1zdW0odmVjX2ZyZXFfYmFzZSkpKVxuICAjIyMgIyBjb21wdXRlIHRoZSBleHBlY3RlZCBwcmljZSBpbiB0aGUgYmFzZSBzaXR1YXRpb25cbiAgKG5fZXhfcHJpY2VfYmFzZSA8LSBjcm9zc3Byb2QodmVjX2ZyZXFfYmFzZSwgcHZlY19wcmljZSkpXG5cbiAgIyMjICMgc2hpZnQgdGhlIGRpc3RyaWJ1dGlvblxuICAobl9tZWFuX3NoaWZ0ZWQgPC0gcG5fbWVhbiArIHBuX2RlbHRhX21lYW4pXG4gIHZlY19mcmVxX3NoaWZ0ZWQgPC0gcG5vcm0ocHZlY190aHJlc2hvbGQsIG1lYW4gPSBuX21lYW5fc2hpZnRlZCwgc2QgPSBwbl9zZClcbiAgKHZlY19mcmVxX3NoaWZ0ZWQgPC0gYyh2ZWNfZnJlcV9zaGlmdGVkLCAxLXN1bSh2ZWNfZnJlcV9zaGlmdGVkKSkpXG4gIChuX2V4X3ByaWNlX3NoaWZ0ZWQgPC0gY3Jvc3Nwcm9kKHZlY19mcmVxX3NoaWZ0ZWQsIHZlY19wcmljZV9jY2EpKVxuXG4gICMjIyAjIGRpZmZlcmVuY2UgY29ycmVzcG9uZHMgdG8gZXZcbiAgKGV2X3Jlc3VsdCA8LSBuX2V4X3ByaWNlX3NoaWZ0ZWQgLSBuX2V4X3ByaWNlX2Jhc2UpXG5cblxuYGBgXG5gYGAifQ== -->
-<p><code>r</code>r pn_mean = n_mean_cca_lm pn_sd = n_sd_cca_lm pvec_threshold = c(3.711001,4.032638,4.356593,5.002862,5.626795,6.269639) pvec_price = vec_price_cca pn_delta_mean = .1</p>
-<p>vec_freq_base &lt;- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd) (vec_freq_base &lt;- c(vec_freq_base, 1-sum(vec_freq_base))) ### # compute the expected price in the base situation (n_ex_price_base &lt;- crossprod(vec_freq_base, pvec_price))</p>
-<p>### # shift the distribution (n_mean_shifted &lt;- pn_mean + pn_delta_mean) vec_freq_shifted &lt;- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd) (vec_freq_shifted &lt;- c(vec_freq_shifted, 1-sum(vec_freq_shifted))) (n_ex_price_shifted &lt;- crossprod(vec_freq_shifted, vec_price_cca))</p>
-<p>### # difference corresponds to ev (ev_result &lt;- n_ex_price_shifted - n_ex_price_base)</p>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYGBgclxucG5fbWVhbiA9IG5fbWVhbl9jY2FfbG1cbnBuX3NkID0gbl9zZF9jY2FfbG1cbnB2ZWNfdGhyZXNob2xkID0gYygzLjcxMTAwMSw0LjAzMjYzOCw0LjM1NjU5Myw1LjAwMjg2Miw1LjYyNjc5NSw2LjI2OTYzOSlcbnB2ZWNfcHJpY2UgPSB2ZWNfcHJpY2VfY2NhXG5wbl9kZWx0YV9tZWFuID0gLjEgXG5cbiAgdmVjX2ZyZXFfYmFzZSA8LSBwbm9ybShwdmVjX3RocmVzaG9sZCwgbWVhbiA9IHBuX21lYW4sIHNkID0gcG5fc2QpXG4gICh2ZWNfZnJlcV9iYXNlIDwtIGModmVjX2ZyZXFfYmFzZSwgMS1zdW0odmVjX2ZyZXFfYmFzZSkpKVxuICAjIyMgIyBjb21wdXRlIHRoZSBleHBlY3RlZCBwcmljZSBpbiB0aGUgYmFzZSBzaXR1YXRpb25cbiAgKG5fZXhfcHJpY2VfYmFzZSA8LSBjcm9zc3Byb2QodmVjX2ZyZXFfYmFzZSwgcHZlY19wcmljZSkpXG5cbiAgIyMjICMgc2hpZnQgdGhlIGRpc3RyaWJ1dGlvblxuICAobl9tZWFuX3NoaWZ0ZWQgPC0gcG5fbWVhbiArIHBuX2RlbHRhX21lYW4pXG4gIHZlY19mcmVxX3NoaWZ0ZWQgPC0gcG5vcm0ocHZlY190aHJlc2hvbGQsIG1lYW4gPSBuX21lYW5fc2hpZnRlZCwgc2QgPSBwbl9zZClcbiAgKHZlY19mcmVxX3NoaWZ0ZWQgPC0gYyh2ZWNfZnJlcV9zaGlmdGVkLCAxLXN1bSh2ZWNfZnJlcV9zaGlmdGVkKSkpXG4gIChuX2V4X3ByaWNlX3NoaWZ0ZWQgPC0gY3Jvc3Nwcm9kKHZlY19mcmVxX3NoaWZ0ZWQsIHZlY19wcmljZV9jY2EpKVxuXG4gICMjIyAjIGRpZmZlcmVuY2UgY29ycmVzcG9uZHMgdG8gZXZcbiAgKGV2X3Jlc3VsdCA8LSBuX2V4X3ByaWNlX3NoaWZ0ZWQgLSBuX2V4X3ByaWNlX2Jhc2UpXG5cblxuYGBgXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r</p>
+<pre class="r"><code>pn_mean = n_mean_cca_lm
+pn_sd = n_sd_cca_lm
+pvec_threshold = c(3.711001,4.032638,4.356593,5.002862,5.626795,6.269639)
+pvec_price = vec_price_cca
+pn_delta_mean = .1 
+
+  vec_freq_base &lt;- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd)
+  (vec_freq_base &lt;- c(vec_freq_base, 1-sum(vec_freq_base)))
+  ### # compute the expected price in the base situation
+  (n_ex_price_base &lt;- crossprod(vec_freq_base, pvec_price))
+
+  ### # shift the distribution
+  (n_mean_shifted &lt;- pn_mean + pn_delta_mean)
+  vec_freq_shifted &lt;- pnorm(pvec_threshold, mean = n_mean_shifted, sd = pn_sd)
+  (vec_freq_shifted &lt;- c(vec_freq_shifted, 1-sum(vec_freq_shifted)))
+  (n_ex_price_shifted &lt;- crossprod(vec_freq_shifted, vec_price_cca))
+
+  ### # difference corresponds to ev
+  (ev_result &lt;- n_ex_price_shifted - n_ex_price_base)
+</code></pre>
 <pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->

@@ -1,0 +1,241 @@
+---
+title: "DualBreed"
+author: "Sophie Kunz"
+date: "2 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#Economic value for dual breed
+
+##Carcass conformation adults (CCa)
+```{r}
+### # prices
+vec_price_cca <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
+```
+
+
+###OB
+```{r}
+n_mean_cca_ob <- 5.21
+n_sd_cca_ob <- 1.02
+vec_count_cca_ob <- c(4,43,214,1136,2093,1898,520)
+vec_freq_cca_ob <- vec_count_cca_ob / sum(vec_count_cca_ob)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_ob,
+                        pn_sd = n_sd_cca_ob,
+                        pvec_class_freq = vec_freq_cca_ob,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cca,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+###SI
+```{r}
+n_mean_cca_si <- 5.83
+n_sd_cca_si <- 0.9
+vec_count_cca_si <- c(4,37,372,3972,13849,24670,13522)
+vec_freq_cca_si <- vec_count_cca_si / sum(vec_count_cca_si)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_si,
+                        pn_sd = n_sd_cca_si,
+                        pvec_class_freq = vec_freq_cca_si,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cca,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+###SF
+```{r}
+n_mean_cca_sf <- 4.57
+n_sd_cca_sf <- 1.18
+vec_count_cca_sf <- c(160,1177,4779,11499,10417,6293,1751)
+vec_freq_cca_sf <- vec_count_cca_sf / sum(vec_count_cca_sf)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_sf,
+                        pn_sd = n_sd_cca_sf,
+                        pvec_class_freq = vec_freq_cca_sf,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cca,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+##Carcass conformation calves (CCc)
+```{r}
+### # prices
+#???#vec_price_ccc <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
+```
+
+
+###OB
+```{r}
+n_mean_ccc_ob <- 4.98
+n_sd_ccc_ob <- 1.01
+vec_count_ccc_ob <- c(11,95,452,2269,3489,2376,472)
+vec_freq_ccc_ob <- vec_count_ccc_ob / sum(vec_count_ccc_ob)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_ccc_ob,
+                        pn_sd = n_sd_ccc_ob,
+                        pvec_class_freq = vec_freq_ccc_ob,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_ccc,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+###SI
+```{r}
+n_mean_ccc_si <- 5.33
+n_sd_ccc_si <- 1.02
+vec_count_ccc_si <- c(16,64,244,1618,3355,3378,1086)
+vec_freq_ccc_si <- vec_count_ccc_si / sum(vec_count_ccc_si)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_ccc_si,
+                        pn_sd = n_sd_ccc_si,
+                        pvec_class_freq = vec_freq_ccc_si,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_ccc,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+###SF
+```{r}
+n_mean_ccc_sf <- 3.88
+n_sd_ccc_sf <- 1.08
+vec_count_ccc_sf <- c(645,4025,13619,21447,9150,3054,625)
+vec_freq_ccc_sf <- vec_count_ccc_sf / sum(vec_count_ccc_sf)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_ccc_sf,
+                        pn_sd = n_sd_ccc_sf,
+                        pvec_class_freq = vec_freq_ccc_sf,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_ccc,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+##Carcass fatness adults (CFa)
+```{r}
+### # prices
+#??vec_price_cfa <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
+```
+
+
+###OB
+```{r}
+n_mean_cfa_ob <- 2.88
+n_sd_cfa_ob <- 0.58
+vec_count_cfa_ob <- c(158,883,4405,441,21)
+vec_freq_cfa_ob <- vec_count_cfa_ob / sum(vec_count_cfa_ob)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_ob,
+                        pn_sd = n_sd_cfa_ob,
+                        pvec_class_freq = vec_freq_cfa_ob,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cfa,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+###SI
+```{r}
+n_mean_cfa_si <- 2.82
+n_sd_cfa_si <- 0.55
+vec_count_cfa_si <- c(1247,10913,41200,2994,72)
+vec_freq_cfa_si <- vec_count_cfa_si / sum(vec_count_cfa_si)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_si,
+                        pn_sd = n_sd_cfa_si,
+                        pvec_class_freq = vec_freq_cfa_si,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cfa,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+###SF
+```{r}
+n_mean_cfa_sf <- 2.87
+n_sd_cfa_sf <- 0.55
+vec_count_cfa_sf <- c(778,5681,27116,2422,79)
+vec_freq_cfa_sf <- vec_count_cfa_sf / sum(vec_count_cfa_sf)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_sf,
+                        pn_sd = n_sd_cfa_sf,
+                        pvec_class_freq = vec_freq_cfa_sf,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cfa,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+
+##Carcass fatness calves (CFc)
+```{r}
+### # prices
+#??vec_price_cfc <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
+```
+
+
+###OB
+```{r}
+n_mean_cfc_ob <- 2.62
+n_sd_cfc_ob <- 0.69
+vec_count_cfc_ob <- c(636,2679,5375,471,3)
+vec_freq_cfc_ob <- vec_count_cfc_ob / sum(vec_count_cfc_ob)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_ob,
+                        pn_sd = n_sd_cfc_ob,
+                        pvec_class_freq = vec_freq_cfc_ob,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cfc,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+###SI
+```{r}
+n_mean_cfc_si <- 2.66
+n_sd_cfc_si <- 0.7
+vec_count_cfc_si <- c(691,2525,5966,577,2)
+vec_freq_cfc_si <- vec_count_cfc_si / sum(vec_count_cfc_si)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_si,
+                        pn_sd = n_sd_cfc_si,
+                        pvec_class_freq = vec_freq_cfc_si,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cfc,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+###SF
+```{r}
+n_mean_cfc_sf <- 2.76
+n_sd_cfc_sf <- 0.65
+vec_count_cfc_sf <- c(2477,11464,35006,3599,19)
+vec_freq_cfc_sf <- vec_count_cfc_sf / sum(vec_count_cfc_sf)
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_sf,
+                        pn_sd = n_sd_cfc_sf,
+                        pvec_class_freq = vec_freq_cfc_sf,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cfc,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
+##Carcass weight adults (CWa)
+##Carcass weight calves (CWc)
+
+
+
+
