@@ -132,11 +132,6 @@ vec_price_cfa <- c(-0.9000000,
 0.0000000,
 -0.3926929,
 -0.8480817)
-vec_price_cfc <- c(-1.5,
--0.6,
-0.0,
--0.4,
--1.0)
 ```
 
 
@@ -192,7 +187,11 @@ vec_freq_cfa_sf <- vec_count_cfa_sf / sum(vec_count_cfa_sf)
 ##Carcass fatness calves (CFc)
 ```{r}
 ### # prices
-#??vec_price_cfc <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
+vec_price_cfc <- c(-1.5,
+-0.6,
+0.0,
+-0.4,
+-1.0)
 ```
 
 
@@ -247,7 +246,7 @@ vec_freq_cfc_sf <- vec_count_cfc_sf / sum(vec_count_cfc_sf)
 ##Carcass weight adults (CWa)
 
 ```{r}
-n_scale_fact_cwa_an <- 100
+ n_scale_fact_cwa <- 100
 vec_price_cwa <- c(0.0,
 -0.1,
 -0.2,
@@ -268,21 +267,51 @@ vec_thre_cwa <- c(2.9,
 3.5,
 3.6,
 3.7,
-3.8) * n_scale_fact_cwa_an
+3.8) * n_scale_fact_cwa
 ```
 
-### Angus as an example
+### OB
 
 ```{r}
-n_mean_cwa_an <- 2.32 * n_scale_fact_cwa_an
-n_sd_cwa_an <- 0.53 * n_scale_fact_cwa_an
+n_mean_cwa_ob <- 2.61 * n_scale_fact_cwa
+n_sd_cwa_ob <- 0.41 * n_scale_fact_cwa
 
-(ev_cwa_an <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_an,
-                        pn_sd = n_sd_cwa_an,
+(ev_cwa_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_ob,
+                        pn_sd = n_sd_cwa_ob,
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwa,
                         pvec_price = vec_price_cwa,
-                        pn_delta_mean = .01 * n_scale_fact_cwa_an))
+                        pn_delta_mean = .01 * n_scale_fact_cwa))
+
+```
+
+### SI
+
+```{r}
+n_mean_cwa_si <- 2.79 * n_scale_fact_cwa
+n_sd_cwa_si <- 0.42 * n_scale_fact_cwa
+
+(ev_cwa_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_si,
+                        pn_sd = n_sd_cwa_si,
+                        pvec_class_freq = NULL,
+                        pvec_threshold = vec_thre_cwa,
+                        pvec_price = vec_price_cwa,
+                        pn_delta_mean = .01 * n_scale_fact_cwa))
+
+```
+
+### SF
+
+```{r}
+n_mean_cwa_sf <- 2.88 * n_scale_fact_cwa
+n_sd_cwa_sf <- 0.32 * n_scale_fact_cwa
+
+(ev_cwa_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_sf,
+                        pn_sd = n_sd_cwa_sf,
+                        pvec_class_freq = NULL,
+                        pvec_threshold = vec_thre_cwa,
+                        pvec_price = vec_price_cwa,
+                        pn_delta_mean = .01 * n_scale_fact_cwa))
 
 ```
 
@@ -290,6 +319,58 @@ n_sd_cwa_an <- 0.53 * n_scale_fact_cwa_an
 
 ##Carcass weight calves (CWc)
 
+```{r}
+ n_scale_fact_cwc <- 100
+vec_price_cwc <- c(0.0,
+-0.1)
+vec_thre_cwc <- 1.4 * n_scale_fact_cwc
+
+```
+
+### OB
+
+```{r}
+n_mean_cwc_ob <- 1.25 * n_scale_fact_cwa
+n_sd_cwc_ob <- 0.13 * n_scale_fact_cwa
+
+(ev_cwc_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_ob,
+                        pn_sd = n_sd_cwc_ob,
+                        pvec_class_freq = NULL,
+                        pvec_threshold = vec_thre_cwc,
+                        pvec_price = vec_price_cwc,
+                        pn_delta_mean = .01 * n_scale_fact_cwc))
+
+```
+
+### SI
+
+```{r}
+n_mean_cwc_si <- 1.27 * n_scale_fact_cwc
+n_sd_cwc_si <- 0.13 * n_scale_fact_cwc
+
+(ev_cwc_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_si,
+                        pn_sd = n_sd_cwc_si,
+                        pvec_class_freq = NULL,
+                        pvec_threshold = vec_thre_cwc,
+                        pvec_price = vec_price_cwc,
+                        pn_delta_mean = .01 * n_scale_fact_cwc))
+
+```
+
+### SF
+
+```{r}
+n_mean_cwc_sf <- 1.24 * n_scale_fact_cwc
+n_sd_cwc_sf <- 0.13 * n_scale_fact_cwc
+
+(ev_cwc_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_sf,
+                        pn_sd = n_sd_cwc_sf,
+                        pvec_class_freq = NULL,
+                        pvec_threshold = vec_thre_cwc,
+                        pvec_price = vec_price_cwc,
+                        pn_delta_mean = .01 * n_scale_fact_cwc))
+
+```
 
 
 
