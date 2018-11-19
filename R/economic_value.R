@@ -144,10 +144,10 @@ compute_ev_price_disc <- function( pn_mean,
   ### # extract the sum of the shifted frequencies as last element of cumulative frequencies
   n_sum_freq_shifted <- vec_freq_shifted_cum[length(vec_freq_shifted_cum)]
   ### # add last entry for frequency
-  if (n_sum_freq_shifted < 1){
-    vec_freq_shifted <- c(vec_freq_shifted, 1-n_sum_freq_shifted)
-  } else {
+  if (n_sum_freq_shifted > 1){
     stop(" *** Error: compute_ev_price_disc: sum of shifted frequencies > 1: ", n_sum_freq_shifted)
+  } else {
+    vec_freq_shifted <- c(vec_freq_shifted, 1-n_sum_freq_shifted)
   }
   if (pb_verbose) {
     cat("[INFO -- compute_ev_price_disc] Shifted freq diff\n")
@@ -188,10 +188,10 @@ compute_ev_price_cont <- function( pn_mean,
   vec_freq_base <- diff(c(0,vec_freq_base_cum))
   ### # take last element of vec_freq_base_cum as the cumsum of vec_freq_base
   n_sum_freq_base <- vec_freq_base_cum[length(vec_freq_base_cum)]
-  if (n_sum_freq_base < 1){
-    vec_freq_base <- c(vec_freq_base, 1-n_sum_freq_base)
-  } else {
+  if (n_sum_freq_base > 1){
     stop(" *** Error: compute_ev_price_cont: sum of base frequencies > 1: ", n_sum_freq_base)
+  } else {
+    vec_freq_base <- c(vec_freq_base, 1-n_sum_freq_base)
   }
 
   ev_result <- compute_ev_price_disc( pn_mean         = pn_mean,
