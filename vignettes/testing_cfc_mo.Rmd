@@ -1,0 +1,29 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+vec_price_cfc <- c(-1.5,
+-0.6,
+0.0,
+-0.4,
+-1.0)
+```
+
+###MO
+```{r}
+n_mean_cfc_mo <- 2.64
+n_sd_cfc_mo <- 0.67
+vec_count_cfc_mo <- c(191,676,1675,96,0)
+vec_freq_cfc_mo <- vec_count_cfc_mo / sum(vec_count_cfc_mo);vec_freq_cfc_mo
+
+(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_mo,
+                        pn_sd = n_sd_cfc_mo,
+                        pvec_class_freq = vec_freq_cfc_mo,
+                        pvec_threshold = NULL,
+                        pvec_price = vec_price_cfc,
+                        pn_delta_mean = .1,
+                        pb_verbose = TRUE))
+```
+
