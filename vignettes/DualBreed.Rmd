@@ -615,5 +615,17 @@ tbl_ev_result <- tibble::data_frame(Traits <- c("cca", "ccc", "cfa", "cfc", "cwa
 ```
 
 ## Writing Output To A File
-The economic values that have been computed so far are collected into an dataframe and are written to a csv-formatted file. 
+The economic values that have been computed so far are collected into a dataframe and are written to a csv-formatted file. 
+
+```{r}
+vec_breed <- c("OB", "BV", "SI", "SF", "MO")
+# vec_basis <- c("unit", "gen_sd")
+vec_basis <- c("gen_sd")
+vec_trait <- c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")
+n_nr_breed <- length(vec_breed)
+n_nr_basis <- length(vec_basis)
+n_nr_trait <- length(vec_trait)
+tbl_ev_input <- tibble::data_frame(Trait <- rep(vec_trait, n_nr_basis * n_nr_breed))
+```
+
 
