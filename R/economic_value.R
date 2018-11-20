@@ -25,8 +25,10 @@
 #' @param pvec_threshold  vector of thresholds given by payment system
 #' @param pvec_price      vector of prices given by payment system
 #' @param pn_delta_mean   small change of population mean
+#' @param pn_gen_sd       genetic standard deviation of trait
+#' @param pb_verbose      level of output verbosity
 #'
-#' @return ev_result result of economic value per pn_delta_mean
+#' @return ev_result      list of two economic values, per unit trait and per genetic sd, if pn_gen_sd is given
 #' @export
 compute_economic_value <- function(pn_mean,
                                    pn_sd,
@@ -34,7 +36,8 @@ compute_economic_value <- function(pn_mean,
                                    pvec_threshold  = NULL,
                                    pvec_price,
                                    pn_delta_mean,
-                                   pb_verbose       = FALSE ){
+                                   pn_gen_sd       = NULL,
+                                   pb_verbose      = FALSE ){
   ### # checking input parameters
   if ( length(pn_mean) != 1L )
     stop("Population mean (pn_mean) must be a single number: ", length(pn_mean))
@@ -67,6 +70,7 @@ compute_economic_value <- function(pn_mean,
                                         pvec_threshold = vec_threshold,
                                         pvec_price     = pvec_price,
                                         pn_delta_mean  = pn_delta_mean,
+                                        pn_gen_sd      = pn_gen_sd,
                                         pb_verbose     = pb_verbose )
 
   } else {
@@ -96,6 +100,7 @@ compute_economic_value <- function(pn_mean,
                                         pvec_threshold  = vec_threshold,
                                         pvec_price      = pvec_price,
                                         pn_delta_mean   = pn_delta_mean,
+                                        pn_gen_sd       = pn_gen_sd,
                                         pb_verbose      = pb_verbose  )
   }
 
@@ -117,14 +122,16 @@ compute_economic_value <- function(pn_mean,
 #' @param pvec_threshold  vector of thresholds given by payment system
 #' @param pvec_price      vector of prices given by payment system
 #' @param pn_delta_mean   small change of population mean
-#' @param pb_verbose      verbosity flag
-#' @return ev_result
+#' @param pn_gen_sd       genetic standard deviation of trait
+#' @param pb_verbose      level of output verbosity
+#' @return ev_result      list of two economic values, per unit trait and per genetic sd, if pn_gen_sd is given
 compute_ev_price_disc <- function( pn_mean,
                                    pn_sd,
                                    pvec_class_freq,
                                    pvec_threshold,
                                    pvec_price,
                                    pn_delta_mean,
+                                   pn_gen_sd,
                                    pb_verbose       = FALSE ){
   ### # compute the expected price in the base situation
   n_ex_price_base <- crossprod(pvec_class_freq, pvec_price)
@@ -157,8 +164,15 @@ compute_ev_price_disc <- function( pn_mean,
   n_ex_price_shifted <- crossprod(vec_freq_shifted, pvec_price)
   if (pb_verbose) cat("[INFO -- compute_ev_price_disc] Shifted price: ", n_ex_price_shifted, "\n")
 
-  ### # difference corresponds to ev
-  ev_result <- (n_ex_price_shifted - n_ex_price_base) / pn_delta_mean
+  ### # difference corresponds to ev per trait unit, when rescaled with pn_delta_mean
+  ev_result_per_trait_unit <- (n_ex_price_shifted - n_ex_price_base) / pn_delta_mean
+  ### # if genetic standard deviation is specified, compute the ev on the basis of one genetic sd
+  ev_result_per_gen_sd <- NULL
+  if (!is.null(pn_gen_sd))
+    ev_result_per_gen_sd <- ev_result_per_trait_unit * pn_gen_sd
+  ### # return the results as a list
+  ev_result <- list(ev_per_trait_unit = ev_result_per_trait_unit,
+                    ev_per_gen_sd     = ev_result_per_gen_sd)
 
   return(ev_result)
 }
@@ -175,13 +189,15 @@ compute_ev_price_disc <- function( pn_mean,
 #' @param pvec_threshold  vector of thresholds given by payment system
 #' @param pvec_price      vector of prices given by payment system
 #' @param pn_delta_mean   small change of population mean
-#' @param pb_verbose      verbosity flag
-#' @return ev_rev_result
+#' @param pn_gen_sd       genetic standard deviation of trait
+#' @param pb_verbose      level of output verbosity
+#' @return ev_result      list of two economic values, per unit trait and per genetic sd, if pn_gen_sd is given
 compute_ev_price_cont <- function( pn_mean,
                                    pn_sd,
                                    pvec_threshold,
                                    pvec_price,
                                    pn_delta_mean,
+                                   pn_gen_sd,
                                    pb_verbose       = FALSE ) {
   ### # getting area under normal distribution for base situation
   vec_freq_base_cum <- pnorm(pvec_threshold, mean = pn_mean, sd = pn_sd)
@@ -200,6 +216,7 @@ compute_ev_price_cont <- function( pn_mean,
                                       pvec_threshold  = pvec_threshold,
                                       pvec_price      = pvec_price,
                                       pn_delta_mean   = pn_delta_mean,
+                                      pn_gen_sd       = pn_gen_sd,
                                       pb_verbose      = pb_verbose)
 
 
