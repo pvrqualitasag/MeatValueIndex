@@ -504,7 +504,7 @@ n_mean_cwc_bv <- 1.26 * n_scale_fact_cwa
 n_sd_cwc_bv <- 0.14 * n_scale_fact_cwa
 
 (ev_cwc_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_bv,
-                        pn_sd = n_sd_cwc_bc,
+                        pn_sd = n_sd_cwc_bv,
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwc,
                         pvec_price = vec_price_cwc,
