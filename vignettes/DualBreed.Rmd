@@ -713,6 +713,19 @@ knitr::kable(tbl_ev_result_ev_per_gen_sd,booktabs = TRUE)
 ```
 
 
+## Computing Factors
+
+```{r}
+mat_ev_per_gen_sd <- as.matrix(tbl_ev_result_ev_per_gen_sd[,2:ncol(tbl_ev_result_ev_per_gen_sd)])
+mat_ev_per_gen_sd
+(vec_abs_sum_ev <- apply(abs(mat_ev_per_gen_sd), 2, sum))
+(vec_inv_abs_sum_ev <- 1/vec_abs_sum_ev)
+(mat_inv_abs_sum_ev <- matrix(vec_inv_abs_sum_ev, nrow = nrow(mat_ev_per_gen_sd), ncol = ncol(mat_ev_per_gen_sd), byrow = TRUE))
+(mat_factors_ev <- mat_ev_per_gen_sd * mat_inv_abs_sum_ev)
+apply(abs(mat_factors_ev), 2, sum)
+```
+
+
 ## Writing Output To A File
 The economic values that have been computed so far are collected into a dataframe and are written to a csv-formatted file. 
 
