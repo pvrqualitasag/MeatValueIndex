@@ -597,6 +597,43 @@ n_sd_cwc_mo <- 0.15 * n_scale_fact_cwc
 
 ```
 
+## Overview of the population situation
+```{r, eval=TRUE, echo=FALSE, results="asis"}
+tbl_population_mean <- tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
+                                    OB = c(n_mean_cca_ob,
+                                           n_mean_ccc_ob,
+                                           n_mean_cfa_ob,
+                                           n_mean_cfc_ob,
+                                           n_mean_cwa_ob,
+                                           n_mean_cwc_ob),
+                                    BV = c(n_mean_cca_bv,
+                                           n_mean_ccc_bv,
+                                           n_mean_cfa_bv,
+                                           n_mean_cfc_bv,
+                                           n_mean_cwa_bv,
+                                           n_mean_cwc_bv),
+                                    SI = c(n_mean_cca_si,
+                                           n_mean_ccc_si,
+                                           n_mean_cfa_si,
+                                           n_mean_cfc_si,
+                                           n_mean_cwa_si,
+                                           n_mean_cwc_si),
+                                    SF = c(n_mean_cca_sf,
+                                           n_mean_ccc_sf,
+                                           n_mean_cfa_sf,
+                                           n_mean_cfc_sf,
+                                           n_mean_cwa_sf,
+                                           n_mean_cwc_sf),
+                                    MO = c(n_mean_cca_mo,
+                                           n_mean_ccc_mo,
+                                           n_mean_cfa_mo,
+                                           n_mean_cfc_mo,
+                                           n_mean_cwa_mo,
+                                           n_mean_cwc_mo))
+
+knitr::kable(tbl_population_mean,booktabs = TRUE)
+```
+
 
 ## Presenting Output In A Table
 The computed economic values are shown in the following table.
