@@ -603,6 +603,13 @@ The computed economic values are shown in the following table.
 
 ```{r, eval=FALSE}
 tbl_ev_result <- tibble::data_frame(Traits <- c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
+                                    OB <- c(ev_cca_ob$ev_per_trait_unit, 
+                                            ev_ccc_ob$ev_per_trait_unit, 
+                                            ev_cfa_ob$ev_per_trait_unit, 
+                                            ev_cfc_ob$ev_per_trait_unit, 
+                                            ev_cwa_ob$ev_per_trait_unit, 
+                                            ev_cwc_ob$ev_per_trait_unit),
+                                    
                                     MO <- c( $ev_per_trait_unit,
                                             ev_ccc))
 ```
