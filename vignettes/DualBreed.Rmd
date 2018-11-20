@@ -679,6 +679,11 @@ knitr::kable(tbl_ev_result_ev_per_gen_sd,booktabs = TRUE)
 ## Writing Output To A File
 The economic values that have been computed so far are collected into a dataframe and are written to a csv-formatted file. 
 
+
+
+
+Manual conversion 
+
 ```{r}
 vec_breed <- c("OB", "BV", "SI", "SF", "MO")
 # vec_basis <- c("unit", "gen_sd")
@@ -687,7 +692,24 @@ vec_trait <- c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")
 n_nr_breed <- length(vec_breed)
 n_nr_basis <- length(vec_basis)
 n_nr_trait <- length(vec_trait)
-tbl_ev_input <- tibble::data_frame(Trait <- rep(vec_trait, n_nr_basis * n_nr_breed))
+
+tbl_ev_input <- NULL
+ for (b in vec_breed){
+# b <- vec_breed[2]
+  ### # put together 
+  if (is.null(tbl_ev_input)){
+    tbl_ev_input <- tibble::data_frame(Trait = vec_trait,
+                                       Breed = rep(b, length(n_nr_trait)),
+                                       Ev    = tbl_ev_result_ev_per_gen_sd[[b]])
+  } else {
+    tbl_ev_current <- tibble::data_frame(Trait = vec_trait,
+                                       Breed = rep(b, length(n_nr_trait)),
+                                       Ev    = tbl_ev_result_ev_per_gen_sd[[b]])
+    tbl_ev_input <- rbind(tbl_ev_input, tbl_ev_current)
+  }
+    
+}
+readr::write_csv(tbl_ev_input, path = "ev_meat_input.csv")
 ```
 
 
