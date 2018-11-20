@@ -231,7 +231,7 @@ n_sd_cfa_ob <- 0.58
 vec_count_cfa_ob <- c(161,889,4429,448,21)
 vec_freq_cfa_ob <- vec_count_cfa_ob / sum(vec_count_cfa_ob)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_ob,
+(ev_cfa_ob<- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_ob,
                         pn_sd = n_sd_cfa_ob,
                         pvec_class_freq = vec_freq_cfa_ob,
                         pvec_threshold = NULL,
@@ -248,7 +248,7 @@ n_sd_cfa_bv <- 0.6
 vec_count_cfa_bv <- c(1704,9941,41215,4167,214)
 vec_freq_cfa_bv <- vec_count_cfa_bv / sum(vec_count_cfa_bv)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_bv,
+(ev_cfa_bv <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_bv,
                         pn_sd = n_sd_cfa_bv,
                         pvec_class_freq = vec_freq_cfa_bv,
                         pvec_threshold = NULL,
@@ -265,7 +265,7 @@ n_sd_cfa_si <- 0.55
 vec_count_cfa_si <- c(1259,10942,41326,3004,72)
 vec_freq_cfa_si <- vec_count_cfa_si / sum(vec_count_cfa_si)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_si,
+(ev_cfa_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_si,
                         pn_sd = n_sd_cfa_si,
                         pvec_class_freq = vec_freq_cfa_si,
                         pvec_threshold = NULL,
@@ -282,7 +282,7 @@ n_sd_cfa_sf <- 0.55
 vec_count_cfa_sf <- c(787,5694,27214,2442,79)
 vec_freq_cfa_sf <- vec_count_cfa_sf / sum(vec_count_cfa_sf)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_sf,
+(ev_cfa_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_sf,
                         pn_sd = n_sd_cfa_sf,
                         pvec_class_freq = vec_freq_cfa_sf,
                         pvec_threshold = NULL,
@@ -299,7 +299,7 @@ n_sd_cfa_mo <- 0.6
 vec_count_cfa_mo <- c(373,2721,6420,280,4)
 vec_freq_cfa_mo <- vec_count_cfa_mo / sum(vec_count_cfa_mo)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_mo,
+(ev_cfa_mo <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_mo,
                         pn_sd = n_sd_cfa_mo,
                         pvec_class_freq = vec_freq_cfa_mo,
                         pvec_threshold = NULL,
@@ -328,7 +328,7 @@ n_sd_cfc_ob <- 0.69
 vec_count_cfc_ob <- c(632,2671,5379,471,3)
 vec_freq_cfc_ob <- vec_count_cfc_ob / sum(vec_count_cfc_ob)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_ob,
+(ev_cfc_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_ob,
                         pn_sd = n_sd_cfc_ob,
                         pvec_class_freq = vec_freq_cfc_ob,
                         pvec_threshold = NULL,
@@ -345,7 +345,7 @@ n_sd_cfc_bv <- 0.67
 vec_count_cfc_bv <- c(12790,52626,133521,11316,44)
 vec_freq_cfc_bv <- vec_count_cfc_bv / sum(vec_count_cfc_bv)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_bv,
+(ev_cfc_bv <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_bv,
                         pn_sd = n_sd_cfc_bv,
                         pvec_class_freq = vec_freq_cfc_bv,
                         pvec_threshold = NULL,
@@ -362,7 +362,7 @@ n_sd_cfc_si <- 0.7
 vec_count_cfc_si <- c(691,2522,5974,578,2)
 vec_freq_cfc_si <- vec_count_cfc_si / sum(vec_count_cfc_si)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_si,
+(ev_cfc_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_si,
                         pn_sd = n_sd_cfc_si,
                         pvec_class_freq = vec_freq_cfc_si,
                         pvec_threshold = NULL,
@@ -379,7 +379,7 @@ n_sd_cfc_sf <- 0.65
 vec_count_cfc_sf <- c(2475,11464,35025,3602,19)
 vec_freq_cfc_sf <- vec_count_cfc_sf / sum(vec_count_cfc_sf)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_sf,
+(ev_cfc_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_sf,
                         pn_sd = n_sd_cfc_sf,
                         pvec_class_freq = vec_freq_cfc_sf,
                         pvec_threshold = NULL,
@@ -396,7 +396,7 @@ n_sd_cfc_mo <- 0.67
 vec_count_cfc_mo <- c(191,676,1675,96,0)
 vec_freq_cfc_mo <- vec_count_cfc_mo / sum(vec_count_cfc_mo)
 
-(MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_mo,
+(ev_cfc_mo <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_mo,
                         pn_sd = n_sd_cfc_mo,
                         pvec_class_freq = vec_freq_cfc_mo,
                         pvec_threshold = NULL,
