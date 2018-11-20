@@ -12,6 +12,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #Economic value for dual breed
 
+## Genetic Standard Deviations
+Economic values can also be given in terms of a change of one genetic standard deviation. The used estimates for this parameter are
+
+```{r}
+l_gen_sd <- list(CCc = 0.6336,
+                 CCa = 0.6335,
+                 CFc = 0.3474,
+                 CFa = 0.3609,
+                 CWc = 0.0557,
+                 CWa = 0.1395)
+```
+
+
 ##Carcass conformation adults (CCa)
 ```{r}
 ### # prices
@@ -32,6 +45,7 @@ vec_freq_cca_ob <- vec_count_cca_ob / sum(vec_count_cca_ob)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cca,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCa,
                         pb_verbose = TRUE))
 ```
 
@@ -48,6 +62,7 @@ vec_freq_cca_bv <- vec_count_cca_bv / sum(vec_count_cca_bv)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cca,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCa,
                         pb_verbose = TRUE))
 ```
 
@@ -64,6 +79,7 @@ vec_freq_cca_si <- vec_count_cca_si / sum(vec_count_cca_si)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cca,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCa,
                         pb_verbose = TRUE))
 ```
 
@@ -80,6 +96,7 @@ vec_freq_cca_sf <- vec_count_cca_sf / sum(vec_count_cca_sf)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cca,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCa,
                         pb_verbose = TRUE))
 ```
 
@@ -96,6 +113,7 @@ vec_freq_cca_mo <- vec_count_cca_mo / sum(vec_count_cca_mo)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cca,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCa,
                         pb_verbose = TRUE))
 ```
 
@@ -122,6 +140,7 @@ vec_freq_ccc_ob <- vec_count_ccc_ob / sum(vec_count_ccc_ob)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_ccc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCc,
                         pb_verbose = TRUE))
 ```
 
@@ -138,6 +157,7 @@ vec_freq_ccc_bv <- vec_count_ccc_bv / sum(vec_count_ccc_bv)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_ccc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCc,
                         pb_verbose = TRUE))
 ```
 
@@ -154,6 +174,7 @@ vec_freq_ccc_si <- vec_count_ccc_si / sum(vec_count_ccc_si)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_ccc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCc,
                         pb_verbose = TRUE))
 ```
 
@@ -170,6 +191,7 @@ vec_freq_ccc_sf <- vec_count_ccc_sf / sum(vec_count_ccc_sf)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_ccc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCc,
                         pb_verbose = TRUE))
 ```
 
@@ -186,6 +208,7 @@ vec_freq_ccc_mo <- vec_count_ccc_mo / sum(vec_count_ccc_mo)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_ccc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CCc,
                         pb_verbose = TRUE))
 ```
 
@@ -214,6 +237,7 @@ vec_freq_cfa_ob <- vec_count_cfa_ob / sum(vec_count_cfa_ob)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfa,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFa,
                         pb_verbose = TRUE))
 ```
 
@@ -230,6 +254,7 @@ vec_freq_cfa_bv <- vec_count_cfa_bv / sum(vec_count_cfa_bv)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfa,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFa,
                         pb_verbose = TRUE))
 ```
 
@@ -246,6 +271,7 @@ vec_freq_cfa_si <- vec_count_cfa_si / sum(vec_count_cfa_si)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfa,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFa,
                         pb_verbose = TRUE))
 ```
 
@@ -262,6 +288,7 @@ vec_freq_cfa_sf <- vec_count_cfa_sf / sum(vec_count_cfa_sf)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfa,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFa,
                         pb_verbose = TRUE))
 ```
 
@@ -278,6 +305,7 @@ vec_freq_cfa_mo <- vec_count_cfa_mo / sum(vec_count_cfa_mo)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfa,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFa,
                         pb_verbose = TRUE))
 ```
 
@@ -306,6 +334,7 @@ vec_freq_cfc_ob <- vec_count_cfc_ob / sum(vec_count_cfc_ob)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFc,
                         pb_verbose = TRUE))
 ```
 
@@ -322,6 +351,7 @@ vec_freq_cfc_bv <- vec_count_cfc_bv / sum(vec_count_cfc_bv)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFc,
                         pb_verbose = TRUE))
 ```
 
@@ -338,6 +368,7 @@ vec_freq_cfc_si <- vec_count_cfc_si / sum(vec_count_cfc_si)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFc,
                         pb_verbose = TRUE))
 ```
 
@@ -354,6 +385,7 @@ vec_freq_cfc_sf <- vec_count_cfc_sf / sum(vec_count_cfc_sf)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFc,
                         pb_verbose = TRUE))
 ```
 
@@ -370,6 +402,7 @@ vec_freq_cfc_mo <- vec_count_cfc_mo / sum(vec_count_cfc_mo)
                         pvec_threshold = NULL,
                         pvec_price = vec_price_cfc,
                         pn_delta_mean = .1,
+                        pn_gen_sd = l_gen_sd$CFc,
                         pb_verbose = TRUE))
 ```
 
@@ -412,6 +445,7 @@ n_sd_cwa_ob <- 0.41 * n_scale_fact_cwa
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwa,
                         pvec_price = vec_price_cwa,
+                        pn_gen_sd = l_gen_sd$CWa * n_scale_fact_cwa,
                         pn_delta_mean = .01 * n_scale_fact_cwa))
 
 ```
@@ -426,6 +460,7 @@ n_sd_cwa_bv <- 0.36 * n_scale_fact_cwa
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwa,
                         pvec_price = vec_price_cwa,
+                        pn_gen_sd = l_gen_sd$CWa * n_scale_fact_cwa,
                         pn_delta_mean = .01 * n_scale_fact_cwa))
 
 ```
@@ -441,6 +476,7 @@ n_sd_cwa_si <- 0.42 * n_scale_fact_cwa
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwa,
                         pvec_price = vec_price_cwa,
+                        pn_gen_sd = l_gen_sd$CWa * n_scale_fact_cwa,
                         pn_delta_mean = .01 * n_scale_fact_cwa))
 
 ```
@@ -455,6 +491,7 @@ n_sd_cwa_sf <- 0.32 * n_scale_fact_cwa
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwa,
                         pvec_price = vec_price_cwa,
+                        pn_gen_sd = l_gen_sd$CWa * n_scale_fact_cwa,
                         pn_delta_mean = .01 * n_scale_fact_cwa))
 
 ```
@@ -469,6 +506,7 @@ n_sd_cwa_mo <- 0.25 * n_scale_fact_cwa
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwa,
                         pvec_price = vec_price_cwa,
+                        pn_gen_sd = l_gen_sd$CWa * n_scale_fact_cwa,
                         pn_delta_mean = .01 * n_scale_fact_cwa))
 
 ```
@@ -477,37 +515,38 @@ n_sd_cwa_mo <- 0.25 * n_scale_fact_cwa
 
 ##Carcass weight calves (CWc)
 ```{r}
- n_scale_fact_cwc <- 100
-vec_price_cwc <- c(0.0,
--0.1)
-vec_thre_cwc <- 1.4 * n_scale_fact_cwc
-
+n_scale_fact_cwc <- 100
+vec_price_cwc <- seq(0.0,-1.1,-0.1);vec_price_cwc
+vec_thre_cwc <- seq(1.4, 1.5, 0.01) * n_scale_fact_cwc
+vec_thre_cwc
 ```
 
 ### OB
 ```{r}
-n_mean_cwc_ob <- 1.25 * n_scale_fact_cwa
-n_sd_cwc_ob <- 0.13 * n_scale_fact_cwa
+n_mean_cwc_ob <- 1.25 * n_scale_fact_cwc
+n_sd_cwc_ob <- 0.13 * n_scale_fact_cwc
 
 (ev_cwc_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_ob,
                         pn_sd = n_sd_cwc_ob,
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwc,
                         pvec_price = vec_price_cwc,
+                        pn_gen_sd = l_gen_sd$CWc * n_scale_fact_cwc,
                         pn_delta_mean = .01 * n_scale_fact_cwc))
 
 ```
 
 ### BV
 ```{r}
-n_mean_cwc_bv <- 1.26 * n_scale_fact_cwa
-n_sd_cwc_bv <- 0.14 * n_scale_fact_cwa
+n_mean_cwc_bv <- 1.26 * n_scale_fact_cwc
+n_sd_cwc_bv <- 0.14 * n_scale_fact_cwc
 
 (ev_cwc_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_bv,
                         pn_sd = n_sd_cwc_bv,
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwc,
                         pvec_price = vec_price_cwc,
+                        pn_gen_sd = l_gen_sd$CWc * n_scale_fact_cwc,
                         pn_delta_mean = .01 * n_scale_fact_cwc))
 
 ```
@@ -523,6 +562,7 @@ n_sd_cwc_si <- 0.13 * n_scale_fact_cwc
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwc,
                         pvec_price = vec_price_cwc,
+                        pn_gen_sd = l_gen_sd$CWc * n_scale_fact_cwc,
                         pn_delta_mean = .01 * n_scale_fact_cwc))
 
 ```
@@ -537,6 +577,7 @@ n_sd_cwc_sf <- 0.13 * n_scale_fact_cwc
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwc,
                         pvec_price = vec_price_cwc,
+                        pn_gen_sd = l_gen_sd$CWc * n_scale_fact_cwc,
                         pn_delta_mean = .01 * n_scale_fact_cwc))
 
 ```
@@ -551,6 +592,7 @@ n_sd_cwc_mo <- 0.15 * n_scale_fact_cwc
                         pvec_class_freq = NULL,
                         pvec_threshold = vec_thre_cwc,
                         pvec_price = vec_price_cwc,
+                        pn_gen_sd = l_gen_sd$CWc * n_scale_fact_cwc,
                         pn_delta_mean = .01 * n_scale_fact_cwc))
 
 ```

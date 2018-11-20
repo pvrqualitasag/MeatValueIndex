@@ -5,7 +5,7 @@
 \title{Compute economic value based on price change for discrete trait}
 \usage{
 compute_ev_price_disc(pn_mean, pn_sd, pvec_class_freq, pvec_threshold,
-  pvec_price, pn_delta_mean, pb_verbose = FALSE)
+  pvec_price, pn_delta_mean, pn_gen_sd, pb_verbose = FALSE)
 }
 \arguments{
 \item{pn_mean}{empirical population mean}
@@ -20,10 +20,12 @@ compute_ev_price_disc(pn_mean, pn_sd, pvec_class_freq, pvec_threshold,
 
 \item{pn_delta_mean}{small change of population mean}
 
-\item{pb_verbose}{verbosity flag}
+\item{pn_gen_sd}{genetic standard deviation of trait}
+
+\item{pb_verbose}{level of output verbosity}
 }
 \value{
-ev_result
+ev_result      list of two economic values, per unit trait and per genetic sd, if pn_gen_sd is given
 }
 \description{
 Economic value is computed based on price change between base distribution

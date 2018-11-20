@@ -1,0 +1,24 @@
+---
+title: "Intermediate Strategy To Adapt Meat Indices"
+author: "Sophie Kunz and Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{"Intermediate Strategy To Adapt Meat Indices"}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Disclaimer
+This vignette contains the changes required due to results of our preparatory discussion with Urs Schnyder. The aim of the discussion was to prepare the presentation for our client breeding organisations. 
+
+
+## Conclusions
