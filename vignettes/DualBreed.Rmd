@@ -598,3 +598,13 @@ n_sd_cwc_mo <- 0.15 * n_scale_fact_cwc
 ```
 
 
+## Presenting Output In A Table
+The computed economic values are shown in the following table.
+
+```{r, eval=FALSE}
+tbl_ev_result <- tibble::data_frame()
+```
+
+## Writing Output To A File
+The economic values that have been computed so far are collected into an dataframe and are written to a csv-formatted file. 
+
