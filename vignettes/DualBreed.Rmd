@@ -713,16 +713,29 @@ knitr::kable(tbl_ev_result_ev_per_gen_sd,booktabs = TRUE)
 ```
 
 
-## Computing Factors
+## Computing Relative Economic Factors
+Relative economic factors are defined as the ratio of each economic value on the basis of one genetic standard deviation to the sum of all economic values in a given breed. The principle of how the relative economic factors are computed is shown in the chunk below. 
 
 ```{r}
+# convert the tibble with economic values on the basis of one genotypic standard deviation to a matrix
 mat_ev_per_gen_sd <- as.matrix(tbl_ev_result_ev_per_gen_sd[,2:ncol(tbl_ev_result_ev_per_gen_sd)])
-mat_ev_per_gen_sd
-(vec_abs_sum_ev <- apply(abs(mat_ev_per_gen_sd), 2, sum))
-(vec_inv_abs_sum_ev <- 1/vec_abs_sum_ev)
-(mat_inv_abs_sum_ev <- matrix(vec_inv_abs_sum_ev, nrow = nrow(mat_ev_per_gen_sd), ncol = ncol(mat_ev_per_gen_sd), byrow = TRUE))
+# compute sum of economic values within each breed
+vec_abs_sum_ev <- apply(abs(mat_ev_per_gen_sd), 2, sum)
+# inverse of sum
+vec_inv_abs_sum_ev <- 1/vec_abs_sum_ev
+# extend inverse factors into a matrix
+mat_inv_abs_sum_ev <- matrix(vec_inv_abs_sum_ev, nrow = nrow(mat_ev_per_gen_sd), ncol = ncol(mat_ev_per_gen_sd), byrow = TRUE)
+# element-wise multiplication of matrix of economic values and matrix of inverse sums to get ratios
 (mat_factors_ev <- mat_ev_per_gen_sd * mat_inv_abs_sum_ev)
+# check
 apply(abs(mat_factors_ev), 2, sum)
+```
+
+The whole computation is now done in a function called `get_relative_economic_factors()`. This function takes as input the tibble of all economic values.
+
+```{r}
+# testing function get_relative_economic _factors
+
 ```
 
 
