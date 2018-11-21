@@ -739,6 +739,24 @@ The whole computation is now done in a function called `get_relative_economic_fa
 ```
 
 
+## Importance of calves versus adults for each population
+```{r, eval=TRUE, echo=FALSE, results="asis"}
+tbl_number_calves_adults <- tibble::data_frame(Categories = c("adults", "calves"),
+                                    OB = c(5948,
+                                           9156),
+                                    BV = c(57241, 
+                                          210297),
+                                    SI = c(56603, 
+                                           9767),
+                                    SF = c(36216, 
+                                           52585),
+                                    MO = c(9798, 
+                                           2638))
+
+knitr::kable(tbl_number_calves_adults,booktabs = TRUE)
+```
+
+
 ## Writing Output To A File
 The economic values that have been computed so far are collected into a dataframe and are written to a csv-formatted file. 
 
