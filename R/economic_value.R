@@ -29,7 +29,7 @@
 #' @param pb_verbose      level of output verbosity
 #'
 #' @return ev_result      list of two economic values, per unit trait and per genetic sd, if pn_gen_sd is given
-#' @export
+#' @export compute_economic_value
 compute_economic_value <- function(pn_mean,
                                    pn_sd,
                                    pvec_class_freq = NULL,
@@ -221,4 +221,50 @@ compute_ev_price_cont <- function( pn_mean,
 
 
   return(ev_result)
+}
+
+
+## --- Conversion Functions ----------------------------------------------------
+#' @title Relative Economic Factors From Economic Values
+#'
+#' @description
+#' Given a tibble with economic values per genetic standard deviation in
+#' parameter ptbl_economic_value, the relative weight of each economic
+#' value with respect to the total sum of all economic values is computed.
+#'
+#' @param ptbl_economic_value tibble with economic values
+#' @param pb_first_row_trait_name   flag indicating wether first column are trait names
+#' @return tbl_rel_fact tibble with relative factors
+#' @export get_relative_economic_factors
+get_relative_economic_factors <- function(ptbl_economic_value,
+                                          pb_first_row_trait_name = FALSE){
+
+  ### # if pb_first_row_trait_name then remove the first column from ptbl_economic_value
+  if (pb_first_row_trait_name){
+    mat_economic_value <- as.matrix(ptbl_economic_value[,2:ncol(ptbl_economic_value)])
+  } else {
+    mat_economic_value <- as.matrix(ptbl_economic_value)
+  }
+
+  ### # compute vector of column sums of absolute values of mat_economic_value
+  vec_sum_abs_ev <- apply(abs(mat_economic_value), 2, sum)
+  ### # extend vector of absolute sums to a matrix
+  mat_abs_sum_ev <- matrix(vec_sum_abs_ev, nrow = nrow(mat_economic_value), ncol = ncol(mat_economic_value), byrow = TRUE)
+  ### # compute matrix of relative factors
+  mat_rel_fact <- mat_economic_value / mat_abs_sum_ev
+
+  ### # check
+  # all.equal(sum(apply(abs(mat_factors_ev), 2, sum)),ncol(mat_factors_ev))
+  if (! all.equal(sum(apply(abs(mat_rel_fact), 2, sum)), ncol(mat_rel_fact)))
+    stop("[ERROR -- get_relative_economic_factors] Sum of relative factors is not 1")
+
+  ### # conversion to tibble
+  tbl_rel_fact <- tibble::as_tibble(mat_rel_fact)
+  ### # adding first row, if needed
+  if (pb_first_row_trait_name){
+    tbl_rel_fact <- cbind(ptbl_economic_value[,1], tbl_rel_fact)
+  }
+
+  ### # return
+  return(tbl_rel_fact)
 }
