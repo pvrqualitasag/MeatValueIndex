@@ -747,7 +747,6 @@ str(tbl_ev_result_ev_per_gen_sd[,1])
 ### # compute factors with function
 tbl_rel_factors <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd,
                                                  pb_first_row_trait_name = TRUE)
-
 knitr::kable(tbl_rel_factors, booktabs = TRUE)
 ```
 
@@ -799,16 +798,58 @@ Some population are more used by adults than by calves, or vice versa. Therefore
 tbl_proportion <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_number_calves_adults,
                                                                       pb_first_row_trait_name = TRUE)
 knitr::kable(tbl_proportion, booktabs = TRUE)
-
 ```
 
+### Determine Relative Factors Based on Given Restrictions
+
+```{r}
+library(dplyr)
+# tbl_rel_fact %>% filter(Traits == "ccc") %>% select(OB, BV, SI, SF, MO)
+# tbl_rel_fact %>% filter(Traits == "cca") %>% select(OB, BV, SI, SF, MO)
+tbl_beta <- tbl_rel_fact %>% 
+  filter(Traits == "ccc") %>% 
+  select(OB, BV, SI, SF, MO) / 
+  tbl_rel_fact %>% 
+  filter(Traits == "cca") %>% 
+  select(OB, BV, SI, SF, MO)
+tbl_alphaa <- tbl_rel_fact %>% 
+  filter(Traits == "cfa") %>% 
+  select(OB, BV, SI, SF, MO) / 
+  tbl_rel_fact %>% 
+  filter(Traits == "cca") %>% 
+  select(OB, BV, SI, SF, MO)
+tbl_alphac <- tbl_rel_fact %>% 
+  filter(Traits == "cfc") %>% 
+  select(OB, BV, SI, SF, MO) / 
+  tbl_rel_fact %>% 
+  filter(Traits == "ccc") %>% 
+  select(OB, BV, SI, SF, MO)
+tbl_scale_factor <- rbind(tbl_beta, tbl_alphaa, tbl_alphac)
+rownames(tbl_scale_factor) <- c("beta", "alphaa", "alphac")
+tbl_scale_factor
+```
+
+Using the scale factors to compute the weights
+
+```{r}
+cca_new <- 1/(2 + 2*tbl_scale_factor["beta",] + tbl_scale_factor["alphaa",] + tbl_scale_factor["alphac",]*tbl_scale_factor["beta",])
+cwa_new <- cca_new
+ccc_new <- tbl_scale_factor["beta",] * cca_new
+cwc_new <- ccc_new
+cfa_new <- cca_new * tbl_scale_factor["alphaa",]
+cfc_new <- ccc_new * tbl_scale_factor["alphac",]
+
+tbl_fact_new <- rbind(cca_new, ccc_new, cfa_new, cfc_new, cwa_new, cwc_new)
+rownames(tbl_fact_new) <- c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")
+
+tbl_fact_new
 ```
 
 
 ## Writing Output To A File
 The economic values that have been computed so far are collected into a dataframe and are written to a csv-formatted file. 
 
-Manual conversion 
+Manual conversion and experiments are shown below.
 
 ```{r}
 vec_breed <- c("OB", "BV", "SI", "SF", "MO")
@@ -838,4 +879,28 @@ tbl_ev_input <- NULL
 readr::write_csv(tbl_ev_input, path = "ev_meat_input.csv")
 ```
 
+
+### Use the function `write_ev_to_file()`
+A good initial test is to write the same tibble as with the manual conversion.
+
+```{r}
+MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd,
+ps_out_path = "economic_value_raw.csv",
+pbfirst_col_trait_name = TRUE)
+```
+
+As a next set, we are using the relative economic factors
+
+```{r}
+MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_rel_factors,
+                                 ps_out_path = "economic_value_relative.csv",
+                                 pbfirst_col_trait_name = TRUE)
+```
+
+The third set consist of the creative political values not weighted for animal classes
+
+```{r}
+MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_fact_new, 
+                                 ps_out_path = "political_unweighted.csv")
+```
 

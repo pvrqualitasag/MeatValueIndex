@@ -268,3 +268,60 @@ get_relative_economic_factors <- function(ptbl_economic_value,
   ### # return
   return(tbl_rel_fact)
 }
+
+
+## --- Output functions --------------------------------------------------------
+#' @title Write Economic Values To File
+#'
+#' @description
+#' Write a given tibble of economic values in a tidy format
+#' to a csv output file.
+#'
+#' @param ptbl_economic_value      tibble with economic values
+#' @param ps_out_path              file name to write results to
+#' @param pbfirst_col_trait_name   does first column contain trait names
+#' @export write_ev_to_file
+write_ev_to_file <- function(ptbl_economic_value,
+                             ps_out_path,
+                             pbfirst_col_trait_name = FALSE){
+
+  vec_trait <- NULL
+  ### # remove column names if needed
+  tbl_economic_value <- ptbl_economic_value
+  if (pbfirst_col_trait_name){
+    vec_trait <- tbl_economic_value[,1][[1]]
+    tbl_economic_value <- tbl_economic_value[, 2:ncol(tbl_economic_value)]
+  } else {
+    vec_trait <- rownames(tbl_economic_value)
+  }
+  ### # check that traits exist
+  if (is.null(vec_trait))
+    stop("[ERROR -- write_ev_to_file] Cannot find trait names in ptbl_economic_value")
+
+  ### # determine breeds
+  vec_breed <- colnames(tbl_economic_value)
+  ### # determine number of traits
+  n_nr_trait <- length(vec_trait)
+
+  ### # accumulate results
+  tbl_ev_result <- NULL
+  ### # loob over breeds
+  for (b in vec_breed){
+    ### # first round, just take first column
+    if (is.null(tbl_ev_result)){
+      tbl_ev_result <- tibble::data_frame(Trait = vec_trait,
+                                          Breed = rep(b, n_nr_trait),
+                                          Ev    = tbl_economic_value[[b]])
+    } else {
+      tbl_ev_current <- tibble::data_frame(Trait = vec_trait,
+                                           Breed = rep(b, n_nr_trait),
+                                           Ev    = tbl_economic_value[[b]])
+      tbl_ev_result <- rbind(tbl_ev_result, tbl_ev_current)
+    }
+  }
+
+  ### # write output to file
+  readr::write_csv(tbl_ev_result, path = ps_out_path)
+
+  return(invisible(TRUE))
+}
