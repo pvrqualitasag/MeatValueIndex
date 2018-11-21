@@ -791,6 +791,7 @@ tbl_number_calves_adults <- tibble::data_frame(Categories = c("adults", "calves"
 knitr::kable(tbl_number_calves_adults,booktabs = TRUE)
 ```
 
+From this 
 
 ## Writing Output To A File
 The economic values that have been computed so far are collected into a dataframe and are written to a csv-formatted file. 
