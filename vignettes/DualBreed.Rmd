@@ -751,7 +751,28 @@ tbl_rel_factors <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_v
 knitr::kable(tbl_rel_factors, booktabs = TRUE)
 ```
 
-Computing the factors for different animal categories separately
+Computing the factors for different animal categories separately can be done with two separate function calls. We start with the category "addults"
+
+```{r}
+### # adults
+vec_row_idx_adult <- c(1,3,5)
+tbl_rel_factors_adult <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd[vec_row_idx_adult,],
+                                                 pb_first_row_trait_name = TRUE)
+knitr::kable(tbl_rel_factors_adult, booktabs = TRUE)
+```
+
+The same is done for the category "calves"
+
+```{r}
+### # adults
+vec_row_idx_calves <- c(2,4,6)
+tbl_rel_factors_calves <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd[vec_row_idx_calves,],
+                                                 pb_first_row_trait_name = TRUE)
+knitr::kable(tbl_rel_factors_calves, booktabs = TRUE)
+```
+
+
+
 
 ## Importance of calves versus adults for each population
 ```{r, eval=TRUE, echo=FALSE, results="asis"}
