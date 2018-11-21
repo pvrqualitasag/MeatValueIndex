@@ -791,12 +791,26 @@ tbl_number_calves_adults <- tibble::data_frame(Categories = c("adults", "calves"
 knitr::kable(tbl_number_calves_adults,booktabs = TRUE)
 ```
 
+## Economic value weighted by categories
+Some population are more used by adults than by calves, or vice versa. Therefore the economie value should be weighted by category (calves or adults).
+
+```{r}
+## convert the tibble with economic values on the basis of one genotypic standard deviation to a #matrix
+(mat_nb_a_c <- as.matrix(tbl_number_calves_adults[,2:ncol(tbl_number_calves_adults)]))
+
+## compute sum of category numbers within each breed
+(vec_nb <- apply(abs(mat_nb_a_c), 2, sum))
+
+(mat_nb_a_c <- rbind(mat_nb_a_c, vec_nb))
+
+
+```
+
+```
+
 
 ## Writing Output To A File
 The economic values that have been computed so far are collected into a dataframe and are written to a csv-formatted file. 
-
-
-
 
 Manual conversion 
 
