@@ -745,14 +745,13 @@ str(tbl_ev_result_ev_per_gen_sd[,1])
 # TODO tbd: find automatic method to determine class of first column of tbl_ev_result_ev_per_gen_sd
 
 ### # compute factors with function
-tbl_rel_factors <- get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd,
+tbl_rel_factors <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd,
                                                  pb_first_row_trait_name = TRUE)
 
-tbl_rel_factors
-
+knitr::kable(tbl_rel_factors, booktabs = TRUE)
 ```
 
-
+Computing the factors for different animal categories separately
 
 ## Importance of calves versus adults for each population
 ```{r, eval=TRUE, echo=FALSE, results="asis"}
