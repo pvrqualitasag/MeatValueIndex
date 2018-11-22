@@ -55,6 +55,61 @@ library(dplyr)
 tbl_bv_ev <- tbl_bv %>% inner_join(tbl_ev_factors, by = c("trait" = "Trait", "breed" = "Breed")) %>% select(-c(pubCode,base))
 tbl_bv_ev <- tbl_bv_ev %>% mutate(index=estimate*Ev)
 tbl_index <- tbl_bv_ev %>% group_by(idaTvd) %>% summarise(IndexSum = sum(index))
+tbl_index
+```
 
+
+## Writing Indices to a file
+
+```{r}
+readr::write_csv(tbl_index, path = "index_slaughter_traits.csv")
+```
+
+
+## Computing Correlations
+
+Correlations between index values and breeding values of single traits are computed as follows
+
+```{r}
+s_trait_name <- "ccc"
+tbl_bv_ccc_sf <- tbl_bv %>% 
+  filter(trait == s_trait_name & breed == "SF") %>%
+  select(idaTvd, estimate) %>%
+  inner_join(tbl_index, by = c("idaTvd" = "idaTvd"))
+tbl_bv_ccc_sf
+```
+
+```{r}
+cor(tbl_bv_ccc_sf$IndexSum, tbl_bv_ccc_sf$estimate)
+```
+
+
+```{r}
+tbl_cor_result <- tibble::data_frame(Trait = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
+                                     OB = c(rep(NA, 6)),
+                                     BV = c(rep(NA, 6)),
+                                     SI = c(rep(NA, 6)),
+                                     SF = c(rep(NA, 6)),
+                                     MO = c(rep(NA, 6)))
+        
+tbl_cor_result
+tbl_cor_result[2,3] <- 0.24
+tbl_cor_result
+
+vec_breed <- colnames(tbl_cor_result)
+vec_trait <- tbl_cor_result[,1][[1]]
+for (bidx in 2:ncol(tbl_cor_result)){
+  b <- vec_breed[bidx]
+  cat("Computation for breed: ", b, "\n")
+  for (tidx in seq_along(vec_trait)){
+    t <- vec_trait[tidx]
+    cat("Use trait: ", t, "\n")
+    tbl_cor_result[tidx, bidx] <- MeatValueIndex::compute_correlation(ptbl_bv = tbl_bv,
+                                                                      ptbl_index = tbl_index,
+                                                                      ps_breed = b,
+                                                                      ps_trait = t)
+  }
+}
+tbl_cor_result
 ```
 

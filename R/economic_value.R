@@ -379,3 +379,36 @@ write_ev_to_file <- function(ptbl_economic_value,
 
   return(invisible(TRUE))
 }
+
+
+## --- Evaluation of Results
+#' @title Compute correlation between index value and single trait
+#'
+#' @description
+#' Given a tibble of index values and a tibble of breeding values,
+#' a trait name and a breed name, we select all breeding values for
+#' the given trait and the given breed and compute the correlation
+#' to the indices of the same animals
+#'
+#' @param ptbl_bv   tibble with breeding values
+#' @param ptbl_index   tibble with index
+#' @param ps_breed     breed
+#' @param ps_trait     trait
+#' @return correlation between index and breeding values of single trait
+#' @export compute_correlation
+compute_correlation <- function(ptbl_bv,
+                                ptbl_index,
+                                ps_breed,
+                                ps_trait){
+  ### # select breeding values for given trait and
+  ### #  given breed and join those back to index values
+  ### #  for the selected set of animals
+  tbl_bv_result <- ptbl_bv %>%
+    filter(trait == ps_trait & breed == ps_breed) %>%
+    select(idaTvd, estimate) %>%
+    inner_join(ptbl_index, by = c("idaTvd" = "idaTvd"))
+
+  ### # return correlation between index and breeding values
+  return(cor(tbl_bv_result$IndexSum, tbl_bv_result$estimate))
+
+}

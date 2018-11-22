@@ -1,0 +1,27 @@
+---
+title: "Breeding Organisations"
+author: "Peter von Rohr"
+date: "11/22/2018"
+output:
+  beamer_presentation:
+    includes:
+      in_header: header_pagenrs.tex 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Slide 1
+
+- Ist-Zustand
+    + aktuelle Gewichtung Cw = Cc
+    
+- Neu
+    + neues Merkmal Cf
+
+1. First item
+2. Second item
+
+
+## Correlations
