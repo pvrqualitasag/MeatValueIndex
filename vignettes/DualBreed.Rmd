@@ -9,6 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(dplyr)
+```
+
 
 #Economic value for dual breed
 
@@ -732,7 +736,7 @@ apply(abs(mat_factors_ev), 2, sum)
 all.equal(sum(apply(abs(mat_factors_ev), 2, sum)),ncol(mat_factors_ev))
 
 tbl_rel_fact <- tibble::as_tibble(mat_factors_ev)
-tbl_rel_fact <- cbind(tbl_ev_result_ev_per_gen_sd[,1],tbl_rel_fact)
+tbl_rel_fact <- bind_cols(tbl_ev_result_ev_per_gen_sd[,1],tbl_rel_fact)
 knitr::kable(tbl_rel_fact, booktabs = TRUE)
 ```
 
@@ -801,9 +805,9 @@ tbl_proportion <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_va
 knitr::kable(tbl_proportion, booktabs = TRUE)
 
 ### # Tibble with same dimension as 'tbl_rel_factors'
-(tbl_proportion4eachtrait <- rbind(tbl_proportion,tbl_proportion,tbl_proportion))
+(tbl_proportion4eachtrait <- bind_rows(tbl_proportion,tbl_proportion,tbl_proportion))
 (tbl_proportion4eachtrait <- tbl_proportion4eachtrait[, 2:ncol(tbl_proportion4eachtrait)])
-(tbl_proportion4eachtrait <- cbind(tbl_rel_factors[,1], tbl_proportion4eachtrait))
+(tbl_proportion4eachtrait <- bind_cols(tbl_rel_factors[,1], tbl_proportion4eachtrait))
 (colnames(tbl_proportion4eachtrait) <- colnames(tbl_rel_factors))
 knitr::kable(tbl_proportion4eachtrait, booktabs = TRUE)
 
@@ -834,8 +838,8 @@ tbl_alphac <- tbl_rel_fact %>%
   tbl_rel_fact %>% 
   filter(Traits == "ccc") %>% 
   select(OB, BV, SI, SF, MO)
-tbl_scale_factor <- rbind(tbl_beta, tbl_alphaa, tbl_alphac)
-rownames(tbl_scale_factor) <- c("beta", "alphaa", "alphac")
+tbl_scale_factor <- bind_rows(tbl_beta, tbl_alphaa, tbl_alphac)
+#rownames(tbl_scale_factor) <- c("beta", "alphaa", "alphac")
 tbl_scale_factor
 ```
 
@@ -849,11 +853,17 @@ cwc_new <- ccc_new
 cfa_new <- cca_new * tbl_scale_factor["alphaa",]
 cfc_new <- ccc_new * tbl_scale_factor["alphac",]
 
-tbl_fact_new <- rbind(cca_new, ccc_new, cfa_new, cfc_new, cwa_new, cwc_new)
-# rownames(tbl_fact_new) <- c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")
-tbl_fact_new <- cbind(c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"), tbl_fact_new)
-colnames(tbl_fact_new) <- colnames(tbl_rel_factors)
-rownames(tbl_fact_new) <- NULL
+#Errors!
+tbl_fact_new <- bind_rows(cca_new, ccc_new, cfa_new, cfc_new, cwa_new, cwc_new)
+#tbl_fact_new <- rbind(cca_new, ccc_new, cfa_new, cfc_new, cwa_new, cwc_new)
+#rownames(tbl_fact_new) <- c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")
+#tbl_fact_new <- cbind(c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"), tbl_fact_new)
+#colnames(tbl_fact_new) <- colnames(tbl_rel_factors)
+#rownames(tbl_fact_new) <- NULL
+
+rownames(tbl_fact_new) <- c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")
+tbl_fact_new
+
 ```
 
 
@@ -911,11 +921,46 @@ MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_rel_factors,
 The relative factors are weighted with animal categories to get weighted relative factors
 
 ```{r}
-tbl_weighted_rel_factors <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_rel_factors,
-                                      ptbl_weight = tbl_proportion4eachtrait,
-                                      pb_first_row_trait_name = TRUE)
-MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_rel_factors,
-                                 ps_out_path = "weighted_economic_value_relative.csv")
+#tbl_weighted_rel_factors <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_rel_factors,
+#                                      ptbl_weight = tbl_proportion4eachtrait,
+#                                      pb_first_row_trait_name = TRUE)
+#MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_rel_factors,
+#                                 ps_out_path = "weighted_economic_value_relative.csv")
+```
+
+Debugging the function 'weight_economic_value'
+```{r}
+ptbl_economic_value = tbl_rel_factors
+ptbl_weight = tbl_proportion4eachtrait
+pb_first_row_trait_name = TRUE
+
+if (nrow(ptbl_economic_value) != nrow(ptbl_weight) | ncol(ptbl_economic_value) != ncol(ptbl_weight))
+  stop("[ERROR -- weight_economic_value] Different dimensions between ptbl_economic_value and ptbl_weight")
+
+### # assign arguments to working copies of tibbles
+tbl_economic_value <- ptbl_economic_value
+tbl_weight <- ptbl_weight
+#### # if pb_first_row_trait_name remove first row from both
+#### #  ptbl_economic_value and ptbl_weight
+if (pb_first_row_trait_name){
+  tbl_economic_value <- tbl_economic_value[, 2:ncol(tbl_economic_value)]
+  tbl_weight <- tbl_weight[, 2:ncol(tbl_weight)]
+} else {
+  if (!all(rownames(ptbl_economic_value) == rownames(ptbl_weight)))
+    stop("[ERROR -- weight_economic_value] Row names between ptbl_economic_value and ptbl_weight different")
+}
+
+if (!all(colnames(tbl_economic_value) == colnames(tbl_weight)))
+  stop("[ERROR -- weight_economic_value] Column names between ptbl_economic_value and ptbl_weight different")
+
+tbl_weighted_result <- tbl_economic_value * tbl_weight
+
+if (pb_first_row_trait_name) {
+  #tbl_weighted_result <- cbind(ptbl_economic_value[,1], tbl_weighted_result)
+  tbl_weighted_result <- bind_cols(ptbl_economic_value[,1], tbl_weighted_result)
+  colnames(tbl_weighted_result) <- colnames(ptbl_economic_value)
+}
+
 ```
 
 
@@ -929,10 +974,10 @@ MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_fact_new,
 The last set is the above factors weighted with the proportions of the animal classes
 
 ```{r}
-tbl_weighted_fact_new <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_fact_new,
-                                      ptbl_weight = tbl_proportion4eachtrait,
-                                      pb_first_row_trait_name = TRUE)
-MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_fact_new,
-                                 ps_out_path = "weighted_political_unweighted.csv")
-
+#tbl_weighted_fact_new <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_fact_new,
+#                                      ptbl_weight = tbl_proportion4eachtrait,
+#                                      pb_first_row_trait_name = TRUE)
+#MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_fact_new,
+#                                 ps_out_path = "weighted_political_unweighted.csv")
+#
 ```

@@ -22,6 +22,6 @@ Compute the weighted factors based on an input tibble with unweighted
 economic values and a tibble with weighting factors. The two input
 tibbles must have the same dimensions. If the first column contains
 some names this is indicated with the parameter pb_first_row_trait_name
-and the first column is ignored for the computation of the weighted
+and the first column is ignored for the computation x  of the weighted
 factors. In the result the first column is added back in.
 }
