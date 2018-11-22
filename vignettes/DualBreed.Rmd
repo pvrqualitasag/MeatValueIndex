@@ -790,6 +790,7 @@ tbl_number_calves_adults <- tibble::data_frame(Categories = c("adults", "calves"
 knitr::kable(tbl_number_calves_adults,booktabs = TRUE)
 ```
 
+
 ## Economic value weighted by categories
 Some population are more used by adults than by calves, or vice versa. Therefore the economie value should be weighted by category. The proportion are calculated bellow:
 
@@ -799,6 +800,7 @@ tbl_proportion <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_va
                                                                       pb_first_row_trait_name = TRUE)
 knitr::kable(tbl_proportion, booktabs = TRUE)
 ```
+
 
 ### Determine Relative Factors Based on Given Restrictions
 

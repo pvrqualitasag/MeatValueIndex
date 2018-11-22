@@ -224,7 +224,7 @@ compute_ev_price_cont <- function( pn_mean,
 }
 
 
-## --- Conversion Functions ----------------------------------------------------
+## --- Conversion and Weighting Functions ------------------------------------------------
 #' @title Relative Economic Factors From Economic Values
 #'
 #' @description
@@ -269,6 +269,60 @@ get_relative_economic_factors <- function(ptbl_economic_value,
   return(tbl_rel_fact)
 }
 
+
+#' @title Multiply Economic Values With A Weight Matrix
+#'
+#' @description
+#' Compute the weighted factors based on an input tibble with unweighted
+#' economic values and a tibble with weighting factors. The two input
+#' tibbles must have the same dimensions. If the first column contains
+#' some names this is indicated with the parameter pb_first_row_trait_name
+#' and the first column is ignored for the computation of the weighted
+#' factors. In the result the first column is added back in.
+#'
+#' @param ptbl_economic_value      tibble with economic values
+#' @param ptbl_weight              tibble containing weights
+#' @param pb_first_row_trait_name  flag indicating wether first column are trait names
+#' @return tbl_weighted_result
+#' @export weight_economic_value
+weight_economic_value <- function(ptbl_economic_value,
+                                  ptbl_weight,
+                                  pb_first_row_trait_name = FALSE){
+
+  ### # ptbl_economic_value and ptble_weight must have same dimensions
+  if (nrow(ptbl_economic_value) != nrow(ptbl_weight) | ncol(ptbl_economic_value) != ncol(ptbl_weight))
+    stop("[ERROR -- weight_economic_value] Different dimensions between ptbl_economic_value and ptbl_weight")
+
+  ### # assign arguments to working copies of tibbles
+  tbl_economic_value <- ptbl_economic_value
+  tbl_weight <- ptbl_weight
+  ### # if pb_first_row_trait_name remove first row from both
+  ### #  ptbl_economic_value and ptbl_weight
+  if (pb_first_row_trait_name){
+    tbl_economic_value <- tbl_economic_value[, 2:ncol(tbl_economic_value)]
+    tbl_weight <- tbl_weight[, 2:ncol(tbl_weight)]
+  } else {
+    if (!all(rownames(ptbl_economic_value) == rownames(ptbl_weight)))
+      stop("[ERROR -- weight_economic_value] Row names between ptbl_economic_value and ptbl_weight different")
+  }
+
+  ### # check that column names are the same between ptbl_economic_value and
+  ### #  ptbl_weight
+  if (!all(colnames(tbl_economic_value) == colnames(tbl_weight)))
+    stop("[ERROR -- weight_economic_value] Column names between ptbl_economic_value and ptbl_weight different")
+
+  ### # compute weight by the multiplication of the two tibbles
+  tbl_weighted_result <- tbl_economic_value * tbl_weight
+
+  ### # add first column back in if it was removed
+  if (pb_first_row_trait_name) {
+    tbl_weighted_result <- cbind(ptbl_economic_value[,1], tbl_weighted_result)
+    colnames(tbl_weighted_result) <- colnames(ptbl_economic_value)
+  }
+
+  ### #  return result
+  return(tbl_weighted_result)
+}
 
 ## --- Output functions --------------------------------------------------------
 #' @title Write Economic Values To File
