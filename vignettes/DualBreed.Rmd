@@ -799,7 +799,7 @@ tbl_proportion <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_va
                                                                       pb_first_row_trait_name = TRUE)
 knitr::kable(tbl_proportion, booktabs = TRUE)
 
-### # Matrix with same dimension as 'tbl_rel_factors'
+### # Tibble with same dimension as 'tbl_rel_factors'
 (tbl_proportion4eachtrait <- rbind(tbl_proportion,tbl_proportion,tbl_proportion))
 (tbl_proportion4eachtrait <- tbl_proportion4eachtrait[, 2:ncol(tbl_proportion4eachtrait)])
 (tbl_proportion4eachtrait <- cbind(tbl_rel_factors[,1], tbl_proportion4eachtrait))
