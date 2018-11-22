@@ -798,6 +798,14 @@ Some population are more used by adults than by calves, or vice versa. Therefore
 tbl_proportion <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_number_calves_adults,
                                                                       pb_first_row_trait_name = TRUE)
 knitr::kable(tbl_proportion, booktabs = TRUE)
+
+### # Matrix with same dimension as 'tbl_rel_factors'
+(tbl_proportion4eachtrait <- rbind(tbl_proportion,tbl_proportion,tbl_proportion))
+(tbl_proportion4eachtrait <- tbl_proportion4eachtrait[, 2:ncol(tbl_proportion4eachtrait)])
+(tbl_proportion4eachtrait <- cbind(tbl_rel_factors[,1], tbl_proportion4eachtrait))
+(colnames(tbl_proportion4eachtrait) <- colnames(tbl_rel_factors))
+knitr::kable(tbl_proportion4eachtrait, booktabs = TRUE)
+
 ```
 
 ### Determine Relative Factors Based on Given Restrictions
