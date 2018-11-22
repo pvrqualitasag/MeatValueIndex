@@ -15,7 +15,7 @@ weight_economic_value(ptbl_economic_value, ptbl_weight,
 \item{pb_first_row_trait_name}{flag indicating wether first column are trait names}
 }
 \value{
-tbl_weighted_result
+tbl_weighted_result     weighted economic factors
 }
 \description{
 Compute the weighted factors based on an input tibble with unweighted

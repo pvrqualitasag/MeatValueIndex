@@ -283,7 +283,7 @@ get_relative_economic_factors <- function(ptbl_economic_value,
 #' @param ptbl_economic_value      tibble with economic values
 #' @param ptbl_weight              tibble containing weights
 #' @param pb_first_row_trait_name  flag indicating wether first column are trait names
-#' @return tbl_weighted_result
+#' @return tbl_weighted_result     weighted economic factors
 #' @export weight_economic_value
 weight_economic_value <- function(ptbl_economic_value,
                                   ptbl_weight,
