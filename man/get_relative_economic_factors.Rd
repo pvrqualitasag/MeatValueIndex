@@ -5,12 +5,12 @@
 \title{Relative Economic Factors From Economic Values}
 \usage{
 get_relative_economic_factors(ptbl_economic_value,
-  pb_first_row_trait_name = FALSE)
+  pb_first_col_trait_name = FALSE)
 }
 \arguments{
 \item{ptbl_economic_value}{tibble with economic values}
 
-\item{pb_first_row_trait_name}{flag indicating wether first column are trait names}
+\item{pb_first_col_trait_name}{flag indicating wether first column are trait names}
 }
 \value{
 tbl_rel_fact tibble with relative factors

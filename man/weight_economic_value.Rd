@@ -5,14 +5,14 @@
 \title{Multiply Economic Values With A Weight Matrix}
 \usage{
 weight_economic_value(ptbl_economic_value, ptbl_weight,
-  pb_first_row_trait_name = FALSE)
+  pb_first_col_trait_name = FALSE)
 }
 \arguments{
 \item{ptbl_economic_value}{tibble with economic values}
 
 \item{ptbl_weight}{tibble containing weights}
 
-\item{pb_first_row_trait_name}{flag indicating wether first column are trait names}
+\item{pb_first_col_trait_name}{flag indicating wether first column are trait names}
 }
 \value{
 tbl_weighted_result     weighted economic factors
@@ -21,7 +21,7 @@ tbl_weighted_result     weighted economic factors
 Compute the weighted factors based on an input tibble with unweighted
 economic values and a tibble with weighting factors. The two input
 tibbles must have the same dimensions. If the first column contains
-some names this is indicated with the parameter pb_first_row_trait_name
+some names this is indicated with the parameter pb_first_col_trait_name
 and the first column is ignored for the computation x  of the weighted
 factors. In the result the first column is added back in.
 }

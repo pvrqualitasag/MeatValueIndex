@@ -233,14 +233,14 @@ compute_ev_price_cont <- function( pn_mean,
 #' value with respect to the total sum of all economic values is computed.
 #'
 #' @param ptbl_economic_value tibble with economic values
-#' @param pb_first_row_trait_name   flag indicating wether first column are trait names
+#' @param pb_first_col_trait_name   flag indicating wether first column are trait names
 #' @return tbl_rel_fact tibble with relative factors
 #' @export get_relative_economic_factors
 get_relative_economic_factors <- function(ptbl_economic_value,
-                                          pb_first_row_trait_name = FALSE){
+                                          pb_first_col_trait_name = FALSE){
 
-  ### # if pb_first_row_trait_name then remove the first column from ptbl_economic_value
-  if (pb_first_row_trait_name){
+  ### # if pb_first_col_trait_name then remove the first column from ptbl_economic_value
+  if (pb_first_col_trait_name){
     mat_economic_value <- as.matrix(ptbl_economic_value[,2:ncol(ptbl_economic_value)])
   } else {
     mat_economic_value <- as.matrix(ptbl_economic_value)
@@ -261,7 +261,7 @@ get_relative_economic_factors <- function(ptbl_economic_value,
   ### # conversion to tibble
   tbl_rel_fact <- tibble::as_tibble(mat_rel_fact)
   ### # adding first row, if needed
-  if (pb_first_row_trait_name){
+  if (pb_first_col_trait_name){
     tbl_rel_fact <- bind_cols(ptbl_economic_value[,1], tbl_rel_fact)
   }
 
@@ -276,18 +276,18 @@ get_relative_economic_factors <- function(ptbl_economic_value,
 #' Compute the weighted factors based on an input tibble with unweighted
 #' economic values and a tibble with weighting factors. The two input
 #' tibbles must have the same dimensions. If the first column contains
-#' some names this is indicated with the parameter pb_first_row_trait_name
+#' some names this is indicated with the parameter pb_first_col_trait_name
 #' and the first column is ignored for the computation x  of the weighted
 #' factors. In the result the first column is added back in.
 #'
 #' @param ptbl_economic_value      tibble with economic values
 #' @param ptbl_weight              tibble containing weights
-#' @param pb_first_row_trait_name  flag indicating wether first column are trait names
+#' @param pb_first_col_trait_name  flag indicating wether first column are trait names
 #' @return tbl_weighted_result     weighted economic factors
 #' @export weight_economic_value
 weight_economic_value <- function(ptbl_economic_value,
                                   ptbl_weight,
-                                  pb_first_row_trait_name = FALSE){
+                                  pb_first_col_trait_name = FALSE){
 
   ### # ptbl_economic_value and ptble_weight must have same dimensions
   if (nrow(ptbl_economic_value) != nrow(ptbl_weight) | ncol(ptbl_economic_value) != ncol(ptbl_weight))
@@ -296,9 +296,9 @@ weight_economic_value <- function(ptbl_economic_value,
   ### # assign arguments to working copies of tibbles
   tbl_economic_value <- ptbl_economic_value
   tbl_weight <- ptbl_weight
-  ### # if pb_first_row_trait_name remove first row from both
+  ### # if pb_first_col_trait_name remove first row from both
   ### #  ptbl_economic_value and ptbl_weight
-  if (pb_first_row_trait_name){
+  if (pb_first_col_trait_name){
     tbl_economic_value <- tbl_economic_value[, 2:ncol(tbl_economic_value)]
     tbl_weight <- tbl_weight[, 2:ncol(tbl_weight)]
   } else {
@@ -315,7 +315,7 @@ weight_economic_value <- function(ptbl_economic_value,
   tbl_weighted_result <- tbl_economic_value * tbl_weight
 
   ### # add first column back in if it was removed
-  if (pb_first_row_trait_name) {
+  if (pb_first_col_trait_name) {
     tbl_weighted_result <- bind_cols(ptbl_economic_value[,1], tbl_weighted_result)
     colnames(tbl_weighted_result) <- colnames(ptbl_economic_value)
   }
@@ -333,16 +333,16 @@ weight_economic_value <- function(ptbl_economic_value,
 #'
 #' @param ptbl_economic_value      tibble with economic values
 #' @param ps_out_path              file name to write results to
-#' @param pbfirst_col_trait_name   does first column contain trait names
+#' @param pb_first_col_trait_name   does first column contain trait names
 #' @export write_ev_to_file
 write_ev_to_file <- function(ptbl_economic_value,
                              ps_out_path,
-                             pbfirst_col_trait_name = FALSE){
+                             pb_first_col_trait_name = FALSE){
 
   vec_trait <- NULL
   ### # remove column names if needed
   tbl_economic_value <- ptbl_economic_value
-  if (pbfirst_col_trait_name){
+  if (pb_first_col_trait_name){
     vec_trait <- tbl_economic_value[,1][[1]]
     tbl_economic_value <- tbl_economic_value[, 2:ncol(tbl_economic_value)]
   } else {

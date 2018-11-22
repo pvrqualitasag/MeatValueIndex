@@ -5,14 +5,14 @@
 \title{Write Economic Values To File}
 \usage{
 write_ev_to_file(ptbl_economic_value, ps_out_path,
-  pbfirst_col_trait_name = FALSE)
+  pb_first_col_trait_name = FALSE)
 }
 \arguments{
 \item{ptbl_economic_value}{tibble with economic values}
 
 \item{ps_out_path}{file name to write results to}
 
-\item{pbfirst_col_trait_name}{does first column contain trait names}
+\item{pb_first_col_trait_name}{does first column contain trait names}
 }
 \description{
 Write a given tibble of economic values in a tidy format
