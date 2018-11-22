@@ -52,6 +52,9 @@ We start with joining the factors to the breeding values
  
 ```{r}
 library(dplyr)
-tbl_bv %>% inner_join(tbl_ev_factors, by)
+tbl_bv_ev <- tbl_bv %>% inner_join(tbl_ev_factors, by = c("trait" = "Trait", "breed" = "Breed")) %>% select(-c(pubCode,base))
+tbl_bv_ev <- tbl_bv_ev %>% mutate(index=estimate*Ev)
+tbl_index <- tbl_bv_ev %>% group_by(idaTvd) %>% summarise(IndexSum = sum(index))
+
 ```
 
