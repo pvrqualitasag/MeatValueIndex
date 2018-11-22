@@ -925,43 +925,6 @@ MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_rel_factors,
                                 pb_first_col_trait_name = TRUE)
 ```
 
-Debugging the function 'weight_economic_value'
-
-```{r}
-ptbl_economic_value = tbl_rel_factors
-ptbl_weight = tbl_proportion4eachtrait
-pb_first_col_trait_name = TRUE
-
-if (nrow(ptbl_economic_value) != nrow(ptbl_weight) | ncol(ptbl_economic_value) != ncol(ptbl_weight))
-  stop("[ERROR -- weight_economic_value] Different dimensions between ptbl_economic_value and ptbl_weight")
-
-### # assign arguments to working copies of tibbles
-tbl_economic_value <- ptbl_economic_value
-tbl_weight <- ptbl_weight
-#### # if pb_first_col_trait_name remove first row from both
-#### #  ptbl_economic_value and ptbl_weight
-if (pb_first_col_trait_name){
-  tbl_economic_value <- tbl_economic_value[, 2:ncol(tbl_economic_value)]
-  tbl_weight <- tbl_weight[, 2:ncol(tbl_weight)]
-} else {
-  if (!all(rownames(ptbl_economic_value) == rownames(ptbl_weight)))
-    stop("[ERROR -- weight_economic_value] Row names between ptbl_economic_value and ptbl_weight different")
-}
-
-if (!all(colnames(tbl_economic_value) == colnames(tbl_weight)))
-  stop("[ERROR -- weight_economic_value] Column names between ptbl_economic_value and ptbl_weight different")
-
-tbl_weighted_result <- tbl_economic_value * tbl_weight
-
-if (pb_first_col_trait_name) {
-  #tbl_weighted_result <- cbind(ptbl_economic_value[,1], tbl_weighted_result)
-  tbl_weighted_result <- bind_cols(ptbl_economic_value[,1], tbl_weighted_result)
-  colnames(tbl_weighted_result) <- colnames(ptbl_economic_value)
-}
-
-```
-
-
 The third set consist of the creative political values not weighted for animal classes
 
 ```{r}
@@ -977,7 +940,7 @@ tbl_weighted_fact_new <- MeatValueIndex::weight_economic_value(ptbl_economic_val
                                      ptbl_weight = tbl_proportion4eachtrait,
                                      pb_first_col_trait_name = TRUE)
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_fact_new,
-                                ps_out_path = "weighted_political_unweighted.csv",
+                                ps_out_path = "political_weighted.csv",
                                 pb_first_col_trait_name = TRUE)
 
 ```
