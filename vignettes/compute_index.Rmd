@@ -1,0 +1,57 @@
+---
+title: "Computation of Test Index"
+author: "Sophie Kunz and Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Computation of Test Index}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Disclaimer
+
+
+## Input
+Indices are computed using weighting factors or economic values. Both are read from csv-formatted files. The second type of input corresponds to a space-separated text file containing predicted breeding values for all animals.
+
+
+```{r}
+### # specify a given file
+s_factor_input_path <- system.file("extdata", "economic_values", "economic_value_relative.csv",
+                                   package = "MeatValueIndex")
+### # reading economic values
+tbl_ev_factors <- readr::read_csv(file = s_factor_input_path)
+tbl_ev_factors
+```
+
+The second input are the breeding values
+
+```{r}
+### # specify path to breeding value file
+s_bv_input_path <- system.file("extdata", "breeding_values", 
+                               "test_rawSolutionsQualitas_Mitrassenbasis.txtpubUpdated",
+                                package = "MeatValueIndex")
+### # reading s_bv_input_path
+tbl_bv <- readr::read_delim(file = s_bv_input_path, delim = " ")
+tbl_bv
+
+```
+
+
+## Computation
+We start with joining the factors to the breeding values
+ 
+```{r}
+library(dplyr)
+tbl_bv %>% inner_join(tbl_ev_factors, by)
+```
+
