@@ -262,7 +262,7 @@ get_relative_economic_factors <- function(ptbl_economic_value,
   tbl_rel_fact <- tibble::as_tibble(mat_rel_fact)
   ### # adding first row, if needed
   if (pb_first_row_trait_name){
-    tbl_rel_fact <- cbind(ptbl_economic_value[,1], tbl_rel_fact)
+    tbl_rel_fact <- bind_cols(ptbl_economic_value[,1], tbl_rel_fact)
   }
 
   ### # return
@@ -277,7 +277,7 @@ get_relative_economic_factors <- function(ptbl_economic_value,
 #' economic values and a tibble with weighting factors. The two input
 #' tibbles must have the same dimensions. If the first column contains
 #' some names this is indicated with the parameter pb_first_row_trait_name
-#' and the first column is ignored for the computation of the weighted
+#' and the first column is ignored for the computation x  of the weighted
 #' factors. In the result the first column is added back in.
 #'
 #' @param ptbl_economic_value      tibble with economic values
@@ -316,7 +316,7 @@ weight_economic_value <- function(ptbl_economic_value,
 
   ### # add first column back in if it was removed
   if (pb_first_row_trait_name) {
-    tbl_weighted_result <- cbind(ptbl_economic_value[,1], tbl_weighted_result)
+    tbl_weighted_result <- bind_cols(ptbl_economic_value[,1], tbl_weighted_result)
     colnames(tbl_weighted_result) <- colnames(ptbl_economic_value)
   }
 
@@ -370,7 +370,7 @@ write_ev_to_file <- function(ptbl_economic_value,
       tbl_ev_current <- tibble::data_frame(Trait = vec_trait,
                                            Breed = rep(b, n_nr_trait),
                                            Ev    = tbl_economic_value[[b]])
-      tbl_ev_result <- rbind(tbl_ev_result, tbl_ev_current)
+      tbl_ev_result <- bind_rows(tbl_ev_result, tbl_ev_current)
     }
   }
 
