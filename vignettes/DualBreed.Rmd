@@ -3,8 +3,8 @@ title: "DualBreed"
 author: "Sophie Kunz and Peter von Rohr"
 date: "2 November 2018"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
