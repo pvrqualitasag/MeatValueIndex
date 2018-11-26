@@ -3,8 +3,8 @@ title: "DualBreed"
 author: "Sophie Kunz and Peter von Rohr"
 date: "2 November 2018"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -1012,40 +1012,61 @@ ps_out_path = "economic_value_raw.csv",
 pb_first_col_trait_name = TRUE)
 ```
 
-### Szenario A) we are using the relative economic factors (table 2.1)
+### Szenario A) we are using the relative economic factors (table 2.1, File name: economic_value_relative.csv)
+```{r, echo=FALSE}
+knitr::kable(tbl_rel_factors,booktabs = TRUE)
+```
 
-```{r}
+
+```{r, include=FALSE}
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_rel_factors,
                                  ps_out_path = "economic_value_relative.csv",
                                  pb_first_col_trait_name = TRUE)
 ```
 
-### Szenario B) The relative factors are weighted with animal categories to get weighted relative factors
-
-```{r}
+### Szenario B) The relative factors are weighted with animal categories to get weighted relative factors (File name: weighted_economic_value_relative.csv)
+```{r, include=FALSE}
 tbl_weighted_rel_factors <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_rel_factors,
                                      ptbl_weight = tbl_proportion4eachtrait,
                                      pb_first_col_trait_name = TRUE)
-# tbl_weighted_rel_factors
+```
+
+```{r, echo=FALSE}
+knitr::kable(tbl_weighted_rel_factors,booktabs = TRUE)
+```
+
+
+```{r, include=FALSE}
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_rel_factors,
                                 ps_out_path = "weighted_economic_value_relative.csv",
                                 pb_first_col_trait_name = TRUE)
 ```
 
-### Szenario C) This set consist of the creative political values not weighted for animal classes (table 4)
+### Szenario C) This set consist of the creative political values not weighted for animal classes (table 4, File name: political_unweighted.csv)
+```{r, echo=FALSE}
+knitr::kable(tbl_fact_new,booktabs = TRUE)
+```
 
-```{r}
+
+```{r,include=FALSE}
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_fact_new, 
                                   ps_out_path = "political_unweighted.csv",
                                  pb_first_col_trait_name = TRUE)
 ```
 
-### Szenario D) The last set is the above factors weighted with the proportions of the animal classes
-
-```{r}
+### Szenario D) The last set is the above factors weighted with the proportions of the animal classes (File name: political_weighted.csv)
+```{r, include=FALSE}
 tbl_weighted_fact_new <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_fact_new,
                                      ptbl_weight = tbl_proportion4eachtrait,
                                      pb_first_col_trait_name = TRUE)
+```
+
+```{r, echo=FALSE}
+knitr::kable(tbl_weighted_fact_new,booktabs = TRUE)
+```
+
+
+```{r, include=FALSE}
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_fact_new,
                                 ps_out_path = "political_weighted.csv",
                                 pb_first_col_trait_name = TRUE)
