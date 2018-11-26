@@ -946,7 +946,11 @@ tbl_scale_factor
 class(tbl_scale_factor)
 ```
 
-Using the scale factors to compute the weights (Development of calculation should be documented)
+Using the scale factors to compute the weights
+
+ev_total_n = 1 = ev_cca_n + ev_cfa_n + ev_cwa_n + ev_ccc_n + ev_cfc_n + ev_cwc_n
+
+replace all the terms in the formula to solve the equation.
 
 ev_ccc_n = beta   * ev_cca_n
 
