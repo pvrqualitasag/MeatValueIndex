@@ -28,6 +28,7 @@ Indices are computed using weighting factors or economic values. Both are read f
 ### # specify a given file
 s_factor_input_path <- system.file("extdata", "economic_values", "economic_value_relative.csv",
                                    package = "MeatValueIndex")
+
 ### # reading economic values
 tbl_ev_factors <- readr::read_csv(file = s_factor_input_path)
 tbl_ev_factors
@@ -111,5 +112,7 @@ for (bidx in 2:ncol(tbl_cor_result)){
   }
 }
 tbl_cor_result
+knitr::kable(tbl_cor_result, booktabs = TRUE)
+
 ```
 

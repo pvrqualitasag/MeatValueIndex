@@ -1,0 +1,91 @@
+---
+title: "Computation of Index (Scenario: economic value relative)"
+author: "Sophie Kunz and Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Computation of Index (Scenario: economic value relative)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Input
+Indices are computed using weighting factors or economic values. Both are read from csv-formatted files. The second type of input corresponds to a space-separated text file containing predicted breeding values for all animals.
+
+
+```{r}
+### # specify a given file
+s_factor_input_path <- system.file("extdata", "economic_values", "economic_value_relative.csv",
+                                   package = "MeatValueIndex")
+### # reading economic values
+tbl_ev_factors <- readr::read_csv(file = s_factor_input_path)
+tbl_ev_factors
+```
+
+The second input are the breeding values
+
+```{r}
+### # specify path to breeding value file
+s_bv_input_path <- system.file("extdata", "breeding_values", 
+                               "rawSolutionsQualitas_Mitrassenbasis.txt_pubUpdated_OBBVSISFMO_60",
+                                package = "MeatValueIndex")
+### # reading s_bv_input_path
+tbl_bv <- readr::read_delim(file = s_bv_input_path, delim = " ")
+tbl_bv
+
+```
+
+
+## Computation
+We start with joining the factors to the breeding values
+ 
+```{r}
+library(dplyr)
+tbl_bv_ev <- tbl_bv %>% inner_join(tbl_ev_factors, by = c("trait" = "Trait", "breed" = "Breed")) %>% select(-c(pubCode,base))
+tbl_bv_ev <- tbl_bv_ev %>% mutate(index=estimate*Ev)
+tbl_index <- tbl_bv_ev %>% group_by(idaTvd) %>% summarise(IndexSum = sum(index))
+tbl_index
+```
+
+
+## Computing Correlations
+
+Correlations between index values and breeding values of single traits are computed as follows
+
+```{r}
+tbl_cor_result <- tibble::data_frame(Trait = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
+                                     OB = c(rep(NA, 6)),
+                                     BV = c(rep(NA, 6)),
+                                     SI = c(rep(NA, 6)),
+                                     SF = c(rep(NA, 6)),
+                                     MO = c(rep(NA, 6)))
+        
+tbl_cor_result
+
+vec_breed <- colnames(tbl_cor_result)
+vec_trait <- tbl_cor_result[,1][[1]]
+for (bidx in 2:ncol(tbl_cor_result)){
+  b <- vec_breed[bidx]
+  cat("Computation for breed: ", b, "\n")
+  for (tidx in seq_along(vec_trait)){
+    t <- vec_trait[tidx]
+    cat("Use trait: ", t, "\n")
+    tbl_cor_result[tidx, bidx] <- MeatValueIndex::compute_correlation(ptbl_bv = tbl_bv,
+                                                                      ptbl_index = tbl_index,
+                                                                      ps_breed = b,
+                                                                      ps_trait = t)
+  }
+}
+tbl_cor_result
+knitr::kable(tbl_cor_result, booktabs = TRUE)
+
+```
+

@@ -1,20 +1,22 @@
 ---
 title: "DualBreed"
-author: "Sophie Kunz"
+author: "Sophie Kunz and Peter von Rohr"
 date: "2 November 2018"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, include=FALSE}
 library(dplyr)
 ```
 
 
-#Economic value for dual breed
+#1. Computing Economic Value For Dual Breed
 
 ## Genetic Standard Deviations
 Economic values can also be given in terms of a change of one genetic standard deviation. The used estimates for this parameter are
@@ -42,7 +44,9 @@ n_mean_cca_ob <- 5.20
 n_sd_cca_ob <- 1.02
 vec_count_cca_ob <- c(4,43,218,1150,2106,1905,522)
 vec_freq_cca_ob <- vec_count_cca_ob / sum(vec_count_cca_ob)
+```
 
+```{r, include=FALSE}
 (ev_cca_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_ob,
                         pn_sd = n_sd_cca_ob,
                         pvec_class_freq = vec_freq_cca_ob,
@@ -60,6 +64,9 @@ n_sd_cca_bv <- 1.27
 vec_count_cca_bv <- c(273,1562,5982,17808,14303,11438,5875)
 vec_freq_cca_bv <- vec_count_cca_bv / sum(vec_count_cca_bv)
 
+```
+
+```{r, include=FALSE}
 (ev_cca_bv <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_bv,
                         pn_sd = n_sd_cca_bv,
                         pvec_class_freq = vec_freq_cca_bv,
@@ -76,7 +83,9 @@ n_mean_cca_si <- 5.83
 n_sd_cca_si <- 0.9
 vec_count_cca_si <- c(4,38,377,3994,13917,24738,13535)
 vec_freq_cca_si <- vec_count_cca_si / sum(vec_count_cca_si)
+```
 
+```{r, include=FALSE}
 (ev_cca_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_si,
                         pn_sd = n_sd_cca_si,
                         pvec_class_freq = vec_freq_cca_si,
@@ -93,7 +102,9 @@ n_mean_cca_sf <- 4.57
 n_sd_cca_sf <- 1.18
 vec_count_cca_sf <- c(165,1189,4814,11545,10445,6303,1755)
 vec_freq_cca_sf <- vec_count_cca_sf / sum(vec_count_cca_sf)
+```
 
+```{r, include=FALSE}
 (ev_cca_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_sf,
                         pn_sd = n_sd_cca_sf,
                         pvec_class_freq = vec_freq_cca_sf,
@@ -110,7 +121,9 @@ n_mean_cca_mo <- 5.39
 n_sd_cca_mo <- 0.94
 vec_count_cca_mo <- c(10,33,194,1341,3511,3730,979)
 vec_freq_cca_mo <- vec_count_cca_mo / sum(vec_count_cca_mo)
+```
 
+```{r, include=FALSE}
 (ev_cca_mo <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cca_mo,
                         pn_sd = n_sd_cca_mo,
                         pvec_class_freq = vec_freq_cca_mo,
@@ -120,9 +133,6 @@ vec_freq_cca_mo <- vec_count_cca_mo / sum(vec_count_cca_mo)
                         pn_gen_sd = l_gen_sd$CCa,
                         pb_verbose = TRUE))
 ```
-
-
-
 
 ##Carcass conformation calves (CCc)
 
@@ -137,7 +147,9 @@ n_mean_ccc_ob <- 4.98
 n_sd_ccc_ob <- 1.01
 vec_count_ccc_ob <- c(11,94,451,2266,3486,2376,472)
 vec_freq_ccc_ob <- vec_count_ccc_ob / sum(vec_count_ccc_ob)
+```
 
+```{r, include=FALSE}
 (ev_ccc_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_ccc_ob,
                         pn_sd = n_sd_ccc_ob,
                         pvec_class_freq = vec_freq_ccc_ob,
@@ -154,7 +166,9 @@ n_mean_ccc_bv <- 4.08
 n_sd_ccc_bv <- 1.08
 vec_count_ccc_bv <- c(1759,10739,42522,94581,40759,15082,4855)
 vec_freq_ccc_bv <- vec_count_ccc_bv / sum(vec_count_ccc_bv)
+```
 
+```{r, include=FALSE}
 (ev_ccc_bv <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_ccc_bv,
                         pn_sd = n_sd_ccc_bv,
                         pvec_class_freq = vec_freq_ccc_bv,
@@ -171,7 +185,10 @@ n_mean_ccc_si <- 5.33
 n_sd_ccc_si <- 1.02
 vec_count_ccc_si <- c(16,64,247,1620,3359,3374,1087)
 vec_freq_ccc_si <- vec_count_ccc_si / sum(vec_count_ccc_si)
+```
 
+
+```{r, include=FALSE}
 (ev_ccc_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_ccc_si,
                         pn_sd = n_sd_ccc_si,
                         pvec_class_freq = vec_freq_ccc_si,
@@ -188,7 +205,10 @@ n_mean_ccc_sf <- 3.88
 n_sd_ccc_sf <- 1.08
 vec_count_ccc_sf <- c(645,4027,13631,21453,9150,3054,626)
 vec_freq_ccc_sf <- vec_count_ccc_sf / sum(vec_count_ccc_sf)
+```
 
+
+```{r, include=FALSE}
 (ev_ccc_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_ccc_sf,
                         pn_sd = n_sd_ccc_sf,
                         pvec_class_freq = vec_freq_ccc_sf,
@@ -205,7 +225,10 @@ n_mean_ccc_mo <- 4.73
 n_sd_ccc_mo <- 1.11
 vec_count_ccc_mo <- c(14,57,232,774,920,523,118)
 vec_freq_ccc_mo <- vec_count_ccc_mo / sum(vec_count_ccc_mo)
+```
 
+
+```{r, include=FALSE}
 (ev_ccc_mo <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_ccc_mo,
                         pn_sd = n_sd_ccc_mo,
                         pvec_class_freq = vec_freq_ccc_mo,
@@ -234,7 +257,10 @@ n_mean_cfa_ob <- 2.88
 n_sd_cfa_ob <- 0.58
 vec_count_cfa_ob <- c(161,889,4429,448,21)
 vec_freq_cfa_ob <- vec_count_cfa_ob / sum(vec_count_cfa_ob)
+```
 
+
+```{r, include=FALSE}
 (ev_cfa_ob<- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_ob,
                         pn_sd = n_sd_cfa_ob,
                         pvec_class_freq = vec_freq_cfa_ob,
@@ -251,7 +277,10 @@ n_mean_cfa_bv <- 2.85
 n_sd_cfa_bv <- 0.6
 vec_count_cfa_bv <- c(1704,9941,41215,4167,214)
 vec_freq_cfa_bv <- vec_count_cfa_bv / sum(vec_count_cfa_bv)
+```
 
+
+```{r, include=FALSE}
 (ev_cfa_bv <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_bv,
                         pn_sd = n_sd_cfa_bv,
                         pvec_class_freq = vec_freq_cfa_bv,
@@ -268,7 +297,10 @@ n_mean_cfa_si <- 2.82
 n_sd_cfa_si <- 0.55
 vec_count_cfa_si <- c(1259,10942,41326,3004,72)
 vec_freq_cfa_si <- vec_count_cfa_si / sum(vec_count_cfa_si)
+```
 
+
+```{r, include=FALSE}
 (ev_cfa_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_si,
                         pn_sd = n_sd_cfa_si,
                         pvec_class_freq = vec_freq_cfa_si,
@@ -285,7 +317,10 @@ n_mean_cfa_sf <- 2.87
 n_sd_cfa_sf <- 0.55
 vec_count_cfa_sf <- c(787,5694,27214,2442,79)
 vec_freq_cfa_sf <- vec_count_cfa_sf / sum(vec_count_cfa_sf)
+```
 
+
+```{r, include=FALSE}
 (ev_cfa_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_sf,
                         pn_sd = n_sd_cfa_sf,
                         pvec_class_freq = vec_freq_cfa_sf,
@@ -302,7 +337,10 @@ n_mean_cfa_mo <- 2.68
 n_sd_cfa_mo <- 0.6
 vec_count_cfa_mo <- c(373,2721,6420,280,4)
 vec_freq_cfa_mo <- vec_count_cfa_mo / sum(vec_count_cfa_mo)
+```
 
+
+```{r, include=FALSE}
 (ev_cfa_mo <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfa_mo,
                         pn_sd = n_sd_cfa_mo,
                         pvec_class_freq = vec_freq_cfa_mo,
@@ -331,7 +369,10 @@ n_mean_cfc_ob <- 2.62
 n_sd_cfc_ob <- 0.69
 vec_count_cfc_ob <- c(632,2671,5379,471,3)
 vec_freq_cfc_ob <- vec_count_cfc_ob / sum(vec_count_cfc_ob)
+```
 
+
+```{r, include=FALSE}
 (ev_cfc_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_ob,
                         pn_sd = n_sd_cfc_ob,
                         pvec_class_freq = vec_freq_cfc_ob,
@@ -348,7 +389,10 @@ n_mean_cfc_bv <- 2.68
 n_sd_cfc_bv <- 0.67
 vec_count_cfc_bv <- c(12790,52626,133521,11316,44)
 vec_freq_cfc_bv <- vec_count_cfc_bv / sum(vec_count_cfc_bv)
+```
 
+
+```{r, include=FALSE}
 (ev_cfc_bv <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_bv,
                         pn_sd = n_sd_cfc_bv,
                         pvec_class_freq = vec_freq_cfc_bv,
@@ -365,7 +409,10 @@ n_mean_cfc_si <- 2.66
 n_sd_cfc_si <- 0.7
 vec_count_cfc_si <- c(691,2522,5974,578,2)
 vec_freq_cfc_si <- vec_count_cfc_si / sum(vec_count_cfc_si)
+```
 
+
+```{r, include=FALSE}
 (ev_cfc_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_si,
                         pn_sd = n_sd_cfc_si,
                         pvec_class_freq = vec_freq_cfc_si,
@@ -382,7 +429,10 @@ n_mean_cfc_sf <- 2.76
 n_sd_cfc_sf <- 0.65
 vec_count_cfc_sf <- c(2475,11464,35025,3602,19)
 vec_freq_cfc_sf <- vec_count_cfc_sf / sum(vec_count_cfc_sf)
+```
 
+
+```{r, include=FALSE}
 (ev_cfc_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_sf,
                         pn_sd = n_sd_cfc_sf,
                         pvec_class_freq = vec_freq_cfc_sf,
@@ -399,7 +449,10 @@ n_mean_cfc_mo <- 2.64
 n_sd_cfc_mo <- 0.67
 vec_count_cfc_mo <- c(191,676,1675,96,0)
 vec_freq_cfc_mo <- vec_count_cfc_mo / sum(vec_count_cfc_mo)
+```
 
+
+```{r, include=FALSE}
 (ev_cfc_mo <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cfc_mo,
                         pn_sd = n_sd_cfc_mo,
                         pvec_class_freq = vec_freq_cfc_mo,
@@ -443,7 +496,10 @@ vec_thre_cwa <- c(2.9,
 ```{r}
 n_mean_cwa_ob <- 2.61 * n_scale_fact_cwa
 n_sd_cwa_ob <- 0.41 * n_scale_fact_cwa
+```
 
+
+```{r, include=FALSE}
 (ev_cwa_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_ob,
                         pn_sd = n_sd_cwa_ob,
                         pvec_class_freq = NULL,
@@ -458,7 +514,10 @@ n_sd_cwa_ob <- 0.41 * n_scale_fact_cwa
 ```{r}
 n_mean_cwa_bv <- 2.77 * n_scale_fact_cwa
 n_sd_cwa_bv <- 0.36 * n_scale_fact_cwa
+```
 
+
+```{r, include=FALSE}
 (ev_cwa_bv <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_bv,
                         pn_sd = n_sd_cwa_bv,
                         pvec_class_freq = NULL,
@@ -474,7 +533,10 @@ n_sd_cwa_bv <- 0.36 * n_scale_fact_cwa
 ```{r}
 n_mean_cwa_si <- 2.79 * n_scale_fact_cwa
 n_sd_cwa_si <- 0.42 * n_scale_fact_cwa
+```
 
+
+```{r, include=FALSE}
 (ev_cwa_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_si,
                         pn_sd = n_sd_cwa_si,
                         pvec_class_freq = NULL,
@@ -489,7 +551,10 @@ n_sd_cwa_si <- 0.42 * n_scale_fact_cwa
 ```{r}
 n_mean_cwa_sf <- 2.88 * n_scale_fact_cwa
 n_sd_cwa_sf <- 0.32 * n_scale_fact_cwa
+```
 
+
+```{r, include=FALSE}
 (ev_cwa_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_sf,
                         pn_sd = n_sd_cwa_sf,
                         pvec_class_freq = NULL,
@@ -504,7 +569,10 @@ n_sd_cwa_sf <- 0.32 * n_scale_fact_cwa
 ```{r}
 n_mean_cwa_mo <- 2.99 * n_scale_fact_cwa
 n_sd_cwa_mo <- 0.25 * n_scale_fact_cwa
+```
 
+
+```{r, include=FALSE}
 (ev_cwa_mo <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwa_mo,
                         pn_sd = n_sd_cwa_mo,
                         pvec_class_freq = NULL,
@@ -529,7 +597,10 @@ vec_thre_cwc
 ```{r}
 n_mean_cwc_ob <- 1.25 * n_scale_fact_cwc
 n_sd_cwc_ob <- 0.13 * n_scale_fact_cwc
+```
 
+
+```{r, include=FALSE}
 (ev_cwc_ob <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_ob,
                         pn_sd = n_sd_cwc_ob,
                         pvec_class_freq = NULL,
@@ -544,7 +615,10 @@ n_sd_cwc_ob <- 0.13 * n_scale_fact_cwc
 ```{r}
 n_mean_cwc_bv <- 1.26 * n_scale_fact_cwc
 n_sd_cwc_bv <- 0.14 * n_scale_fact_cwc
+```
 
+
+```{r, include=FALSE}
 (ev_cwc_bv <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_bv,
                         pn_sd = n_sd_cwc_bv,
                         pvec_class_freq = NULL,
@@ -560,7 +634,10 @@ n_sd_cwc_bv <- 0.14 * n_scale_fact_cwc
 ```{r}
 n_mean_cwc_si <- 1.27 * n_scale_fact_cwc
 n_sd_cwc_si <- 0.13 * n_scale_fact_cwc
+```
 
+
+```{r, include=FALSE}
 (ev_cwc_si <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_si,
                         pn_sd = n_sd_cwc_si,
                         pvec_class_freq = NULL,
@@ -575,7 +652,10 @@ n_sd_cwc_si <- 0.13 * n_scale_fact_cwc
 ```{r}
 n_mean_cwc_sf <- 1.24 * n_scale_fact_cwc
 n_sd_cwc_sf <- 0.13 * n_scale_fact_cwc
+```
 
+
+```{r, include=FALSE}
 (ev_cwc_sf <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_sf,
                         pn_sd = n_sd_cwc_sf,
                         pvec_class_freq = NULL,
@@ -590,7 +670,10 @@ n_sd_cwc_sf <- 0.13 * n_scale_fact_cwc
 ```{r}
 n_mean_cwc_mo <- 1.28 * n_scale_fact_cwc
 n_sd_cwc_mo <- 0.15 * n_scale_fact_cwc
+```
 
+
+```{r, include=FALSE}
 (ev_cwc_mo <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_mo,
                         pn_sd = n_sd_cwc_mo,
                         pvec_class_freq = NULL,
@@ -601,7 +684,7 @@ n_sd_cwc_mo <- 0.15 * n_scale_fact_cwc
 
 ```
 
-## Overview of the population situation
+## Overview of the phenotypic mean
 ```{r, eval=TRUE, echo=FALSE, results="asis"}
 tbl_population_mean <- tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
                                     OB = c(n_mean_cca_ob,
@@ -639,10 +722,10 @@ knitr::kable(tbl_population_mean,booktabs = TRUE)
 ```
 
 
-## Presenting Output In A Table
-The computed economic values are shown in the following table.
+## Presenting output for economic values
+The computed economic values are shown in the following tables:
 
-Table are presenting economic value in trait unit.
+###1.1) Table are presenting economic value in trait unit.
 ```{r, eval=TRUE, echo=FALSE, results="asis"}
 tbl_ev_result_ev_per_trait_unit <- tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
                                     OB = c(ev_cca_ob$ev_per_trait_unit, 
@@ -679,7 +762,7 @@ tbl_ev_result_ev_per_trait_unit <- tibble::data_frame(Traits = c("cca", "ccc", "
 knitr::kable(tbl_ev_result_ev_per_trait_unit,booktabs = TRUE)
 ```
 
-Table are presenting economic value in genetic standard deviation.
+###1.2) Table are presenting economic value in genetic standard deviation.
 ```{r, eval=TRUE, echo=FALSE, results="asis"}
 tbl_ev_result_ev_per_gen_sd <- tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
                                     OB = c(ev_cca_ob$ev_per_gen_sd,
@@ -717,46 +800,52 @@ knitr::kable(tbl_ev_result_ev_per_gen_sd,booktabs = TRUE)
 ```
 
 
-## Computing Relative Economic Factors
+##2. Computing Relative Economic Factors
 Relative economic factors are defined as the ratio of each economic value on the basis of one genetic standard deviation to the sum of all economic values in a given breed. The principle of how the relative economic factors are computed is shown in the chunk below. 
 
 ```{r}
+tbl_ev_result_ev_per_gen_sd
 # convert the tibble with economic values on the basis of one genotypic standard deviation to a matrix
 mat_ev_per_gen_sd <- as.matrix(tbl_ev_result_ev_per_gen_sd[,2:ncol(tbl_ev_result_ev_per_gen_sd)])
-# compute sum of economic values within each breed
+mat_ev_per_gen_sd
+# compute sum of absolute economic values within each breed
 vec_abs_sum_ev <- apply(abs(mat_ev_per_gen_sd), 2, sum)
+vec_abs_sum_ev
 # inverse of sum
 vec_inv_abs_sum_ev <- 1/vec_abs_sum_ev
+vec_inv_abs_sum_ev
 # extend inverse factors into a matrix
 mat_inv_abs_sum_ev <- matrix(vec_inv_abs_sum_ev, nrow = nrow(mat_ev_per_gen_sd), ncol = ncol(mat_ev_per_gen_sd), byrow = TRUE)
 # element-wise multiplication of matrix of economic values and matrix of inverse sums to get ratios
 (mat_factors_ev <- mat_ev_per_gen_sd * mat_inv_abs_sum_ev)
+mat_factors_ev
 # check
 apply(abs(mat_factors_ev), 2, sum)
 all.equal(sum(apply(abs(mat_factors_ev), 2, sum)),ncol(mat_factors_ev))
 
 tbl_rel_fact <- tibble::as_tibble(mat_factors_ev)
 tbl_rel_fact <- bind_cols(tbl_ev_result_ev_per_gen_sd[,1],tbl_rel_fact)
-knitr::kable(tbl_rel_fact, booktabs = TRUE)
 ```
 
 The whole computation is now done in a function called `get_relative_economic_factors()`. This function takes as input the tibble of all economic values.
-
-```{r}
+```{r, include=FALSE}
 # testing function get_relative_economic _factors
 class(tbl_ev_result_ev_per_gen_sd)
 str(tbl_ev_result_ev_per_gen_sd[,1])
 # TODO tbd: find automatic method to determine class of first column of tbl_ev_result_ev_per_gen_sd
+```
 
+###2.1) Computing Relative Economic Factors For All Categories
+```{r, echo=FALSE}
 ### # compute factors with function
 tbl_rel_factors <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd,
                                                  pb_first_col_trait_name = TRUE)
 knitr::kable(tbl_rel_factors, booktabs = TRUE)
 ```
 
-Computing the factors for different animal categories separately can be done with two separate function calls. We start with the category "addults"
-
-```{r}
+###2.2) Computing Relative Economic Factors For Adults
+Computing the factors for different animal categories separately can be done with two separate function calls.We start with the category "addults"
+```{r, echo=FALSE}
 ### # adults
 vec_row_idx_adult <- c(1,3,5)
 tbl_rel_factors_adult <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd[vec_row_idx_adult,],
@@ -764,9 +853,9 @@ tbl_rel_factors_adult <- MeatValueIndex::get_relative_economic_factors(ptbl_econ
 knitr::kable(tbl_rel_factors_adult, booktabs = TRUE)
 ```
 
+###2.3) Computing Relative Economic Factors For Calves
 The same is done for the category "calves"
-
-```{r}
+```{r, echo=FALSE}
 ### # adults
 vec_row_idx_calves <- c(2,4,6)
 tbl_rel_factors_calves <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd[vec_row_idx_calves,],
@@ -777,8 +866,8 @@ knitr::kable(tbl_rel_factors_calves, booktabs = TRUE)
 
 
 
-## Importance of calves versus adults for each population
-```{r, eval=TRUE, echo=FALSE, results="asis"}
+##3. Importance of calves versus adults for each population
+```{r, include=FALSE}
 tbl_number_calves_adults <- tibble::data_frame(Categories = c("adults", "calves"),
                                     OB = c(5948,
                                            9156),
@@ -794,32 +883,45 @@ tbl_number_calves_adults <- tibble::data_frame(Categories = c("adults", "calves"
 knitr::kable(tbl_number_calves_adults,booktabs = TRUE)
 ```
 
-
-## Economic value weighted by categories
-Some population are more used by adults than by calves, or vice versa. Therefore the economie value should be weighted by category. The proportion are calculated bellow:
-
-```{r}
+```{r, include=FALSE}
 ### # Proportion of the slaughtercategories for each breed
 tbl_proportion <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_number_calves_adults,
                                                                       pb_first_col_trait_name = TRUE)
-knitr::kable(tbl_proportion, booktabs = TRUE)
+```
 
+```{r, echo=FALSE}
+knitr::kable(tbl_proportion, booktabs = TRUE)
+```
+
+
+```{r, include=FALSE}
 ### # Tibble with same dimension as 'tbl_rel_factors'
 (tbl_proportion4eachtrait <- bind_rows(tbl_proportion,tbl_proportion,tbl_proportion))
 (tbl_proportion4eachtrait <- tbl_proportion4eachtrait[, 2:ncol(tbl_proportion4eachtrait)])
 (tbl_proportion4eachtrait <- bind_cols(tbl_rel_factors[,1], tbl_proportion4eachtrait))
 (colnames(tbl_proportion4eachtrait) <- colnames(tbl_rel_factors))
 knitr::kable(tbl_proportion4eachtrait, booktabs = TRUE)
-
 ```
 
 
-### Determine Relative Factors Based on Given Restrictions
+##4. Determine Relative Factors Based on Given Restrictions
+animal1: normal growth
+animal2: growing fast
+Animal 1 and 2 have the same slaughterweight -> breeding value for animal2 is higher than animal1.
+In the index, the economic value (ev) resulting of the payment system are negative for slaughterweight.
 
-```{r}
+Consequence: Index animal 1 would be higher than index animal 2.
+
+A fast solution would be according to Urs Schnyder:
+ev_cwa_n = ev_cca_n
+
+ev_cwc_n = ev_ccc_n
+
+ev_cfa_n = alphaa * ev_cca_n
+
+ev_cfc_n = alphac * ev_ccc_n
+```{r, include=FALSE}
 library(dplyr)
-# tbl_rel_fact %>% filter(Traits == "ccc") %>% select(OB, BV, SI, SF, MO)
-# tbl_rel_fact %>% filter(Traits == "cca") %>% select(OB, BV, SI, SF, MO)
 tbl_beta <- tibble::as_tibble(tbl_rel_fact %>% 
   filter(Traits == "ccc") %>% 
   select(OB, BV, SI, SF, MO) / 
@@ -846,7 +948,14 @@ class(tbl_scale_factor)
 
 Using the scale factors to compute the weights
 
-```{r}
+ev_total_n = 1 = ev_cca_n + ev_cfa_n + ev_cwa_n + ev_ccc_n + ev_cfc_n + ev_cwc_n
+
+replace all the terms in the formula to solve the equation.
+
+ev_ccc_n = beta   * ev_cca_n
+
+ev_cwa_n = 1 / (2 + 2beta + alphaa + alphac*beta)
+```{r, include=FALSE}
 cca_new <- tibble::as_tibble(1/(2 + 2*tbl_scale_factor[1,] + tbl_scale_factor[2,] + tbl_scale_factor[3,]*tbl_scale_factor[1,]))
 cwa_new <- cca_new
 ccc_new <- tibble::as_tibble(tbl_scale_factor[1,] * cca_new)
@@ -857,23 +966,21 @@ cfc_new <- tibble::as_tibble(ccc_new * tbl_scale_factor[3,])
 ### # adding computed rows into a new tibble of relative factors
 tbl_fact_new <- bind_rows(cca_new, ccc_new, cfa_new, cfc_new, cwa_new, cwc_new)
 tbl_fact_new <- bind_cols(tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")), tbl_fact_new)
-tbl_fact_new
+```
 
+```{r, echo=FALSE}
+knitr::kable(tbl_fact_new, booktabs = TRUE)
 ```
 
 
-## Writing Output To A File
+##5. Writing Output To A File
 The economic values that have been computed so far are collected into a dataframe and are written to a csv-formatted file. 
 
-Manual conversion and experiments are shown below.
+Manual conversion and table1.2 output are shown below.
 
 ```{r}
 vec_breed <- c("OB", "BV", "SI", "SF", "MO")
-# vec_basis <- c("unit", "gen_sd")
-vec_basis <- c("gen_sd")
 vec_trait <- c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")
-n_nr_breed <- length(vec_breed)
-n_nr_basis <- length(vec_basis)
 n_nr_trait <- length(vec_trait)
 
 tbl_ev_input <- NULL
@@ -896,8 +1003,8 @@ readr::write_csv(tbl_ev_input, path = "ev_meat_input.csv")
 ```
 
 
-### Use the function `write_ev_to_file()`
-A good initial test is to write the same tibble as with the manual conversion.
+Use the function `write_ev_to_file()`
+A good initial test is to write the same tibble (table1.2) as with the manual conversion.
 
 ```{r}
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd,
@@ -905,40 +1012,61 @@ ps_out_path = "economic_value_raw.csv",
 pb_first_col_trait_name = TRUE)
 ```
 
-As a next set, we are using the relative economic factors
+### Szenario A) we are using the relative economic factors (table 2.1, File name: economic_value_relative.csv)
+```{r, echo=FALSE}
+knitr::kable(tbl_rel_factors,booktabs = TRUE)
+```
 
-```{r}
+
+```{r, include=FALSE}
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_rel_factors,
                                  ps_out_path = "economic_value_relative.csv",
                                  pb_first_col_trait_name = TRUE)
 ```
 
-The relative factors are weighted with animal categories to get weighted relative factors
-
-```{r}
+### Szenario B) The relative factors are weighted with animal categories to get weighted relative factors (File name: weighted_economic_value_relative.csv)
+```{r, include=FALSE}
 tbl_weighted_rel_factors <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_rel_factors,
                                      ptbl_weight = tbl_proportion4eachtrait,
                                      pb_first_col_trait_name = TRUE)
-# tbl_weighted_rel_factors
+```
+
+```{r, echo=FALSE}
+knitr::kable(tbl_weighted_rel_factors,booktabs = TRUE)
+```
+
+
+```{r, include=FALSE}
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_rel_factors,
                                 ps_out_path = "weighted_economic_value_relative.csv",
                                 pb_first_col_trait_name = TRUE)
 ```
 
-The third set consist of the creative political values not weighted for animal classes
+### Szenario C) This set consist of the creative political values not weighted for animal classes (table 4, File name: political_unweighted.csv)
+```{r, echo=FALSE}
+knitr::kable(tbl_fact_new,booktabs = TRUE)
+```
 
-```{r}
+
+```{r,include=FALSE}
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_fact_new, 
                                   ps_out_path = "political_unweighted.csv",
                                  pb_first_col_trait_name = TRUE)
 ```
 
-The last set is the above factors weighted with the proportions of the animal classes
-
-```{r}
+### Szenario D) The last set is the above factors weighted with the proportions of the animal classes (File name: political_weighted.csv)
+```{r, include=FALSE}
 tbl_weighted_fact_new <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_fact_new,
                                      ptbl_weight = tbl_proportion4eachtrait,
                                      pb_first_col_trait_name = TRUE)
+```
+
+```{r, echo=FALSE}
+knitr::kable(tbl_weighted_fact_new,booktabs = TRUE)
+```
+
+
+```{r, include=FALSE}
 MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_fact_new,
                                 ps_out_path = "political_weighted.csv",
                                 pb_first_col_trait_name = TRUE)
