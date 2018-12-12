@@ -3,8 +3,8 @@ title: "DualBreed"
 author: "Sophie Kunz and Peter von Rohr"
 date: "2 November 2018"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -1033,6 +1033,22 @@ tbl_weighted_rel_factors <- MeatValueIndex::weight_economic_value(ptbl_economic_
 
 ```{r, echo=FALSE}
 knitr::kable(tbl_weighted_rel_factors,booktabs = TRUE)
+```
+
+```{r}
+apply(abs(as.matrix(tbl_weighted_rel_factors[,2:ncol(tbl_weighted_rel_factors)])), 2, sum)
+```
+
+```{r}
+.09/.5371
+.0497/.5371
+
+```
+
+
+```{r}
+MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_weighted_rel_factors,
+                                                                      pb_first_col_trait_name = TRUE)
 ```
 
 

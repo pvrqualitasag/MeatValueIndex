@@ -1,70 +1,21 @@
----
-title: "Weighting Strategies"
-output:
-  html_document:
-    df_print: paged
----
+#' ---
+#' title: "DualBreed"
+#' author: "Sophie Kunz and Peter von Rohr"
+#' date: "2 November 2018"
+#' output:
+#'   pdf_document: default
+#'   html_document: default
+#' ---
+#' 
+## ----setup, include=FALSE------------------------------------------------
+knitr::opts_chunk$set(echo = TRUE)
 
-
-## Disclaimer
-This notebook gives an overview over different weighting strategies between economic values of traits of different animal categories.
-
-
-## Background
-In beef cattle there are three different carcass performance traits. 
-
-```{r traittable, echo=FALSE, results='asis'}
-tbl_trait <- tibble::data_frame(Abbreviation = c("CC", "CF", "CW"),
-                                Trait = c("Carcass Conformation",
-                                          "Carcass Fat",
-                                          "Carcass Weight"))
-knitr::kable( tbl_trait,
-              booktabs = TRUE,
-              longtable = TRUE )
-```
-
-
-Both traits are available in two animal categories
-
-```{r categorytable, echo=FALSE, results='asis'}
-tbl_category <- tibble::data_frame(Abbreviation = c("c", "a"),
-                                   Category     = c("calf", "adult"))
-knitr::kable( tbl_category,
-              booktabs = TRUE,
-              longtable = TRUE )
-```
-
-
-```{r computenrtrait, echo=FALSE, results='hide'}
-n_nr_trait <- nrow(tbl_category) * nrow(tbl_trait)
-```
-
-Combining both, results in the following matrix of a total of `r n_nr_trait` traits
-
-```{r traitmatrix, echo=FALSE, results='asis'}
-tbl_trait_matrix <- tibble::data_frame(Trait = c("CC", "CF", "CW"),
-                                       Calf  = c("CCc", "CFc", "CWc"),
-                                       Adult = c("CCa", "CFa", "CWa"))
-knitr::kable( tbl_trait_matrix,
-              booktabs = TRUE,
-              longtable = TRUE )
-```
-
-
-## Economic Values
-Economic values for all `r n_nr_trait` traits were computed using a simplified profit function leading to the following results.
-
-```{r economicvalues, echo=FALSE, results='asis'}
-tbl_economic_value <- tibble::data_frame(Trait = c("CCa", "CFa", "CWa"))
-```
-
-
-
-## Computations
-
-```{r setupcomputations, echo=FALSE, results='hide'}
+#' 
+## ---- include=FALSE------------------------------------------------------
 library(dplyr)
 
+#' 
+#' 
 #' #1. Computing Economic Value For Dual Breed
 #' 
 #' ## Genetic Standard Deviations
@@ -79,11 +30,13 @@ l_gen_sd <- list(CCc = 0.6336,
                  CWa = 0.1395)
 
 #' 
+#' 
 #' ##Carcass conformation adults (CCa)
 ## ------------------------------------------------------------------------
 ### # prices
 vec_price_cca <- c(7.526960,7.938872,8.450784,8.800000,9.137304,9.392693,9.642693)
 
+#' 
 #' 
 #' ###OB
 ## ------------------------------------------------------------------------
@@ -719,6 +672,7 @@ n_mean_cwc_mo <- 1.28 * n_scale_fact_cwc
 n_sd_cwc_mo <- 0.15 * n_scale_fact_cwc
 
 #' 
+#' 
 ## ---- include=FALSE------------------------------------------------------
 (ev_cwc_mo <- MeatValueIndex::compute_economic_value( pn_mean = n_mean_cwc_mo,
                         pn_sd = n_sd_cwc_mo,
@@ -729,6 +683,87 @@ n_sd_cwc_mo <- 0.15 * n_scale_fact_cwc
                         pn_delta_mean = .01 * n_scale_fact_cwc))
 
 
+#' 
+#' ## Overview of the phenotypic mean
+## ---- eval=TRUE, echo=FALSE, results="asis"------------------------------
+tbl_population_mean <- tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
+                                    OB = c(n_mean_cca_ob,
+                                           n_mean_ccc_ob,
+                                           n_mean_cfa_ob,
+                                           n_mean_cfc_ob,
+                                           n_mean_cwa_ob,
+                                           n_mean_cwc_ob),
+                                    BV = c(n_mean_cca_bv,
+                                           n_mean_ccc_bv,
+                                           n_mean_cfa_bv,
+                                           n_mean_cfc_bv,
+                                           n_mean_cwa_bv,
+                                           n_mean_cwc_bv),
+                                    SI = c(n_mean_cca_si,
+                                           n_mean_ccc_si,
+                                           n_mean_cfa_si,
+                                           n_mean_cfc_si,
+                                           n_mean_cwa_si,
+                                           n_mean_cwc_si),
+                                    SF = c(n_mean_cca_sf,
+                                           n_mean_ccc_sf,
+                                           n_mean_cfa_sf,
+                                           n_mean_cfc_sf,
+                                           n_mean_cwa_sf,
+                                           n_mean_cwc_sf),
+                                    MO = c(n_mean_cca_mo,
+                                           n_mean_ccc_mo,
+                                           n_mean_cfa_mo,
+                                           n_mean_cfc_mo,
+                                           n_mean_cwa_mo,
+                                           n_mean_cwc_mo))
+
+knitr::kable(tbl_population_mean,booktabs = TRUE)
+
+#' 
+#' 
+#' ## Presenting output for economic values
+#' The computed economic values are shown in the following tables:
+#' 
+#' ###1.1) Table are presenting economic value in trait unit.
+## ---- eval=TRUE, echo=FALSE, results="asis"------------------------------
+tbl_ev_result_ev_per_trait_unit <- tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
+                                    OB = c(ev_cca_ob$ev_per_trait_unit, 
+                                            ev_ccc_ob$ev_per_trait_unit, 
+                                            ev_cfa_ob$ev_per_trait_unit, 
+                                            ev_cfc_ob$ev_per_trait_unit, 
+                                            ev_cwa_ob$ev_per_trait_unit, 
+                                            ev_cwc_ob$ev_per_trait_unit),
+                                    BV = c(ev_cca_bv$ev_per_trait_unit, 
+                                            ev_ccc_bv$ev_per_trait_unit, 
+                                            ev_cfa_bv$ev_per_trait_unit, 
+                                            ev_cfc_bv$ev_per_trait_unit, 
+                                            ev_cwa_bv$ev_per_trait_unit, 
+                                            ev_cwc_bv$ev_per_trait_unit),
+                                    SI = c(ev_cca_si$ev_per_trait_unit, 
+                                            ev_ccc_si$ev_per_trait_unit, 
+                                            ev_cfa_si$ev_per_trait_unit, 
+                                            ev_cfc_si$ev_per_trait_unit, 
+                                            ev_cwa_si$ev_per_trait_unit, 
+                                            ev_cwc_si$ev_per_trait_unit),
+                                    SF = c(ev_cca_sf$ev_per_trait_unit, 
+                                            ev_ccc_sf$ev_per_trait_unit, 
+                                            ev_cfa_sf$ev_per_trait_unit, 
+                                            ev_cfc_sf$ev_per_trait_unit, 
+                                            ev_cwa_sf$ev_per_trait_unit, 
+                                            ev_cwc_sf$ev_per_trait_unit),
+                                    MO = c(ev_cca_mo$ev_per_trait_unit, 
+                                            ev_ccc_mo$ev_per_trait_unit, 
+                                            ev_cfa_mo$ev_per_trait_unit, 
+                                            ev_cfc_mo$ev_per_trait_unit, 
+                                            ev_cwa_mo$ev_per_trait_unit, 
+                                            ev_cwc_mo$ev_per_trait_unit))
+
+knitr::kable(tbl_ev_result_ev_per_trait_unit,booktabs = TRUE)
+
+#' 
+#' ###1.2) Table are presenting economic value in genetic standard deviation.
+## ---- eval=TRUE, echo=FALSE, results="asis"------------------------------
 tbl_ev_result_ev_per_gen_sd <- tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
                                     OB = c(ev_cca_ob$ev_per_gen_sd,
                                             ev_ccc_ob$ev_per_gen_sd, 
@@ -761,12 +796,51 @@ tbl_ev_result_ev_per_gen_sd <- tibble::data_frame(Traits = c("cca", "ccc", "cfa"
                                             ev_cwa_mo$ev_per_gen_sd, 
                                             ev_cwc_mo$ev_per_gen_sd))
 
+knitr::kable(tbl_ev_result_ev_per_gen_sd,booktabs = TRUE)
 
+#' 
+#' 
+#' ##2. Computing Relative Economic Factors
+#' Relative economic factors are defined as the ratio of each economic value on the basis of one genetic standard deviation to the sum of all economic values in a given breed. The principle of how the relative economic factors are computed is shown in the chunk below. 
+#' 
+## ------------------------------------------------------------------------
+tbl_ev_result_ev_per_gen_sd
+# convert the tibble with economic values on the basis of one genotypic standard deviation to a matrix
+mat_ev_per_gen_sd <- as.matrix(tbl_ev_result_ev_per_gen_sd[,2:ncol(tbl_ev_result_ev_per_gen_sd)])
+mat_ev_per_gen_sd
+# compute sum of absolute economic values within each breed
+vec_abs_sum_ev <- apply(abs(mat_ev_per_gen_sd), 2, sum)
+vec_abs_sum_ev
+# inverse of sum
+vec_inv_abs_sum_ev <- 1/vec_abs_sum_ev
+vec_inv_abs_sum_ev
+# extend inverse factors into a matrix
+mat_inv_abs_sum_ev <- matrix(vec_inv_abs_sum_ev, nrow = nrow(mat_ev_per_gen_sd), ncol = ncol(mat_ev_per_gen_sd), byrow = TRUE)
+# element-wise multiplication of matrix of economic values and matrix of inverse sums to get ratios
+(mat_factors_ev <- mat_ev_per_gen_sd * mat_inv_abs_sum_ev)
+mat_factors_ev
+# check
+apply(abs(mat_factors_ev), 2, sum)
+all.equal(sum(apply(abs(mat_factors_ev), 2, sum)),ncol(mat_factors_ev))
+
+tbl_rel_fact <- tibble::as_tibble(mat_factors_ev)
+tbl_rel_fact <- bind_cols(tbl_ev_result_ev_per_gen_sd[,1],tbl_rel_fact)
+
+#' 
+#' The whole computation is now done in a function called `get_relative_economic_factors()`. This function takes as input the tibble of all economic values.
+## ---- include=FALSE------------------------------------------------------
+# testing function get_relative_economic _factors
+class(tbl_ev_result_ev_per_gen_sd)
+str(tbl_ev_result_ev_per_gen_sd[,1])
+# TODO tbd: find automatic method to determine class of first column of tbl_ev_result_ev_per_gen_sd
+
+#' 
 #' ###2.1) Computing Relative Economic Factors For All Categories
 ## ---- echo=FALSE---------------------------------------------------------
 ### # compute factors with function
 tbl_rel_factors <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd,
                                                  pb_first_col_trait_name = TRUE)
+knitr::kable(tbl_rel_factors, booktabs = TRUE)
 
 #' 
 #' ###2.2) Computing Relative Economic Factors For Adults
@@ -776,6 +850,7 @@ tbl_rel_factors <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_v
 vec_row_idx_adult <- c(1,3,5)
 tbl_rel_factors_adult <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd[vec_row_idx_adult,],
                                                  pb_first_col_trait_name = TRUE)
+knitr::kable(tbl_rel_factors_adult, booktabs = TRUE)
 
 #' 
 #' ###2.3) Computing Relative Economic Factors For Calves
@@ -785,7 +860,11 @@ tbl_rel_factors_adult <- MeatValueIndex::get_relative_economic_factors(ptbl_econ
 vec_row_idx_calves <- c(2,4,6)
 tbl_rel_factors_calves <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd[vec_row_idx_calves,],
                                                  pb_first_col_trait_name = TRUE)
+knitr::kable(tbl_rel_factors_calves, booktabs = TRUE)
 
+#' 
+#' 
+#' 
 #' 
 #' ##3. Importance of calves versus adults for each population
 ## ---- include=FALSE------------------------------------------------------
@@ -801,6 +880,7 @@ tbl_number_calves_adults <- tibble::data_frame(Categories = c("adults", "calves"
                                     MO = c(9798, 
                                            2638))
 
+knitr::kable(tbl_number_calves_adults,booktabs = TRUE)
 
 #' 
 ## ---- include=FALSE------------------------------------------------------
@@ -808,93 +888,203 @@ tbl_number_calves_adults <- tibble::data_frame(Categories = c("adults", "calves"
 tbl_proportion <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_number_calves_adults,
                                                                       pb_first_col_trait_name = TRUE)
 
+#' 
+## ---- echo=FALSE---------------------------------------------------------
+knitr::kable(tbl_proportion, booktabs = TRUE)
 
-### # adjust dimensions of proportion matrix to be consistent with ev tbl.
+#' 
+#' 
+## ---- include=FALSE------------------------------------------------------
+### # Tibble with same dimension as 'tbl_rel_factors'
 (tbl_proportion4eachtrait <- bind_rows(tbl_proportion,tbl_proportion,tbl_proportion))
 (tbl_proportion4eachtrait <- tbl_proportion4eachtrait[, 2:ncol(tbl_proportion4eachtrait)])
 (tbl_proportion4eachtrait <- bind_cols(tbl_rel_factors[,1], tbl_proportion4eachtrait))
 (colnames(tbl_proportion4eachtrait) <- colnames(tbl_rel_factors))
+knitr::kable(tbl_proportion4eachtrait, booktabs = TRUE)
 
+#' 
+#' 
+#' ##4. Determine Relative Factors Based on Given Restrictions
+#' animal1: normal growth
+#' animal2: growing fast
+#' Animal 1 and 2 have the same slaughterweight -> breeding value for animal2 is higher than animal1.
+#' In the index, the economic value (ev) resulting of the payment system are negative for slaughterweight.
+#' 
+#' Consequence: Index animal 1 would be higher than index animal 2.
+#' 
+#' A fast solution would be according to Urs Schnyder:
+#' ev_cwa_n = ev_cca_n
+#' 
+#' ev_cwc_n = ev_ccc_n
+#' 
+#' ev_cfa_n = alphaa * ev_cca_n
+#' 
+#' ev_cfc_n = alphac * ev_ccc_n
+## ---- include=FALSE------------------------------------------------------
+library(dplyr)
+tbl_beta <- tibble::as_tibble(tbl_rel_fact %>% 
+  filter(Traits == "ccc") %>% 
+  select(OB, BV, SI, SF, MO) / 
+  tbl_rel_fact %>% 
+  filter(Traits == "cca") %>% 
+  select(OB, BV, SI, SF, MO))
+tbl_alphaa <- tibble::as_tibble(tbl_rel_fact %>% 
+  filter(Traits == "cfa") %>% 
+  select(OB, BV, SI, SF, MO) / 
+  tbl_rel_fact %>% 
+  filter(Traits == "cca") %>% 
+  select(OB, BV, SI, SF, MO))
+tbl_alphac <- tibble::as_tibble(tbl_rel_fact %>% 
+  filter(Traits == "cfc") %>% 
+  select(OB, BV, SI, SF, MO) / 
+  tbl_rel_fact %>% 
+  filter(Traits == "ccc") %>% 
+  select(OB, BV, SI, SF, MO))
+
+tbl_scale_factor <- bind_rows(tbl_beta, tbl_alphaa, tbl_alphac)
+tbl_scale_factor
+class(tbl_scale_factor)
+
+#' 
+#' Using the scale factors to compute the weights
+#' 
+#' ev_total_n = 1 = ev_cca_n + ev_cfa_n + ev_cwa_n + ev_ccc_n + ev_cfc_n + ev_cwc_n
+#' 
+#' replace all the terms in the formula to solve the equation.
+#' 
+#' ev_ccc_n = beta   * ev_cca_n
+#' 
+#' ev_cwa_n = 1 / (2 + 2beta + alphaa + alphac*beta)
+## ---- include=FALSE------------------------------------------------------
+cca_new <- tibble::as_tibble(1/(2 + 2*tbl_scale_factor[1,] + tbl_scale_factor[2,] + tbl_scale_factor[3,]*tbl_scale_factor[1,]))
+cwa_new <- cca_new
+ccc_new <- tibble::as_tibble(tbl_scale_factor[1,] * cca_new)
+cwc_new <- ccc_new
+cfa_new <- tibble::as_tibble(cca_new * tbl_scale_factor[2,])
+cfc_new <- tibble::as_tibble(ccc_new * tbl_scale_factor[3,])
+
+### # adding computed rows into a new tibble of relative factors
+tbl_fact_new <- bind_rows(cca_new, ccc_new, cfa_new, cfc_new, cwa_new, cwc_new)
+tbl_fact_new <- bind_cols(tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")), tbl_fact_new)
+
+#' 
+## ---- echo=FALSE---------------------------------------------------------
+knitr::kable(tbl_fact_new, booktabs = TRUE)
+
+#' 
+#' 
+#' ##5. Writing Output To A File
+#' The economic values that have been computed so far are collected into a dataframe and are written to a csv-formatted file. 
+#' 
+#' Manual conversion and table1.2 output are shown below.
+#' 
+## ------------------------------------------------------------------------
+vec_breed <- c("OB", "BV", "SI", "SF", "MO")
+vec_trait <- c("cca", "ccc", "cfa", "cfc", "cwa", "cwc")
+n_nr_trait <- length(vec_trait)
+
+tbl_ev_input <- NULL
+ for (b in vec_breed){
+# b <- vec_breed[2]
+  ### # put together 
+  if (is.null(tbl_ev_input)){
+    tbl_ev_input <- tibble::data_frame(Trait = vec_trait,
+                                       Breed = rep(b, length(n_nr_trait)),
+                                       Ev    = tbl_ev_result_ev_per_gen_sd[[b]])
+  } else {
+    tbl_ev_current <- tibble::data_frame(Trait = vec_trait,
+                                       Breed = rep(b, length(n_nr_trait)),
+                                       Ev    = tbl_ev_result_ev_per_gen_sd[[b]])
+    tbl_ev_input <- rbind(tbl_ev_input, tbl_ev_current)
+  }
+    
+}
+readr::write_csv(tbl_ev_input, path = "ev_meat_input.csv")
+
+#' 
+#' 
+#' Use the function `write_ev_to_file()`
+#' A good initial test is to write the same tibble (table1.2) as with the manual conversion.
+#' 
+## ------------------------------------------------------------------------
+MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_ev_result_ev_per_gen_sd,
+ps_out_path = "economic_value_raw.csv",
+pb_first_col_trait_name = TRUE)
+
+#' 
+#' ### Szenario A) we are using the relative economic factors (table 2.1, File name: economic_value_relative.csv)
+## ---- echo=FALSE---------------------------------------------------------
+knitr::kable(tbl_rel_factors,booktabs = TRUE)
+
+#' 
+#' 
+## ---- include=FALSE------------------------------------------------------
+MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_rel_factors,
+                                 ps_out_path = "economic_value_relative.csv",
+                                 pb_first_col_trait_name = TRUE)
+
+#' 
 #' ### Szenario B) The relative factors are weighted with animal categories to get weighted relative factors (File name: weighted_economic_value_relative.csv)
 ## ---- include=FALSE------------------------------------------------------
 tbl_weighted_rel_factors <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_rel_factors,
                                      ptbl_weight = tbl_proportion4eachtrait,
                                      pb_first_col_trait_name = TRUE)
 
-```
+#' 
+## ---- echo=FALSE---------------------------------------------------------
+knitr::kable(tbl_weighted_rel_factors,booktabs = TRUE)
 
-The following table shows economic values of `r n_nr_trait` traits weighted with proportion of animal categories. 
+#' 
+## ------------------------------------------------------------------------
+apply(abs(as.matrix(tbl_weighted_rel_factors[,2:ncol(tbl_weighted_rel_factors)])), 2, sum)
 
-```{r echo=FALSE, results='asis'}
-knitr::kable( tbl_weighted_rel_factors,
-              booktabs = TRUE )
-```
-
-The values in the above table are now re-scaled 
-
-```{r, echo=FALSE, results='asis'}
-tbl_weighted_rel_factors_rescaled <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_weighted_rel_factors,
-                                                                      pb_first_col_trait_name = TRUE)
-knitr::kable( tbl_weighted_rel_factors_rescaled, 
-              booktabs = TRUE )
-```
+#' 
+## ------------------------------------------------------------------------
+.09/.5371
+.0497/.5371
 
 
-## Comparison To Values within Category
-The raw economic values un-scaled are
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(tbl_rel_factors, booktabs = TRUE)
-```
-
-
-The raw economic values can first be scaled within animal category resulting in 
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(tbl_rel_factors_adult, booktabs = TRUE)
-```
-
-for adults and 
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(tbl_rel_factors_calves, booktabs = TRUE)
-```
-
-for calves. Binding the above to tables into one gives
-
-```{r, echo=FALSE, results='asis'}
-tbl_rel_fact_adult_calf <- bind_rows(tbl_rel_factors_adult, tbl_rel_factors_calves)
-tbl_rel_fact_adult_calf <- tbl_rel_fact_adult_calf[c(1,4,2,5,3,6),]
-
-knitr::kable(tbl_rel_fact_adult_calf, booktabs = TRUE)
-```
-
-To get the relative importance inside of an index, we have to re-scale
-
-```{r, echo=FALSE, results='asis'}
-tbl_rel_fact_adult_calf_rescaled <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_rel_fact_adult_calf,
+#' 
+#' 
+## ------------------------------------------------------------------------
+MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_weighted_rel_factors,
                                                                       pb_first_col_trait_name = TRUE)
 
-knitr::kable(tbl_rel_fact_adult_calf_rescaled, booktabs = TRUE)
-```
+#' 
+#' 
+## ---- include=FALSE------------------------------------------------------
+MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_rel_factors,
+                                ps_out_path = "weighted_economic_value_relative.csv",
+                                pb_first_col_trait_name = TRUE)
 
-The above factors are weighted with the proportion of the anial categories
+#' 
+#' ### Szenario C) This set consist of the creative political values not weighted for animal classes (table 4, File name: political_unweighted.csv)
+## ---- echo=FALSE---------------------------------------------------------
+knitr::kable(tbl_fact_new,booktabs = TRUE)
 
-```{r, echo=FALSE, results='asis'}
-tbl_weighted_rel_fact_adult_calf <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_rel_fact_adult_calf_rescaled,
+#' 
+#' 
+## ----include=FALSE-------------------------------------------------------
+MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_fact_new, 
+                                  ps_out_path = "political_unweighted.csv",
+                                 pb_first_col_trait_name = TRUE)
+
+#' 
+#' ### Szenario D) The last set is the above factors weighted with the proportions of the animal classes (File name: political_weighted.csv)
+## ---- include=FALSE------------------------------------------------------
+tbl_weighted_fact_new <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_fact_new,
                                      ptbl_weight = tbl_proportion4eachtrait,
                                      pb_first_col_trait_name = TRUE)
-tbl_weighted_rel_fact_adult_calf_rescaled <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_weighted_rel_fact_adult_calf,
-                                                                      pb_first_col_trait_name = TRUE)
 
-knitr::kable(tbl_weighted_rel_fact_adult_calf_rescaled, booktabs = TRUE)
-```
+#' 
+## ---- echo=FALSE---------------------------------------------------------
+knitr::kable(tbl_weighted_fact_new,booktabs = TRUE)
 
-
-## Conclusions
-* For traits with a low relative weight (`CFa`, `CFc`, `CWa` and `CWc`), the different strategies do not show different results
-* The different weighting strategies lead to different relative weights in `CCa` and `CCc` where the weights are high
-
-
+#' 
+#' 
+## ---- include=FALSE------------------------------------------------------
+MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_fact_new,
+                                ps_out_path = "political_weighted.csv",
+                                pb_first_col_trait_name = TRUE)
 
 
