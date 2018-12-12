@@ -53,6 +53,6 @@ knitr::kable( tbl_trait_matrix,
 Economic values for all `r n_nr_trait` traits were computed using a simplified profit function leading to the following results.
 
 ```{r economicvalues, echo=FALSE, results='asis'}
-
+1
 ```
 
