@@ -1,0 +1,58 @@
+---
+title: "Weighting Strategies"
+output: html_notebook
+---
+
+
+## Disclaimer
+This notebook gives an overview over different weighting strategies between economic values of traits of different animal categories.
+
+
+## Background
+In beef cattle there are three different carcass performance traits. 
+
+```{r traittable, echo=FALSE, results='asis'}
+tbl_trait <- tibble::data_frame(Abbreviation = c("CC", "CF", "CW"),
+                                Trait = c("Carcass Conformation",
+                                          "Carcass Fat",
+                                          "Carcass Weight"))
+knitr::kable( tbl_trait,
+              booktabs = TRUE,
+              longtable = TRUE )
+```
+
+
+Both traits are available in two animal categories
+
+```{r categorytable, echo=FALSE, results='asis'}
+tbl_category <- tibble::data_frame(Abbreviation = c("c", "a"),
+                                   Category     = c("calf", "adult"))
+knitr::kable( tbl_category,
+              booktabs = TRUE,
+              longtable = TRUE )
+```
+
+
+```{r computenrtrait, echo=FALSE, results='hide'}
+n_nr_trait <- nrow(tbl_category) * nrow(tbl_trait)
+```
+
+Combining both, results in the following matrix of a total of `r n_nr_trait` traits
+
+```{r traitmatrix, echo=FALSE, results='asis'}
+tbl_trait_matrix <- tibble::data_frame(Trait = c("CC", "CF", "CW"),
+                                       Calf  = c("CCc", "CFc", "CWc"),
+                                       Adult = c("CCa", "CFa", "CWa"))
+knitr::kable( tbl_trait_matrix,
+              booktabs = TRUE,
+              longtable = TRUE )
+```
+
+
+## Economic Values
+Economic values for all `r n_nr_trait` traits were computed using a simplified profit function leading to the following results.
+
+```{r economicvalues, echo=FALSE, results='asis'}
+
+```
+
