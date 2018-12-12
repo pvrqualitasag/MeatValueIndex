@@ -1,27 +1,31 @@
 ---
 title: "Breeding Organisations"
-author: "Peter von Rohr"
+author: "Peter von Rohr and Sophie Kunz"
 date: "11/22/2018"
 output:
+  ioslides_presentation: default
   beamer_presentation:
     includes:
-      in_header: header_pagenrs.tex 
+      in_header: header_pagenrs.tex
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Slide 1
+## Ausgangslage
 
-- Ist-Zustand
-    + aktuelle Gewichtung Cw = Cc
-    
-- Neu
-    + neues Merkmal Cf
+1. Ist-Zustand
+    + aktuelle Gewichtung Schlachtgewicht CW = Fleischigkeit CC
 
-1. First item
-2. Second item
+2. Neue Entwicklung
+    + neues Merkmal Fettabdeckung CF seit Sommer 2018
+        + Population sind unterhalb des Optimums für Fettabdeckung
+        + Genetische Trends für Fettabdeckung sind negativ
+        + Handlungsbedarf im Merkmal Fettabdeckung vorhanden
+
+
+## Ausgangslage
 
 
 ## Correlations
