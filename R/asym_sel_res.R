@@ -47,9 +47,9 @@ compute_asym_selection_response <- function(pvec_economic_values,
                                               ncol=male_number_adults*n_r_trait))
   ### ## Design Matrix for adults
   male_designMatrix_adults <- diag(1,male_number_adults)%x%male_designMatrix_adult
-  male_designMatrix_adults <- cbind(matrix(0, nrow=nrow(male_designMatrix_adult),
+  male_designMatrix_adults <- cbind(matrix(0, nrow=nrow(male_designMatrix_adults),
                                            ncol=male_number_calves*n_r_trait),
-                                    male_designMatrix_adult)
+                                    male_designMatrix_adults)
   ### ## Bind Design Matrix for calves and adults
   male_designMatrixZ <- rbind(male_designMatrix_calves, male_designMatrix_adults)
   ### ## Add selection candidate
@@ -136,9 +136,9 @@ compute_asym_selection_response <- function(pvec_economic_values,
                                            ncol=female_number_adults*n_r_trait))
   ### ## Design Matrix for adults
   female_designMatrix_adults <- diag(1,female_number_adults)%x%female_designMatrix_adult
-  female_designMatrix_adults <- cbind(matrix(0, nrow=nrow(female_designMatrix_adult),
+  female_designMatrix_adults <- cbind(matrix(0, nrow=nrow(female_designMatrix_adults),
                                            ncol=female_number_calves*n_r_trait),
-                                    female_designMatrix_adult)
+                                      female_designMatrix_adults)
   ### ## Bind Design Matrix for calves and adults
   female_designMatrixZ <- rbind(female_designMatrix_calves, female_designMatrix_adults)
   ### ## Add selection candidate
