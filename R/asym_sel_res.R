@@ -22,6 +22,24 @@ compute_asym_selection_response <- function(pvec_economic_values,
                                             pmat_residual_varcov) {
   result_asym_sel_res <- NULL
 
+  ### ##  Proportion of calves
+  vec_proportion_calves <- 1 -  pvec_proportion_progeny_adult
+
+  ### ## Starting with male selection candidate
+  ### ## Number of offspring per category
+  male_number_adults <- floor(pvec_proportion_progeny_adult[[1]]*pvec_number_progeny[[1]])
+  male_number_calves <- pvec_number_progeny[[1]] - male_number_adults
+
+  ### ##
+
+
+
+
+
+
+
+
+
 
   return(result_asym_sel_res)
 }
