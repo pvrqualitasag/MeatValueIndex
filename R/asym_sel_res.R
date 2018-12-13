@@ -106,7 +106,7 @@ compute_asym_selection_response <- function(pvec_economic_values,
     }
   }
   ### ## Computation of PEV for selection candidate
-  male_PEV <- male_PEV[1:n,1:n]
+  male_PEV <- male_PEV[1:n_r_trait,1:n_r_trait]
 
 
 
@@ -116,10 +116,126 @@ compute_asym_selection_response <- function(pvec_economic_values,
 
 
 
+  ### ## -----------------------------------------
+  ### ## Following with female selection candidate
+  ### ## Number of offspring per category
+  female_number_adults <- floor(pvec_proportion_progeny_adult[[2]]*pvec_number_progeny[[2]])
+  female_number_calves <- pvec_number_progeny[[2]] - female_number_adults
+
+
+
+  ### ## Building Design Matrix Z
+  ### ## Design Matrix for one calf
+  female_designMatrix_calf <- cbind(c(1,0,0),c(0,0,0),c(0,1,0),c(0,0,0),c(0,0,1),c(0,0,0))
+  ### ## Design Matrix for one adult
+  female_designMatrix_adult <- cbind(c(0,0,0),c(1,0,0),c(0,0,0),c(0,1,0),c(0,0,0),c(0,0,1))
+  ### ## Design Matrix for calves
+  female_designMatrix_calves <- diag(1,female_number_calves)%x%female_designMatrix_calf
+  female_designMatrix_calves <- cbind(female_designMatrix_calves,
+                                    matrix(0, nrow=nrow(female_designMatrix_calves),
+                                           ncol=female_number_adults*n_r_trait))
+  ### ## Design Matrix for adults
+  female_designMatrix_adults <- diag(1,female_number_adults)%x%female_designMatrix_adult
+  female_designMatrix_adults <- cbind(matrix(0, nrow=nrow(female_designMatrix_adult),
+                                           ncol=female_number_calves*n_r_trait),
+                                    female_designMatrix_adult)
+  ### ## Bind Design Matrix for calves and adults
+  female_designMatrixZ <- rbind(female_designMatrix_calves, female_designMatrix_adults)
+  ### ## Add selection candidate
+  female_designMatrixZ<-cbind(matrix(0, nrow=pvec_number_progeny[[2]]*(n_r_trait/2),ncol=n_r_trait),female_designMatrixZ)
+  ### ## Check the dimension of Design Matrix Z
+  if(pb_out){
+    cat("[compute_asym_selection_response]: check the dimension of Design Matrix Z:\n")
+    if(nrow(female_designMatrixZ) != pvec_number_progeny[[2]]*(n_r_trait/2)){
+      stop("[compute_asym_selection_response]: something is wrong with the number of rows of Design Matrix Z")
+    }
+    if(ncol(female_designMatrixZ) != n_r_trait*(pvec_number_progeny[[2]]+1)){
+      stop("[compute_asym_selection_response]: something is wrong with the number of columns of Design Matrix Z")
+    }
+  }
+
+
+
+  ### ## Residual Matrix R
+  mat_residual_var_cov_calves <- pmat_residual_varcov[c(1,3,5),c(1,3,5)]
+  mat_residual_var_cov_adults <- pmat_residual_varcov[c(2,4,6),c(2,4,6)]
+
+  female_calves_kronecker_residual <- diag(female_number_calves) %x% mat_residual_var_cov_calves
+  female_adults_kronecker_residual <- diag(female_number_adults) %x% mat_residual_var_cov_adults
+  female_calves_kronecker_residual_extended <- cbind(female_calves_kronecker_residual,
+                                                   matrix(0,nrow=nrow(female_calves_kronecker_residual),
+                                                          ncol=ncol(female_adults_kronecker_residual)))
+  female_adults_kronecker_residual_extended <- cbind(matrix(0,nrow=nrow(female_adults_kronecker_residual),
+                                                          ncol=ncol(female_calves_kronecker_residual)),
+                                                   female_adults_kronecker_residual)
+  female_ResidualMatrix <- rbind(female_calves_kronecker_residual_extended,female_adults_kronecker_residual_extended)
 
 
 
 
+  ### ## Relationship Matrix A
+  fnumb <- pvec_number_progeny[[2]]+1
+  female_Pedigree <- pedigreemm::pedigree(sire = c(NA,rep(NA,times = pvec_number_progeny[[2]])),
+                                          dam = c(NA,rep(1,times = pvec_number_progeny[[2]])),
+                                         label = 1:fnumb)
+  ### ## Compute inverse of A
+  female_AInv <- as.matrix(pedigreemm::getAInv(female_Pedigree))
+
+
+
+  ### ## Computation of PEV
+  female_PEV <- solve(t(female_designMatrixZ)%*%solve(female_ResidualMatrix)%*%female_designMatrixZ+female_AInv%x%solve(pmat_genetic_varcov))
+  if(pb_out){
+    cat("[compute_asym_selection_response]: check the dimension of PEV Z:\n")
+    if(nrow(female_PEV) != n_r_trait*(pvec_number_progeny[[2]]+1)){
+      stop("[compute_asym_selection_response]: something is wrong with the number of rows of PEV")
+    }
+    if(ncol(female_PEV) != n_r_trait*(pvec_number_progeny[[2]]+1)){
+      stop("[compute_asym_selection_response]: something is wrong with the number of columns of PEV")
+    }
+  }
+  ### ## Computation of PEV for selection candidate
+  female_PEV <- female_PEV[1:n_r_trait,1:n_r_trait]
+
+
+
+  ### ## Computation of variance covariance matrix for predicting breeding values
+  mat_female_var_cov_pbv <- pmat_genetic_varcov - female_PEV
+
+
+
+
+
+  ### ## -----------------------------------------
+  ### ## Selection intensity and Factor of variance reduction k
+  male_i <- dnorm(qnorm(1-pvec_proportion_selected[[1]]))/pvec_proportion_selected[[1]]
+  male_x <- qnorm(pvec_proportion_selected[[1]], lower.tail = FALSE)
+  male_k <- male_i*(male_i-male_x)
+
+  female_i <- dnorm(qnorm(1-pvec_proportion_selected[[2]]))/pvec_proportion_selected[[2]]
+  female_x <- qnorm(pvec_proportion_selected[[2]], lower.tail = FALSE)
+  female_k <- female_i*(female_i-female_x)
+
+  ### ## Computation of asymptotic variance covariance matrix
+  mat_kInv <- solve(matrix(c(1+0.5*male_k, 0.5*female_k,0.5*male_k, 1+0.5*female_k),nrow = 2, ncol = 2, byrow=TRUE))
+  mat_var_fact_reduction <- mat_kInv%x%diag(1,n_r_trait)
+
+  mat_var_cov_pbv <- rbind(mat_male_var_cov_pbv, mat_female_var_cov_pbv)
+  mat_asympt_var_cov_pbv <- mat_var_fact_reduction%*%mat_var_cov_pbv
+
+
+
+
+
+  ### ## -----------------------------------------
+  ### ## Asymptotic genetic gain of the estimated overall breeding value (SZENARIO 2)
+  ### ## Separate asymptotic variance covariance matrix for male and female
+  mat_male_asympt_var_cov_pbv <- mat_asympt_var_cov_pbv[1:n_r_trait,]
+  mat_female_asympt_var_cov_pbv <- mat_asympt_var_cov_pbv[(n_r_trait+1):nrow(mat_asympt_var_cov_pbv),]
+
+  result_asym_sel_res <- (male_i*sqrt(t(as.matrix(pvec_economic_values))%*%mat_male_asympt_var_cov_pbv%*%as.matrix(pvec_economic_values))+
+                          female_i*sqrt(t(as.matrix(pvec_economic_values))%*%mat_female_asympt_var_cov_pbv%*%as.matrix(pvec_economic_values)))/
+                          sum(pvec_generation_interval)
 
 
   return(result_asym_sel_res)
