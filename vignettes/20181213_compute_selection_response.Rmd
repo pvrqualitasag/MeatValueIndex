@@ -11,7 +11,9 @@ This notebook can be used for testing functions to compute asymptotic selection 
 
 ### Number of traits (ccc cca cfc cfa cwc cwa)
 ```{r}
-s_a <- "../inst/extdata/economic_values/AN_economic_values_Silvan"
+#s_a <- "../inst/extdata/economic_values/AN_economic_values_Silvan"
+s_a <- "../inst/extdata/economic_values/_economic_values_Silvan"
+
 df_a <- read.table(file = s_a, sep=";", header=TRUE)
 mat_a <- as.matrix(df_a)
 pvec_economic_values <- as.vector(mat_a)
@@ -30,7 +32,7 @@ proportion_calves <- 1 -  pvec_proportion_progeny_adult
 proportion_calves
 
 pvec_proportion_selected <- c(0.1,0.5)
-pvec_generation_interval <- c(6.5,5.2)
+pvec_generation_interval <- c(5.7,5.4)
 ```
 
 ### number of offspring per category for male and female
