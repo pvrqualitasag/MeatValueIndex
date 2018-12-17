@@ -1,6 +1,8 @@
 ---
 title: "Selection Response In Beef Cattle"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 
@@ -37,7 +39,7 @@ pvec_generation_interval <- c(5.7,5.4)
 
 ### number of offspring per category for male and female
 ```{r}
-male_number_adults <- floor(pvec_proportion_progeny_adult[[1]]*pvec_number_progeny[[1]])
+male_number_adults <- floor(pvec_proportion_progeny_adult*pvec_number_progeny[[1]])
 male_number_adults
 male_number_calves <- pvec_number_progeny[[1]] - male_number_adults
 male_number_calves
@@ -141,7 +143,7 @@ pmat_genetic_varcov
 ### Following with female selection candidate
 ### Number of offspring per category for female
 ```{r}
-female_number_adults <- floor(pvec_proportion_progeny_adult[[1]]*pvec_number_progeny[[2]])
+female_number_adults <- floor(pvec_proportion_progeny_adult*pvec_number_progeny[[2]])
 female_number_calves <- pvec_number_progeny[[2]] - female_number_adults
 ```
 
