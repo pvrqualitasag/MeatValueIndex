@@ -258,3 +258,40 @@ result_asym_sel_res
 
 ```
 
+## OB - Szenario B
+```{r}
+s_a_OB_B <- "../inst/extdata/economic_values/OB_economic_values_SzenarioB"
+
+df_a_OB_B <- read.table(file = s_a_OB_B, sep=";", header=TRUE)
+mat_a_OB_B <- as.matrix(df_a_OB_B)
+pvec_economic_values_OB_szenarioB <- as.vector(mat_a_OB_B)
+
+(res_OB_szenarioB_asym_select_response <- MeatValueIndex::compute_asym_selection_response(pvec_economic_values = pvec_economic_values_OB_szenarioB,
+                                            pvec_proportion_selected = pvec_proportion_selected,
+                                            pvec_generation_interval = pvec_generation_interval,
+                                            pvec_number_progeny = pvec_number_progeny,
+                                            pvec_proportion_progeny_adult = pvec_proportion_progeny_adult,
+                                            pmat_genetic_varcov = pmat_genetic_varcov,
+                                            pmat_residual_varcov = pmat_residual_varcov,
+                                            pb_out = FALSE))
+
+```
+
+## OB - Szenario B*
+```{r}
+s_a_OB_BStern <- "../inst/extdata/economic_values/OB_economic_values_SzenarioB*"
+
+df_a_OB_BStern <- read.table(file = s_a_OB_BStern, sep=";", header=TRUE)
+mat_a_OB_BStern <- as.matrix(df_a_OB_BStern)
+pvec_economic_values_OB_szenarioBStern <- as.vector(mat_a_OB_BStern)
+
+(res_OB_szenarioB_asym_select_response <- MeatValueIndex::compute_asym_selection_response(pvec_economic_values = pvec_economic_values_OB_szenarioBStern,
+                                            pvec_proportion_selected = pvec_proportion_selected,
+                                            pvec_generation_interval = pvec_generation_interval,
+                                            pvec_number_progeny = pvec_number_progeny,
+                                            pvec_proportion_progeny_adult = pvec_proportion_progeny_adult,
+                                            pmat_genetic_varcov = pmat_genetic_varcov,
+                                            pmat_residual_varcov = pmat_residual_varcov,
+                                            pb_out = FALSE))
+
+```

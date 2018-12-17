@@ -1,9 +1,9 @@
 ---
 title: "Weighting Strategies"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 
@@ -934,5 +934,93 @@ knitr::kable(tbl_weighted_rel_fact_adult_calf_rescaled, booktabs = TRUE)
 * The different weighting strategies lead to different relative weights in `CCa` and `CCc` where the weights are high
 
 
+## Prepare Economic Values Input For Selection Response
+```{r, eval=TRUE, echo=FALSE, include=FALSE}
+tbl_ev_result_ev_per_trait_unit <- tibble::data_frame(Traits = c("cca", "ccc", "cfa", "cfc", "cwa", "cwc"),
+                                    OB = c(ev_cca_ob$ev_per_trait_unit, 
+                                            ev_ccc_ob$ev_per_trait_unit, 
+                                            ev_cfa_ob$ev_per_trait_unit, 
+                                            ev_cfc_ob$ev_per_trait_unit, 
+                                            ev_cwa_ob$ev_per_trait_unit, 
+                                            ev_cwc_ob$ev_per_trait_unit),
+                                    BV = c(ev_cca_bv$ev_per_trait_unit, 
+                                            ev_ccc_bv$ev_per_trait_unit, 
+                                            ev_cfa_bv$ev_per_trait_unit, 
+                                            ev_cfc_bv$ev_per_trait_unit, 
+                                            ev_cwa_bv$ev_per_trait_unit, 
+                                            ev_cwc_bv$ev_per_trait_unit),
+                                    SI = c(ev_cca_si$ev_per_trait_unit, 
+                                            ev_ccc_si$ev_per_trait_unit, 
+                                            ev_cfa_si$ev_per_trait_unit, 
+                                            ev_cfc_si$ev_per_trait_unit, 
+                                            ev_cwa_si$ev_per_trait_unit, 
+                                            ev_cwc_si$ev_per_trait_unit),
+                                    SF = c(ev_cca_sf$ev_per_trait_unit, 
+                                            ev_ccc_sf$ev_per_trait_unit, 
+                                            ev_cfa_sf$ev_per_trait_unit, 
+                                            ev_cfc_sf$ev_per_trait_unit, 
+                                            ev_cwa_sf$ev_per_trait_unit, 
+                                            ev_cwc_sf$ev_per_trait_unit),
+                                    MO = c(ev_cca_mo$ev_per_trait_unit, 
+                                            ev_ccc_mo$ev_per_trait_unit, 
+                                            ev_cfa_mo$ev_per_trait_unit, 
+                                            ev_cfc_mo$ev_per_trait_unit, 
+                                            ev_cwa_mo$ev_per_trait_unit, 
+                                            ev_cwc_mo$ev_per_trait_unit))
+```
 
+```{r, include=FALSE}
+#Äquivalent zu Szenario A per_trait_units
+(tbl_rel_factors_per_trait_units <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_trait_unit,
+                                                 pb_first_col_trait_name = TRUE))
+
+```
+
+```{r, include=FALSE}
+(tbl_rel_factors_adult_per_trait_units <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_trait_unit[vec_row_idx_adult,],
+                                                 pb_first_col_trait_name = TRUE))
+```
+
+```{r, include=FALSE}
+(tbl_rel_factors_calf_per_trait_units <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_ev_result_ev_per_trait_unit[vec_row_idx_calves,],
+                                                 pb_first_col_trait_name = TRUE))
+```
+
+```{r, echo=FALSE, include=FALSE}
+tbl_rel_fact_adult_calf_per_trait_units <- bind_rows(tbl_rel_factors_adult_per_trait_units, tbl_rel_factors_calf_per_trait_units)
+(tbl_rel_fact_adult_calf_per_trait_units <- tbl_rel_fact_adult_calf_per_trait_units[c(1,4,2,5,3,6),])
+```
+
+```{r, echo=FALSE, include=FALSE}
+#Äquivalent zu Szenario A* per_trait_units
+(tbl_rel_fact_adult_calf_per_trait_units_rescaled <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_rel_fact_adult_calf_per_trait_units,
+                                                                      pb_first_col_trait_name = TRUE))
+```
+
+```{r, echo=FALSE, include=FALSE}
+(tbl_weighted_rel_factors_per_trait_units <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_rel_factors_per_trait_units,
+                                     ptbl_weight = tbl_proportion4eachtrait,
+                                     pb_first_col_trait_name = TRUE))
+
+```
+
+###Äquivalent zu Szenario B per_trait_units
+```{r, echo=FALSE, results='asis'}
+tbl_weighted_rel_factors_per_trait_units_rescaled <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_weighted_rel_factors_per_trait_units,
+                                                                      pb_first_col_trait_name = TRUE)
+knitr::kable( tbl_weighted_rel_factors_per_trait_units_rescaled, 
+              booktabs = TRUE )
+```
+
+###Äquivalent zu Szenario B* per_trait_units
+```{r, echo=FALSE, results='asis'}
+#Äquivalent zu Szenario B* per_trait_units
+tbl_weighted_rel_fact_adult_calf_per_trait_units <- MeatValueIndex::weight_economic_value(ptbl_economic_value = tbl_rel_fact_adult_calf_per_trait_units_rescaled,
+                                     ptbl_weight = tbl_proportion4eachtrait,
+                                     pb_first_col_trait_name = TRUE)
+tbl_weighted_rel_fact_adult_calf_rescaled_per_trait_units <- MeatValueIndex::get_relative_economic_factors(ptbl_economic_value = tbl_weighted_rel_fact_adult_calf_per_trait_units,
+                                                                      pb_first_col_trait_name = TRUE)
+
+knitr::kable(tbl_weighted_rel_fact_adult_calf_rescaled_per_trait_units, booktabs = TRUE)
+```
 
