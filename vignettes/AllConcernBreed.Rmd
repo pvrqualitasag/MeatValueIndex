@@ -3,8 +3,8 @@ title: "All Breed Concerned By Meat Index"
 author: "Peter von Rohr and Sophie Kunz"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 vignette: >
   %\VignetteIndexEntry{All Breed Concerned By Meat Index}
   %\VignetteEncoding{UTF-8}
@@ -1030,8 +1030,8 @@ n_sd_cwc_ch <- 0.15 * n_scale_fact_cwa
 ```
 
 ```{r, include=FALSE}
-n_mean_cwc_lm <- 1.31 * n_scale_fact_cwa
-n_sd_cwc_lm <- 0.12 * n_scale_fact_cwa
+n_mean_cwc_lm <- 1.30 * n_scale_fact_cwa
+n_sd_cwc_lm <- 0.13 * n_scale_fact_cwa
 ```
 
 ```{r, include=FALSE}
