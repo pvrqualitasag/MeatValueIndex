@@ -476,17 +476,16 @@ n_sd_cwa_lm <- 0.45 * n_scale_fact_cwa
 
 ##Carcass weight calves (CWc)
 ```{r}
- n_scale_fact_cwc <- 100
-vec_price_cwc <- c(0.0,
--0.1)
-vec_thre_cwc <- 1.4 * n_scale_fact_cwc
-
+n_scale_fact_cwc <- 100
+vec_price_cwc <- seq(0.0,-1.1,-0.1);vec_price_cwc
+vec_thre_cwc <- seq(1.4, 1.5, 0.01) * n_scale_fact_cwc
+vec_thre_cwc
 ```
 
 ### AN
 ```{r}
-n_mean_cwc_an <- 1.23 * n_scale_fact_cwa
-n_sd_cwc_an <- 0.14 * n_scale_fact_cwa
+n_mean_cwc_an <- 1.23 * n_scale_fact_cwc
+n_sd_cwc_an <- 0.14 * n_scale_fact_cwc
 ```
 
 ```{r, include=FALSE}
@@ -502,8 +501,8 @@ n_sd_cwc_an <- 0.14 * n_scale_fact_cwa
 
 ### AU
 ```{r}
-n_mean_cwc_au <- 1.25 * n_scale_fact_cwa
-n_sd_cwc_au <- 0.18 * n_scale_fact_cwa
+n_mean_cwc_au <- 1.25 * n_scale_fact_cwc
+n_sd_cwc_au <- 0.18 * n_scale_fact_cwc
 ```
 
 ```{r, include=FALSE}
@@ -519,8 +518,8 @@ n_sd_cwc_au <- 0.18 * n_scale_fact_cwa
 
 ### CH
 ```{r}
-n_mean_cwc_ch <- 1.27 * n_scale_fact_cwa
-n_sd_cwc_ch <- 0.15 * n_scale_fact_cwa
+n_mean_cwc_ch <- 1.27 * n_scale_fact_cwc
+n_sd_cwc_ch <- 0.15 * n_scale_fact_cwc
 ```
 
 ```{r, include=FALSE}
@@ -536,8 +535,8 @@ n_sd_cwc_ch <- 0.15 * n_scale_fact_cwa
 
 ### LM
 ```{r}
-n_mean_cwc_lm <- 1.31 * n_scale_fact_cwa
-n_sd_cwc_lm <- 0.12 * n_scale_fact_cwa
+n_mean_cwc_lm <- 1.31 * n_scale_fact_cwc
+n_sd_cwc_lm <- 0.12 * n_scale_fact_cwc
 ```
 
 ```{r, include=FALSE}
