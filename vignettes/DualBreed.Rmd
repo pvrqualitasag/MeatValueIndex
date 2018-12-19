@@ -1088,3 +1088,99 @@ MeatValueIndex::write_ev_to_file(ptbl_economic_value = tbl_weighted_fact_new,
                                 pb_first_col_trait_name = TRUE)
 
 ```
+
+
+
+# 6. Desired Gain Version for Braunvieh Schweiz
+The weight for carcass weight is fixed to a value of $0.3$ and all weights of the other traits are weighted according to their relative economic importance. This can be seen from the table below. 
+
+```{r}
+# knitr::kable(tbl_ev_result_ev_per_gen_sd,booktabs = TRUE)
+tbl_ev_result_ev_per_gen_sd_ob <- tbl_ev_result_ev_per_gen_sd %>% select(Traits, OB)
+knitr::kable(tbl_ev_result_ev_per_gen_sd_ob,booktabs = TRUE)
+
+```
+For the traits other than carcass weight, we distribute the remaining part of $0.7$ according to the economic importance taken from the table above. Then the weights are multiplied with the frequency of the slaughter categories and then scaled to sum up to $1$
+
+From can set up the following equation
+
+$$ev_{cca} + ev_{ccc} + ev_{cfa} + ev_{cfc} = 0.7$$
+
+From the given restriction the weight for carcass weight follows as
+
+$$ev_{cwa} + ev_{cwc} = 0.3$$
+
+
+First we define the following ratios coming from the above table
+
+$$\alpha = \frac{ev_{ccc}}{ev_{cca}}$$
+$$\beta = \frac{ev_{cfa}}{ev_{cca}}$$
+$$\gamma = \frac{ev_{cfc}}{ev_{cca}}$$
+
+From this the economic factor of `cca` can be determined as
+
+$$ev_{cca} = \frac{0.7}{1 + \alpha + \beta + \gamma}$$
+
+
+## Computing the Ratios
+As the first step we compute the ratios
+
+```{r}
+(alpha <- tbl_ev_result_ev_per_gen_sd_ob %>% filter(Traits == "ccc") %>% select(OB) / 
+  tbl_ev_result_ev_per_gen_sd_ob %>% filter(Traits == "cca") %>% select(OB))
+(beta <- tbl_ev_result_ev_per_gen_sd_ob %>% filter(Traits == "cfa") %>% select(OB) / 
+  tbl_ev_result_ev_per_gen_sd_ob %>% filter(Traits == "cca") %>% select(OB))
+(gamma <- tbl_ev_result_ev_per_gen_sd_ob %>% filter(Traits == "cfc") %>% select(OB) / 
+  tbl_ev_result_ev_per_gen_sd_ob %>% filter(Traits == "cca") %>% select(OB))
+
+```
+
+The weight for `cca` is the
+
+```{r}
+ev_cca <- 0.7 / (1 + alpha + beta + gamma)
+ev_cca
+```
+
+The weights for the other traits follow as
+
+```{r}
+(ev_ccc <- alpha * ev_cca)
+(ev_cfa <- beta * ev_cca)
+(ev_cfc <- gamma * ev_cca)
+(ev_cwa <- ev_cwc <- 0.15)
+```
+
+## Weighting with slaughter categories
+The `ev` results are weighted according to the frequency of the slaughter categories.
+
+```{r}
+(ev_ccc <- ev_ccc * tbl_proportion$OB[2])
+(ev_cfa <- ev_cfa * tbl_proportion$OB[1])
+(ev_cfc <- ev_cfc * tbl_proportion$OB[2])
+(ev_cwa <- ev_cwa * tbl_proportion$OB[1])
+(ev_cwc <- ev_cwc * tbl_proportion$OB[2])
+(ev_cca <- ev_cca * tbl_proportion$OB[1])
+```
+
+## Rescaling the weights
+
+```{r}
+(tot_weight <- sum(ev_ccc, ev_cfa, ev_cfc, ev_cwa, ev_cwc, ev_cca))
+(ev_ccc <- ev_ccc / tot_weight)
+(ev_cfa <- ev_cfa / tot_weight)
+(ev_cfc <- ev_cfc / tot_weight)
+(ev_cwa <- ev_cwa / tot_weight)
+(ev_cwc <- ev_cwc / tot_weight)
+(ev_cca <- ev_cca / tot_weight)
+```
+
+## Results to a Table
+
+```{r}
+tbl_ob_result <- tibble::data_frame(Traits = tbl_ev_result_ev_per_gen_sd_ob$Traits,
+                                    Results = c(ev_cca, ev_ccc, ev_cfa, ev_cfc, ev_cwa, ev_cwc))
+knitr::kable(tbl_ob_result, booktabs = TRUE)
+```
+
+
