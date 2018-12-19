@@ -10,9 +10,19 @@
 #' @title Compute asymptotic selection response
 #'
 #' @description
+#' the function compute_asym_selection_response is computing the asymptotic selection response
 #'
 #' @param
-#'
+#' @param pvec_economic_values vector of economic values
+#' @param pvec_proportion_selected vector indicating the selection intensity
+#' @param pvec_generation_interval vector indicating the generation interval
+#' @param pvec_number_progeny vector number of offspring
+#' @param pvec_proportion_progeny_adult vector number of adult progenies
+#' @param pmat_genetic_varcov variance covariance matrix
+#' @param pmat_residual_varcov variance covariance residual
+#' @param pb_out flag to give out information about the function
+#' @return result_asym_sel_res asymptotic selection response
+#' @export compute_asym_selection_response
 compute_asym_selection_response <- function(pvec_economic_values,
                                             pvec_proportion_selected,
                                             pvec_generation_interval,
@@ -30,7 +40,7 @@ compute_asym_selection_response <- function(pvec_economic_values,
 
   ### ## Starting with male selection candidate
   ### ## Number of offspring per category
-  male_number_adults <- floor(pvec_proportion_progeny_adult[[1]]*pvec_number_progeny[[1]])
+  male_number_adults <- floor(pvec_proportion_progeny_adult*pvec_number_progeny[[1]])
   male_number_calves <- pvec_number_progeny[[1]] - male_number_adults
 
 
@@ -119,7 +129,7 @@ compute_asym_selection_response <- function(pvec_economic_values,
   ### ## -----------------------------------------
   ### ## Following with female selection candidate
   ### ## Number of offspring per category
-  female_number_adults <- floor(pvec_proportion_progeny_adult[[2]]*pvec_number_progeny[[2]])
+  female_number_adults <- floor(pvec_proportion_progeny_adult*pvec_number_progeny[[2]])
   female_number_calves <- pvec_number_progeny[[2]] - female_number_adults
 
 
