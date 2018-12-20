@@ -2,3 +2,9 @@
 *.R
 *.csv
 political_unweighted.csv
+DualBreed.pdf
+DualBreed.out
+DualBreed.log
+DualBreed.fls
+DualBreed.fdb_latexmk
+DualBreed.aux

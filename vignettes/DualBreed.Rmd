@@ -3,8 +3,8 @@ title: "DualBreed"
 author: "Sophie Kunz and Peter von Rohr"
 date: "2 November 2018"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -1100,6 +1100,7 @@ tbl_ev_result_ev_per_gen_sd_ob <- tbl_ev_result_ev_per_gen_sd %>% select(Traits,
 knitr::kable(tbl_ev_result_ev_per_gen_sd_ob,booktabs = TRUE)
 
 ```
+
 For the traits other than carcass weight, we distribute the remaining part of $0.7$ according to the economic importance taken from the table above. Then the weights are multiplied with the frequency of the slaughter categories and then scaled to sum up to $1$
 
 From can set up the following equation
