@@ -1098,7 +1098,6 @@ The weight for carcass weight is fixed to a value of $0.3$ and all weights of th
 # knitr::kable(tbl_ev_result_ev_per_gen_sd,booktabs = TRUE)
 tbl_ev_result_ev_per_gen_sd_ob <- tbl_ev_result_ev_per_gen_sd %>% select(Traits, OB)
 knitr::kable(tbl_ev_result_ev_per_gen_sd_ob,booktabs = TRUE)
-
 ```
 
 For the traits other than carcass weight, we distribute the remaining part of $0.7$ according to the economic importance taken from the table above. Then the weights are multiplied with the frequency of the slaughter categories and then scaled to sum up to $1$
@@ -1133,7 +1132,6 @@ As the first step we compute the ratios
   tbl_ev_result_ev_per_gen_sd_ob %>% filter(Traits == "cca") %>% select(OB))
 (gamma <- tbl_ev_result_ev_per_gen_sd_ob %>% filter(Traits == "cfc") %>% select(OB) / 
   tbl_ev_result_ev_per_gen_sd_ob %>% filter(Traits == "cca") %>% select(OB))
-
 ```
 
 The weight for `cca` is the
@@ -1184,4 +1182,10 @@ tbl_ob_result <- tibble::data_frame(Traits = tbl_ev_result_ev_per_gen_sd_ob$Trai
 knitr::kable(tbl_ob_result, booktabs = TRUE)
 ```
 
+Rounding the results to percents
 
+```{r}
+tbl_ob_result_rounded <- tibble::data_frame(Trait = tbl_ev_result_ev_per_gen_sd_ob$Traits,
+                                    `Weighting Factor` = round(unlist(tbl_ob_result$Results), digits = 2))
+knitr::kable(tbl_ob_result_rounded, booktabs = TRUE)
+```
